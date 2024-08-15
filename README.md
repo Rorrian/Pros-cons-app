@@ -9,12 +9,6 @@ https://pros-cons-app.vercel.app/
 
 <br/>
 
-<B>TODO:</B>
-
-- [ ] Деплой на гитхабе
-
-<br/>
-
 Themes tutorial:
 
 - https://vanilla-extract.style/documentation/api/create-theme/
