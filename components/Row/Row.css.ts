@@ -64,6 +64,7 @@ const colVariants: ColVariantsType = {
 	},
 	isTotal: {
 		true: {
+			color: vars.content.darkGrey,
 			backgroundColor: vars.background.secondary,
 			fontWeight: "700",
 			border: "none",
@@ -183,7 +184,7 @@ const input = style(
 		backgroundColor: "inherit",
 
 		color: "inherit",
-		textAlign: "center",
+		// textAlign: "center",
 
 		selectors: {
 			"&::-webkit-outer-spin-button": {

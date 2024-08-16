@@ -58,7 +58,7 @@ const buttonVariants: ButtonVariantsType = {
 			vars: {
 				[background]: vars.background.secondary,
 				[iconColor]: vars.content.white,
-				[titleColor]: vars.themeVariables.content.primary,
+				[titleColor]: vars.content.darkGrey,
 			},
 		},
 		[Kind.Positive]: {

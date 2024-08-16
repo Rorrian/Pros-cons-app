@@ -1,3 +1,4 @@
+import clsx from "clsx"
 import React, { useId } from "react"
 
 import { inputBoxesStyles } from "./InputBoxes.css"
@@ -21,7 +22,7 @@ export const TextField: React.FC<TextFieldProps> = ({
 	return (
 		<>
 			<input
-				className={className}
+				className={clsx(inputBoxesStyles.textfield, className)}
 				id={id}
 				type={type}
 				spellCheck={false}

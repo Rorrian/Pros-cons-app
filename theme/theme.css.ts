@@ -6,6 +6,7 @@ import {
 
 const root = createGlobalTheme(":root", {
 	content: {
+		darkGrey: "#222222",
 		white: "#ffffff",
 		lightGrey: "#b3b3b3",
 		disabled: "#b5b0b0",

@@ -31,7 +31,7 @@ const main = style(
 
 					backgroundImage: vars.themeVariables.pageBackground,
 					backgroundSize: "cover",
-					backgroundAttachment: "fixed",
+					// backgroundAttachment: "fixed",
 					backgroundPosition: "center",
 					backgroundRepeat: "no-repeat",
 					zIndex: "-1",

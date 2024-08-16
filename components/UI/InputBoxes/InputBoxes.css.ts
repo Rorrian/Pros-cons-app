@@ -1,13 +1,27 @@
 import { style } from "@vanilla-extract/css"
 
-import { flexCentered, flexRow } from "@/styles/shared.css"
+import { flexCentered, flexRow, responsiveStyle } from "@/styles/shared.css"
 import { vars } from "@/theme/theme.css"
 import typographyCss from "@/theme/typography.css"
 
+export const textfield = style(
+	{
+		textAlign: "center",
+	},
+	"textfield"
+)
 export const textarea = style(
 	{
 		resize: "none",
 		paddingRight: "20px",
+		textAlign: "center",
+
+		...responsiveStyle({
+			mobile: {
+				textAlign: "left",
+				gridTemplateColumns: "1fr 40%",
+			},
+		}),
 	},
 	"textarea"
 )
@@ -55,4 +69,4 @@ export const clearButton = style(
 	"clearButton"
 )
 
-export const inputBoxesStyles = { textarea, error, clearButton }
+export const inputBoxesStyles = { textfield, textarea, error, clearButton }
