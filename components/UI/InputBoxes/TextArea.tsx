@@ -13,7 +13,7 @@ export type TextAreaProps = React.ComponentPropsWithoutRef<"textarea"> & {
 	onClearButtonClick?: () => void
 }
 
-export const TextArea: React.FC<TextAreaProps> = ({
+export const TextArea = ({
 	className,
 	errorMessage,
 	isValid = true,
@@ -21,7 +21,7 @@ export const TextArea: React.FC<TextAreaProps> = ({
 	onChange,
 	onClearButtonClick,
 	...props
-}) => {
+}: TextAreaProps) => {
 	const id = useId()
 
 	return (

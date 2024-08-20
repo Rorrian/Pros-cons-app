@@ -5,6 +5,7 @@ import { Item, ItemType } from "@/types/item"
 
 interface PropsConsStore {
 	items: Item[]
+	setItems: (newItems: Item[], type: ItemType) => void
 	createItem: (name: string, weight: number, type: ItemType) => void
 	updateItem: (id: string, name: string, weight: number) => void
 	removeItem: (id: string) => void
@@ -34,6 +35,21 @@ export const useProsConsStore = create<PropsConsStore>((set, get) => ({
 		{ id: "8", name: "Частные тренировки", weight: 3, type: ItemType.Cons },
 		{ id: "9", name: "Ненадежный сторожевой", weight: 2, type: ItemType.Cons },
 	],
+	setItems: (newItems: Item[], type: ItemType) => {
+		const { items } = get()
+
+		const prosItems = items.filter(item => item.type === ItemType.Pros)
+		const consItems = items.filter(item => item.type === ItemType.Cons)
+
+		const updatedItems =
+			type === ItemType.Pros
+				? [...newItems, ...consItems]
+				: [...prosItems, ...newItems]
+
+		set({
+			items: updatedItems,
+		})
+	},
 	createItem: (name: string, weight: number, type: ItemType) => {
 		const { items } = get()
 		const newItem: Item = {

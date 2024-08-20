@@ -1,42 +1,55 @@
 import clsx from "clsx"
+import { motion } from "framer-motion"
+import { forwardRef, LegacyRef } from "react"
 
 import { ButtonProps } from "@/types/button"
 import { Justify, Kind, Size } from "@/types/button/enums"
 
 import { buttonStyles } from "./Button.css"
 
-export const Button = ({
-	disabled = false,
-	className,
-	title = "",
-	titleStyle,
-	icon,
-	iconStyle,
-	size = Size.Big,
-	kind = Kind.Primary,
-	justify = Justify.Center,
-	children,
-	...props
-}: ButtonProps) => (
-	<button
-		disabled={disabled}
-		className={clsx(
-			buttonStyles.button({
-				size,
-				kind,
-				disabled: disabled,
-				justify,
-			}),
-			className
-		)}
-		{...props}
-	>
-		{icon && <div className={clsx(buttonStyles.icon, iconStyle)}>{icon}</div>}
-		{title && (
-			<span className={clsx(buttonStyles.title({ size }), titleStyle)}>
-				{title}
-			</span>
-		)}
-		{children}
-	</button>
+export const Button = forwardRef(
+	(
+		{
+			disabled = false,
+			className,
+			title = "",
+			titleStyle,
+			icon,
+			iconStyle,
+			size = Size.Big,
+			kind = Kind.Primary,
+			justify = Justify.Center,
+			children,
+			...props
+		}: ButtonProps,
+		ref: LegacyRef<HTMLButtonElement> | undefined
+	) => (
+		<motion.button
+			ref={ref}
+			disabled={disabled}
+			className={clsx(
+				buttonStyles.button({
+					size,
+					kind,
+					disabled: disabled,
+					justify,
+				}),
+				className
+			)}
+			{...props}
+			whileTap={{
+				scale: 0.85,
+			}}
+		>
+			{icon && <div className={clsx(buttonStyles.icon, iconStyle)}>{icon}</div>}
+			{title && (
+				<span className={clsx(buttonStyles.title({ size }), titleStyle)}>
+					{title}
+				</span>
+			)}
+			{children}
+		</motion.button>
+	)
 )
+
+export const MButton = motion(Button)

@@ -1,3 +1,4 @@
+import { HTMLMotionProps } from "framer-motion"
 import { ComponentPropsWithoutRef } from "react"
 
 import { Justify, Kind, Size } from "./enums"
@@ -10,4 +11,5 @@ export type ButtonProps = {
 	size?: Size
 	kind?: Kind
 	justify?: Justify
-} & ComponentPropsWithoutRef<"button">
+} & ComponentPropsWithoutRef<"button"> &
+	HTMLMotionProps<"button">

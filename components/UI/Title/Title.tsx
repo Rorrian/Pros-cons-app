@@ -1,5 +1,6 @@
 import clsx from "clsx"
-import React from "react"
+import { motion } from "framer-motion"
+import React, { forwardRef, LegacyRef } from "react"
 
 import { titleStyles } from "./Title.css"
 
@@ -12,20 +13,26 @@ interface TitleProps {
 	children: string | React.ReactNode
 }
 
-export const Title: React.FC<TitleProps> = ({
-	children,
-	titleClassName,
-	headingType = "h3",
-	...props
-}) => {
-	const TitleComponent = headingType
+export const Title = forwardRef(
+	(
+		{ children, titleClassName, headingType = "h3", ...props }: TitleProps,
+		ref: LegacyRef<HTMLHeadingElement> | undefined
+	) => {
+		const TitleComponent = headingType
 
-	return (
-		<TitleComponent
-			className={clsx(titleStyles.title({ type: headingType }), titleClassName)}
-			{...props}
-		>
-			{children}
-		</TitleComponent>
-	)
-}
+		return (
+			<TitleComponent
+				ref={ref}
+				className={clsx(
+					titleStyles.title({ type: headingType }),
+					titleClassName
+				)}
+				{...props}
+			>
+				{children}
+			</TitleComponent>
+		)
+	}
+)
+
+export const MTitle = motion(Title)

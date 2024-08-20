@@ -10,6 +10,7 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
+		"framer-motion": "^11.3.28",
 		"@svgr/webpack": "^8.1.0",
 		"@vanilla-extract/css": "^1.14.2",
 		"@vanilla-extract/recipes": "^0.5.2",

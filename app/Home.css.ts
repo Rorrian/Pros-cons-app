@@ -69,10 +69,10 @@ const title = style(
 	],
 	"title"
 )
-globalStyle(`${title} span:first-of-type`, {
+globalStyle(`${title} span b`, {
 	color: vars.content.green,
 })
-globalStyle(`${title} span:last-of-type`, {
+globalStyle(`${title} span:last-of-type b`, {
 	color: vars.content.red,
 })
 

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import { useState } from "react"
 
 import CrossIcon from "@/public/icons/cross.svg"
 import PlusIcon from "@/public/icons/plus.svg"
@@ -21,13 +21,13 @@ interface RowProps {
 	totalWeight?: number
 }
 
-const Row: React.FC<RowProps> = ({
+export const Row = ({
 	item,
 	isInversion = false,
 	isTitle = false,
 	isTotal = false,
 	totalWeight,
-}) => {
+}: RowProps) => {
 	const { createItem, updateItem, removeItem } = useProsConsStore()
 
 	const [name, setName] = useState(item?.name)
@@ -112,5 +112,3 @@ const Row: React.FC<RowProps> = ({
 		</div>
 	)
 }
-
-export default Row

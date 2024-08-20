@@ -1,36 +1,101 @@
-import React from "react"
+import { AnimatePresence, motion, Reorder } from "framer-motion"
+import { forwardRef, LegacyRef } from "react"
 
-import Row from "@/components/Row/Row"
+import { Row } from "@/components/Row/Row"
+import { useProsConsStore } from "@/store/useProsConsStore"
 import { Item, ItemType } from "@/types/item"
 
 import { tableStyles } from "./Table.css"
 
 interface TablesProps {
-	items?: Item[]
+	items: Item[]
 	type?: ItemType
 }
 
-const Table: React.FC<TablesProps> = ({ items, type }) => {
-	const isInversion = type === ItemType.Cons
-	const totalScore = (items: Item[]) =>
-		items?.reduce((acc, item) => acc + item.weight, 0)
-
-	return (
-		<div className={tableStyles.table}>
-			<Row isTitle isInversion={isInversion} />
-
-			{!!items?.length &&
-				items.map(item => (
-					<Row key={item.name} item={item} isInversion={isInversion} />
-				))}
-
-			<Row
-				isInversion={isInversion}
-				isTotal
-				totalWeight={totalScore(items || [])}
-			/>
-		</div>
-	)
+const tableVariants = {
+	left: {
+		x: -100,
+		opacity: 0,
+	},
+	right: {
+		x: 100,
+		opacity: 0,
+	},
+	show: {
+		x: 0,
+		opacity: 1,
+	},
 }
 
-export default Table
+const rowAnimation = {
+	initial: {
+		y: 20,
+		opacity: 0,
+	},
+	animate: {
+		y: 0,
+		opacity: 1,
+	},
+	exit: {
+		y: -20,
+		opacity: 0,
+	},
+}
+
+export const Table = forwardRef(
+	(
+		{ items, type }: TablesProps,
+		ref: LegacyRef<HTMLDivElement> | undefined
+	) => {
+		const { setItems } = useProsConsStore()
+
+		const isInversion = type === ItemType.Cons
+		const totalScore = (items: Item[]) =>
+			items?.reduce((acc, item) => acc + item.weight, 0)
+
+		return (
+			<motion.div
+				ref={ref}
+				initial={!isInversion ? "left" : "right"}
+				animate={"show"}
+				variants={tableVariants}
+				transition={{
+					duration: 0.3,
+				}}
+				className={tableStyles.table}
+			>
+				<Row isTitle isInversion={isInversion} />
+
+				<Reorder.Group
+					axis="y"
+					onReorder={newItems => setItems(newItems, type!)}
+					values={items}
+				>
+					<AnimatePresence initial={false}>
+						{!!items?.length &&
+							items.map((item, i) => (
+								<Reorder.Item
+									key={item.name}
+									value={item}
+									whileDrag={{
+										scale: 1.05,
+									}}
+									{...rowAnimation}
+								>
+									<Row item={item} isInversion={isInversion} />
+								</Reorder.Item>
+							))}
+					</AnimatePresence>
+				</Reorder.Group>
+
+				<Row
+					isInversion={isInversion}
+					isTotal
+					totalWeight={totalScore(items || [])}
+				/>
+			</motion.div>
+		)
+	}
+)
+
+export const MTable = motion(Table)

@@ -8,7 +8,7 @@ export type TextFieldProps = React.ComponentPropsWithoutRef<"input"> & {
 	isValid?: boolean
 }
 
-export const TextField: React.FC<TextFieldProps> = ({
+export const TextField = ({
 	className,
 	errorMessage,
 	isValid = true,
@@ -16,7 +16,7 @@ export const TextField: React.FC<TextFieldProps> = ({
 	value,
 	onChange,
 	...props
-}) => {
+}: TextFieldProps) => {
 	const id = useId()
 
 	return (

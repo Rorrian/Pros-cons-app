@@ -1,17 +1,15 @@
 "use client"
 
-import React from "react"
-
 import DeleteIcon from "@/public/icons/delete.svg"
 import { useProsConsStore } from "@/store/useProsConsStore"
 import { Kind } from "@/types/button/enums"
 import { ItemType } from "@/types/item"
 
-import { Button } from "../UI/Button/Button"
-import Table from "./Table/Table"
+import { MButton } from "../UI/Button/Button"
+import { Table } from "./Table/Table"
 import { tablesStyles } from "./Tables.css"
 
-const Tables: React.FC = () => {
+export const Tables = () => {
 	const [items, removeAllItems] = useProsConsStore(state => [
 		state.items,
 		state.removeAllItems,
@@ -30,15 +28,15 @@ const Tables: React.FC = () => {
 				/>
 			</div>
 
-			<Button
+			<MButton
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
 				className={tablesStyles.button}
-				kind={Kind.Secondary}
-				onClick={() => removeAllItems()}
 				icon={<DeleteIcon />}
+				kind={Kind.Secondary}
 				title="Delete all data"
+				onClick={() => removeAllItems()}
 			/>
 		</>
 	)
 }
-
-export default Tables
