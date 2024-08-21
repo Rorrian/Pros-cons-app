@@ -5,7 +5,7 @@ import { useProsConsStore } from "@/store/useProsConsStore"
 import { Kind } from "@/types/button/enums"
 import { ItemType } from "@/types/item"
 
-import { MButton } from "../UI/Button/Button"
+import { Button } from "../UI/Button/Button"
 import { Table } from "./Table/Table"
 import { tablesStyles } from "./Tables.css"
 
@@ -28,7 +28,7 @@ export const Tables = () => {
 				/>
 			</div>
 
-			<MButton
+			<Button
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
 				className={tablesStyles.button}

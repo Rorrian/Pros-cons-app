@@ -5,6 +5,7 @@ import { flexRow, responsiveStyle } from "@/styles/shared.css"
 const tableWrapper = style(
 	[
 		flexRow,
+
 		responsiveStyle({
 			mobile: {
 				flexDirection: "column",

@@ -30,15 +30,19 @@ const tableVariants = {
 const rowAnimation = {
 	initial: {
 		y: 20,
+		height: 0,
 		opacity: 0,
 	},
 	animate: {
 		y: 0,
+		height: "auto",
 		opacity: 1,
 	},
 	exit: {
 		y: -20,
 		opacity: 0,
+		height: 0,
+		transition: { duration: 0.35 },
 	},
 }
 
@@ -60,7 +64,7 @@ export const Table = forwardRef(
 				animate={"show"}
 				variants={tableVariants}
 				transition={{
-					duration: 0.3,
+					duration: 0.35,
 				}}
 				className={tableStyles.table}
 			>
@@ -68,14 +72,14 @@ export const Table = forwardRef(
 
 				<Reorder.Group
 					axis="y"
-					onReorder={newItems => setItems(newItems, type!)}
 					values={items}
+					onReorder={newItems => setItems(newItems, type!)}
 				>
 					<AnimatePresence initial={false}>
 						{!!items?.length &&
-							items.map((item, i) => (
+							items.map(item => (
 								<Reorder.Item
-									key={item.name}
+									key={item.id}
 									value={item}
 									whileDrag={{
 										scale: 1.05,

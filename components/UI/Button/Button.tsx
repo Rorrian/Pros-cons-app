@@ -38,7 +38,10 @@ export const Button = forwardRef(
 			)}
 			{...props}
 			whileTap={{
-				scale: 0.85,
+				scale: 0.95,
+			}}
+			whileHover={{
+				scale: 1.05,
 			}}
 		>
 			{icon && <div className={clsx(buttonStyles.icon, iconStyle)}>{icon}</div>}
