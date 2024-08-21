@@ -9,10 +9,12 @@ const root = createGlobalTheme(":root", {
 		darkGrey: "#222222",
 		white: "#ffffff",
 		lightGrey: "#b3b3b3",
-		disabled: "#b5b0b0",
 
 		green: "#60cc78",
 		red: "#ea4f4a",
+
+		disabled: "#b5b0b0",
+		error: "#ff0700",
 	},
 
 	background: {
@@ -28,6 +30,7 @@ const root = createGlobalTheme(":root", {
 	},
 
 	border: {
+		red: "2px solid #ff0700",
 		grey: "2px solid #b5b0b0",
 		yellow: "2px solid #f606",
 	},

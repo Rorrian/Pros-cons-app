@@ -7,6 +7,9 @@ _App for keeping track of pros and cons_
 <B>Deployment:</B><br/>
 https://pros-cons-app.vercel.app/
 
+<B>Technologies:</B><br/>
+React, Next, TS, Zustand, Framer-Motion, Vanilla-extract/css
+
 <br/>
 
 Themes tutorial:

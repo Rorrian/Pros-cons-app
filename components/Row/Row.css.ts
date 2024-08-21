@@ -11,6 +11,7 @@ type ColVariantsType = {
 	isTitle: Record<"true" | "false", ComplexStyleRule | string>
 	isInversion: Record<"true" | "false", ComplexStyleRule | string>
 	isTotal: Record<"true" | "false", ComplexStyleRule | string>
+	isValid: Record<"true" | "false", ComplexStyleRule | string>
 }
 
 const colVariants: ColVariantsType = {
@@ -70,6 +71,12 @@ const colVariants: ColVariantsType = {
 			border: "none",
 		},
 		false: {},
+	},
+	isValid: {
+		true: {},
+		false: {
+			border: vars.border.red,
+		},
 	},
 }
 
@@ -184,7 +191,6 @@ const input = style(
 		backgroundColor: "inherit",
 
 		color: "inherit",
-		// textAlign: "center",
 
 		selectors: {
 			"&::-webkit-outer-spin-button": {
@@ -226,7 +232,7 @@ const button = recipe(
 				padding: "0px",
 				borderRadius: vars.borderRadius.round,
 
-				opacity: "0.5",
+				opacity: "0.75",
 				transition: "opacity 0.3s ease-in-out",
 
 				selectors: {

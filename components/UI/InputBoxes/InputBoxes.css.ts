@@ -10,6 +10,7 @@ export const textfield = style(
 	},
 	"textfield"
 )
+
 export const textarea = style(
 	{
 		resize: "none",
@@ -31,12 +32,14 @@ export const error = style(
 		typographyCss.caption.small,
 		{
 			position: "absolute",
-			bottom: "-15px",
+			bottom: "-16px",
 			left: "0px",
 			right: "0px",
-			whiteSpace: "nowrap",
 
-			color: vars.content.red,
+			fontWeight: 700,
+			color: vars.content.error,
+			textShadow: "#fff 0px 0px 3px",
+			whiteSpace: "nowrap",
 		},
 	],
 	"error"

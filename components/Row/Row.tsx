@@ -82,7 +82,9 @@ export const Row = forwardRef(
 								onClearButtonClick={() => setName("")}
 							/>
 						</div>
-						<div className={rowStyles.col({ isInversion })}>
+						<div
+							className={rowStyles.col({ isInversion, isValid: isValidWeight })}
+						>
 							<TextField
 								className={rowStyles.input}
 								errorMessage="Введите число от 0 до 10"
