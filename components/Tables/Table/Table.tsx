@@ -2,7 +2,7 @@ import { AnimatePresence, motion, Reorder } from "framer-motion"
 import { forwardRef, LegacyRef } from "react"
 
 import { Row } from "@/components/Row/Row"
-import { useProsConsStore } from "@/store/useProsConsStore"
+import { useProsConsStore } from "@/store"
 import { Item, ItemType } from "@/types/item"
 
 import { tableStyles } from "./Table.css"
@@ -51,7 +51,7 @@ export const Table = forwardRef(
 		{ items, type }: TablesProps,
 		ref: LegacyRef<HTMLDivElement> | undefined
 	) => {
-		const { setItems } = useProsConsStore()
+		const setItems = useProsConsStore(state => state.setItems)
 
 		const isInversion = type === ItemType.Cons
 		const totalScore = (items: Item[]) =>

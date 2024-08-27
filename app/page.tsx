@@ -8,7 +8,7 @@ import { Tables } from "@/components/Tables/Tables"
 import { MTitle } from "@/components/UI/Title/Title"
 import MoonIcon from "@/public/icons/moon.svg"
 import SunIcon from "@/public/icons/sun.svg"
-import { useThemeStore } from "@/store/useThemeStore"
+import { useThemeStore } from "@/store"
 import { darkTheme, lightTheme } from "@/theme/theme.css"
 
 import { homeStyles } from "./Home.css"
@@ -16,7 +16,10 @@ import { homeStyles } from "./Home.css"
 const playwriteHR = localFont({ src: "../fonts/PlaywriteHR-Regular.ttf" })
 
 export default function Home() {
-	const { isDarkMode, toggleTheme } = useThemeStore()
+	const [isDarkMode, toggleTheme] = useThemeStore(state => [
+		state.isDarkMode,
+		state.toggleTheme,
+	])
 
 	const textElements = [
 		"Let's ",

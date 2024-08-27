@@ -1,11 +1,11 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { forwardRef, LegacyRef, useState } from "react"
+import { forwardRef, LegacyRef, useEffect, useState } from "react"
 
 import CrossIcon from "@/public/icons/cross.svg"
 import PlusIcon from "@/public/icons/plus.svg"
-import { useProsConsStore } from "@/store/useProsConsStore"
+import { useProsConsStore } from "@/store"
 import { Kind } from "@/types/button/enums"
 import { Item, ItemType } from "@/types/item"
 
@@ -33,7 +33,11 @@ export const Row = forwardRef(
 		}: RowProps,
 		ref: LegacyRef<HTMLDivElement> | undefined
 	) => {
-		const { createItem, updateItem, removeItem } = useProsConsStore()
+		const [createItem, updateItem, removeItem] = useProsConsStore(state => [
+			state.createItem,
+			state.updateItem,
+			state.removeItem,
+		])
 
 		const [name, setName] = useState(item?.name)
 		const [weight, setWeight] = useState(item?.weight)
@@ -47,6 +51,13 @@ export const Row = forwardRef(
 				updateItem(id, name, weight)
 			}
 		}
+
+		useEffect(() => {
+			if (item) {
+				setName(item.name)
+				setWeight(item.weight)
+			}
+		}, [item])
 
 		return (
 			<motion.div ref={ref} className={rowStyles.row({ isInversion })}>
