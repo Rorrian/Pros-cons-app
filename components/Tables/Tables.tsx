@@ -40,28 +40,31 @@ export const Tables = () => {
 				/>
 			</div>
 
-			<Button
-				initial={{ opacity: 0 }}
-				animate={{ opacity: 1 }}
-				className={tablesStyles.button}
-				icon={<DeleteIcon />}
-				kind={Kind.Secondary}
-				title="Delete all data"
-				onClick={() => removeAllItems()}
-			/>
+			<div className={tablesStyles.buttons}>
+				<Button
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					className={tablesStyles.button}
+					icon={<DeleteIcon />}
+					kind={Kind.Secondary}
+					size={Size.Small}
+					title="Delete all data"
+					onClick={() => removeAllItems()}
+				/>
 
-			<Button
-				initial={{ opacity: 0 }}
-				animate={{ opacity: 1 }}
-				className={tablesStyles.button}
-				icon={<BulbIcon />}
-				kind={Kind.Secondary}
-				size={Size.Small}
-				title="Reset & Load Sample"
-				onClick={() => {
-					setInitialItems()
-				}}
-			/>
+				<Button
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					className={tablesStyles.button}
+					icon={<BulbIcon />}
+					kind={Kind.Secondary}
+					size={Size.Small}
+					title="Reset & Load Sample"
+					onClick={() => {
+						setInitialItems()
+					}}
+				/>
+			</div>
 		</>
 	)
 }

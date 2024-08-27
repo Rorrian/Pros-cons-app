@@ -1,6 +1,6 @@
 import { globalStyle, style } from "@vanilla-extract/css"
 
-import { flexRow, responsiveStyle } from "@/styles/shared.css"
+import { flexCentered, flexRow, responsiveStyle } from "@/styles/shared.css"
 
 const tableWrapper = style(
 	[
@@ -24,7 +24,30 @@ globalStyle(`${button}:last-child svg path`, {
 	fill: "#ffe082",
 })
 
+const buttons = style(
+	[
+		flexRow,
+		flexCentered,
+		{
+			gap: "30px",
+		},
+
+		responsiveStyle({
+			mobile: {
+				flexDirection: "column",
+				gap: "10px",
+			},
+		}),
+	],
+	"buttons"
+)
+globalStyle(`${buttons} button`, {
+	flex: "50%",
+	whiteSpace: "nowrap",
+})
+
 export const tablesStyles = {
 	tableWrapper,
 	button,
+	buttons,
 }
