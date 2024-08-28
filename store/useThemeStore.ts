@@ -10,7 +10,7 @@ export interface ThemeStore {
 export const useThemeStore = createStore<ThemeStore>(
 	persist(
 		(set, get) => ({
-			// TODO: Добавить прелоадер для корректного первоначального отображения темы:
+			// FIXME:TODO: Добавить прелоадер для корректного первоначального отображения темы:
 			// ФР: по умолчанию светлая тема => сохраненная тема
 			// ОР: прелоадер => сохраненная тема
 			isDarkMode: false,

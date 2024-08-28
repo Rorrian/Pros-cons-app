@@ -44,7 +44,9 @@ export const Button = forwardRef(
 				scale: 1.05,
 			}}
 		>
-			{icon && <div className={clsx(buttonStyles.icon, iconStyle)}>{icon}</div>}
+			{icon && (
+				<span className={clsx(buttonStyles.icon, iconStyle)}>{icon}</span>
+			)}
 			{title && (
 				<span className={clsx(buttonStyles.title({ size }), titleStyle)}>
 					{title}
