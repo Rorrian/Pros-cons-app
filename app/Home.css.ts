@@ -12,7 +12,7 @@ const main = style(
 			position: "relative",
 			minHeight: "100vh",
 			width: "100%",
-			rowGap: "50px",
+			rowGap: "35px",
 			padding: "32px 48px 0px",
 
 			selectors: {
@@ -34,7 +34,7 @@ const main = style(
 		responsiveStyle({
 			tablet: {
 				backgroundAttachment: "unset",
-				rowGap: "32px",
+				rowGap: "20px",
 				padding: "32px 40px 32px",
 			},
 			mobile: {

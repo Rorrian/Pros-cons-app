@@ -1,11 +1,10 @@
 import clsx from "clsx"
 import React, { useId } from "react"
 
+import { MAX_LENGTH_CHARACTERS_IN_NAME } from "@/helpers/constants"
 import ClearIcon from "@/public/icons/close.svg"
 
 import { inputBoxesStyles } from "./InputBoxes.css"
-
-const MAX_LENGTH_CHARACTERS_IN_NAME = 100
 
 export type TextAreaProps = React.ComponentPropsWithoutRef<"textarea"> & {
 	errorMessage?: string | null

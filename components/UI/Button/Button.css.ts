@@ -1,9 +1,4 @@
-import {
-	ComplexStyleRule,
-	createVar,
-	globalStyle,
-	style,
-} from "@vanilla-extract/css"
+import { ComplexStyleRule, createVar, style } from "@vanilla-extract/css"
 import { recipe } from "@vanilla-extract/recipes"
 
 import {
@@ -18,7 +13,6 @@ import { Justify, Kind, Size } from "@/types/button/enums"
 
 const background = createVar("background")
 const titleColor = createVar("titleColor")
-const iconColor = createVar("iconColor")
 
 type ButtonVariantsType = {
 	disabled: Record<"true" | "false", ComplexStyleRule | string>
@@ -50,35 +44,30 @@ const buttonVariants: ButtonVariantsType = {
 		[Kind.Primary]: {
 			vars: {
 				[background]: vars.themeVariables.content.primary,
-				[iconColor]: vars.content.white,
 				[titleColor]: vars.content.white,
 			},
 		},
 		[Kind.Secondary]: {
 			vars: {
 				[background]: vars.background.secondary,
-				[iconColor]: vars.content.white,
 				[titleColor]: vars.content.darkGrey,
 			},
 		},
 		[Kind.Positive]: {
 			vars: {
 				[background]: vars.background.green,
-				[iconColor]: vars.content.white,
 				[titleColor]: vars.content.white,
 			},
 		},
 		[Kind.Negative]: {
 			vars: {
 				[background]: vars.background.red,
-				[iconColor]: vars.content.white,
 				[titleColor]: vars.content.white,
 			},
 		},
 		[Kind.Transparent]: {
 			vars: {
-				[background]: vars.background.buttonTransparent,
-				[iconColor]: "none",
+				[background]: vars.background.transparent,
 				[titleColor]: vars.content.white,
 			},
 		},
@@ -88,7 +77,6 @@ const buttonVariants: ButtonVariantsType = {
 			cursor: "default",
 			vars: {
 				[background]: vars.background.disabled,
-				[iconColor]: vars.content.disabled,
 				[titleColor]: vars.content.disabled,
 			},
 		},
@@ -124,9 +112,6 @@ const icon = style(
 	},
 	"icon"
 )
-globalStyle(`${icon} svg path`, {
-	fill: iconColor,
-})
 
 const title = recipe<ButtonTitleVariantsType>(
 	{

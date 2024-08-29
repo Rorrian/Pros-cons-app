@@ -1,0 +1,22 @@
+{
+	"main": {
+		"text": "Some text",
+		"title": [
+			"Let's ",
+			"weigh ",
+			"the ",
+			"<b>Pros</b> ",
+			" and ",
+			"<b>Cons</b> "
+		],
+		"deleteAll": "Delete all data",
+		"resetAndLoadSample": "Reset & Load Sample",
+		"columns": {
+			"pros": "Pros",
+			"cons": "Cons",
+			"weight": "Weight(1-10)",
+			"total": "Total"
+		},
+		"weightError": "Enter a number from 0 to 10"
+	}
+}

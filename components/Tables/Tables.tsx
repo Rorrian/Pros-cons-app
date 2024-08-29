@@ -1,6 +1,5 @@
-"use client"
-
 import { useEffect } from "react"
+import { useTranslation } from "react-i18next"
 
 import { getCurrentState } from "@/helpers"
 import BulbIcon from "@/public/icons/bulb.svg"
@@ -19,9 +18,10 @@ export const Tables = () => {
 		state.setInitialItems,
 		state.removeAllItems,
 	])
+	const { t } = useTranslation()
 
 	// TODO: Проверить как реализовать с помощью onRehydrateStorage(persist)
-	// TODO: https://www.youtube.com/watch?v=SYk6F7tWCa0&t=220s
+	// https://www.youtube.com/watch?v=SYk6F7tWCa0&t=220s
 	useEffect(() => {
 		const currentState = getCurrentState("PropsCons")
 		if (!currentState?.state?.items?.length) setInitialItems()
@@ -48,7 +48,7 @@ export const Tables = () => {
 					icon={<DeleteIcon />}
 					kind={Kind.Secondary}
 					size={Size.Small}
-					title="Delete all data"
+					title={t("main.deleteAll")}
 					onClick={() => removeAllItems()}
 				/>
 
@@ -59,7 +59,7 @@ export const Tables = () => {
 					icon={<BulbIcon />}
 					kind={Kind.Secondary}
 					size={Size.Small}
-					title="Reset & Load Sample"
+					title={t("main.resetAndLoadSample")}
 					onClick={() => {
 						setInitialItems()
 					}}

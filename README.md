@@ -21,3 +21,7 @@ Themes tutorial:
 Deploying Next.js App:
 
 - https://nextjs.org/learn-pages-router/basics/deploying-nextjs-app/setup
+
+<!-- Internationalization(i18next):
+
+- https://www.youtube.com/watch?v=iN0BY5fEqws -->

@@ -1,7 +1,6 @@
-"use client"
-
 import { motion } from "framer-motion"
 import { forwardRef, LegacyRef, useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 
 import CrossIcon from "@/public/icons/cross.svg"
 import PlusIcon from "@/public/icons/plus.svg"
@@ -43,6 +42,8 @@ export const Row = forwardRef(
 		const [weight, setWeight] = useState(item?.weight)
 		const [isValidWeight, setIsValidWeight] = useState(true)
 
+		const { t } = useTranslation()
+
 		const confirmWeightValue = (id: string, name: string, weight: number) => {
 			if (weight && weight > 10) {
 				setIsValidWeight(false)
@@ -64,10 +65,10 @@ export const Row = forwardRef(
 				{isTitle && (
 					<>
 						<span className={rowStyles.col({ isInversion, isTitle })}>
-							{!isInversion ? "Pros" : "Cons"}
+							{!isInversion ? t("main.columns.pros") : t("main.columns.cons")}
 						</span>
 						<span className={rowStyles.col({ isInversion, isTitle })}>
-							Weight(1-10)
+							{t("main.columns.weight")}
 						</span>
 
 						<Button
@@ -98,7 +99,7 @@ export const Row = forwardRef(
 						>
 							<TextField
 								className={rowStyles.input}
-								errorMessage="Введите число от 0 до 10"
+								errorMessage={t("main.weightError")}
 								isValid={isValidWeight}
 								type="number"
 								value={weight}
@@ -122,7 +123,7 @@ export const Row = forwardRef(
 				{isTotal && (
 					<>
 						<span className={rowStyles.col({ isInversion, isTotal })}>
-							Total
+							{t("main.columns.total")}
 						</span>
 						<span className={rowStyles.col({ isInversion, isTotal })}>
 							{totalWeight}

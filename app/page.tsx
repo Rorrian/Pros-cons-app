@@ -7,6 +7,7 @@ import { Header } from "@/components/UI/Header/Header"
 import { useThemeStore } from "@/store"
 import { darkTheme, lightTheme } from "@/theme/theme.css"
 
+import "../config/i18n"
 import { homeStyles } from "./Home.css"
 
 export default function Home() {

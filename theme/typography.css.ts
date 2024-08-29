@@ -4,27 +4,25 @@ import { styleVariants } from "@vanilla-extract/css"
 export const typographyObject = {
 	title: {
 		h1: {
-			fontFamily: "Playwrite HR",
+			fontFamily: "Alaya Roza",
 			fontWeight: "600",
-			lineHeight: "50px",
-			fontSize: "48px",
+			lineHeight: 1,
+			fontSize: "86px",
 			letterSpacing: "-0.02em",
 			textDecoration: "none",
 
 			...responsiveStyle({
 				tablet: {
-					lineHeight: "38px",
-					fontSize: "36px",
+					fontSize: "60px",
 				},
 				mobile: {
 					fontWeight: "500",
-					lineHeight: "28px",
-					fontSize: "24px",
+					fontSize: "45px",
 				},
 			}),
 		},
 		h2: {
-			fontFamily: "Playwrite HR",
+			fontFamily: "Alaya Roza",
 			fontWeight: "400",
 			lineHeight: "28px",
 			fontSize: "26px",
@@ -32,7 +30,7 @@ export const typographyObject = {
 			textDecoration: "none",
 		},
 		h3: {
-			fontFamily: "Playwrite HR",
+			fontFamily: "Alaya Roza",
 			fontWeight: "400",
 			lineHeight: "24px",
 			fontSize: "20px",
@@ -40,7 +38,7 @@ export const typographyObject = {
 			textDecoration: "none",
 		},
 		h4: {
-			fontFamily: "Playwrite HR",
+			fontFamily: "Alaya Roza",
 			fontWeight: "400",
 			lineHeight: "24px",
 			fontSize: "20px",

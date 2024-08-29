@@ -1,16 +1,37 @@
 import { globalStyle, style } from "@vanilla-extract/css"
-import { recipe } from "@vanilla-extract/recipes"
 
-import { flexCentered, flexRow } from "@/styles/shared.css"
+import { flexCentered, flexRow, responsiveStyle } from "@/styles/shared.css"
 import { vars } from "@/theme/theme.css"
 import typographyCss from "@/theme/typography.css"
+
+const header = style([flexRow, flexCentered], "header")
+
+const dropdownWrapper = style(
+	{
+		position: "absolute",
+		top: "10px",
+		left: "10px",
+	},
+	"dropdownWrapper"
+)
+
+const dropdownBtn = style(
+	{
+		...responsiveStyle({
+			tablet: {
+				padding: "4px",
+			},
+		}),
+	},
+	"dropdownBtn"
+)
 
 const title = style(
 	[
 		typographyCss.title.h1,
 		{
 			textAlign: "center",
-			color: vars.content.white,
+			textShadow: vars.themeVariables.textShadow,
 		},
 	],
 	"title"
@@ -22,43 +43,40 @@ globalStyle(`${title} span:last-of-type b`, {
 	color: vars.content.red,
 })
 
-const header = style([flexRow, flexCentered], "header")
-
-const button = style(
-	{
-		background: "transparent",
-		cursor: "pointer",
-	},
-	"button"
+const icon = style(
+	[
+		flexCentered,
+		{
+			width: "2rem",
+			height: "2rem",
+		},
+		responsiveStyle({
+			tablet: {
+				width: "1.5rem",
+				height: "1.5rem",
+			},
+		}),
+	],
+	"icon"
 )
 
-const icon = recipe(
-	{
-		base: {
+const themeBtn = style(
+	[
+		dropdownBtn,
+		{
 			position: "absolute",
 			top: "10px",
 			right: "10px",
-
-			opacity: 0,
-			transition: "opacity 0.3s ease-in-out",
 		},
-		variants: {
-			isShow: {
-				true: {
-					opacity: 1,
-				},
-			},
-		},
-		defaultVariants: {
-			isShow: true,
-		},
-	},
-	"icon"
+	],
+	"themeBtn"
 )
 
 export const headerStyles = {
 	header,
-	title,
-	button,
+	dropdownWrapper,
+	dropdownBtn,
 	icon,
+	title,
+	themeBtn,
 }

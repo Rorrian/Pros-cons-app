@@ -26,7 +26,7 @@ const root = createGlobalTheme(":root", {
 		lightOrange: "#ffae71",
 
 		disabled: "#efedeb",
-		buttonTransparent: "rgba(255, 255, 255, 0.14)",
+		transparent: "rgba(255, 255, 255, 0.14)",
 	},
 
 	border: {
@@ -52,6 +52,7 @@ const themeVariables = createThemeContract({
 		primary: null,
 	},
 	pageBackground: null,
+	textShadow: null,
 })
 
 export const lightTheme = createTheme(themeVariables, {
@@ -64,6 +65,7 @@ export const lightTheme = createTheme(themeVariables, {
 		primary: "#ffffff",
 	},
 	pageBackground: "url(/background/bgDay.webp)",
+	textShadow: "1px 1px #fff, 2px 2px #777",
 })
 
 export const darkTheme = createTheme(themeVariables, {
@@ -76,6 +78,7 @@ export const darkTheme = createTheme(themeVariables, {
 		primary: "#222222",
 	},
 	pageBackground: "url(/background/bgNight.webp)",
+	textShadow: "1px 1px #fff, 2px 2px #222",
 })
 
 export const vars = { ...root, themeVariables }

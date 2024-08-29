@@ -10,16 +10,17 @@ import { buttonStyles } from "./Button.css"
 export const Button = forwardRef(
 	(
 		{
-			disabled = false,
-			className,
-			title = "",
-			titleStyle,
-			icon,
-			iconStyle,
-			size = Size.Big,
-			kind = Kind.Primary,
-			justify = Justify.Center,
 			children,
+			className,
+			disabled = false,
+			icon,
+			iconClassName,
+			justify = Justify.Center,
+			kind = Kind.Primary,
+			title = "",
+			titleClassName,
+			size = Size.Big,
+			showHoverAnimation = true,
 			...props
 		}: ButtonProps,
 		ref: LegacyRef<HTMLButtonElement> | undefined
@@ -41,14 +42,14 @@ export const Button = forwardRef(
 				scale: 0.95,
 			}}
 			whileHover={{
-				scale: 1.05,
+				scale: !disabled && showHoverAnimation ? 1.05 : undefined,
 			}}
 		>
 			{icon && (
-				<span className={clsx(buttonStyles.icon, iconStyle)}>{icon}</span>
+				<span className={clsx(buttonStyles.icon, iconClassName)}>{icon}</span>
 			)}
 			{title && (
-				<span className={clsx(buttonStyles.title({ size }), titleStyle)}>
+				<span className={clsx(buttonStyles.title({ size }), titleClassName)}>
 					{title}
 				</span>
 			)}
