@@ -1,3 +1,5 @@
+"use client"
+
 import { AnimatePresence, motion, Reorder } from "framer-motion"
 import { forwardRef, LegacyRef } from "react"
 

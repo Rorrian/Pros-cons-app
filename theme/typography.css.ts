@@ -1,4 +1,4 @@
-import { responsiveStyle } from "@/styles/shared.css"
+import { responsiveStyle } from "@/helpers/responsive"
 import { styleVariants } from "@vanilla-extract/css"
 
 export const typographyObject = {

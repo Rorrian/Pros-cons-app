@@ -41,8 +41,7 @@ export const useProsConsStore = createStore<PropsConsStore>(
 			createItem: (name: string, weight: number, type: ItemType) => {
 				const { items } = get()
 				const newItem: Item = {
-					// id: generateId(), // кастомный метод
-					id: nanoid(), // библиотека
+					id: nanoid(),
 					name,
 					weight,
 					type,

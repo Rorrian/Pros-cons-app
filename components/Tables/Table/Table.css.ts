@@ -1,6 +1,7 @@
 import { style } from "@vanilla-extract/css"
 
-import { flexColumn, responsiveStyle } from "@/styles/shared.css"
+import { responsiveStyle } from "@/helpers/responsive"
+import { flexColumn } from "@/styles/shared.css"
 
 export const table = style(
 	[

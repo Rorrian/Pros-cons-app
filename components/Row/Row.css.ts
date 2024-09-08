@@ -1,10 +1,11 @@
 import { ComplexStyleRule, style } from "@vanilla-extract/css"
 import { recipe } from "@vanilla-extract/recipes"
 
-import { flexCentered, flexRow, responsiveStyle } from "@/styles/shared.css"
+import { flexCentered, flexRow } from "@/styles/shared.css"
 import { vars } from "@/theme/theme.css"
 import typographyCss from "@/theme/typography.css"
 
+import { responsiveStyle } from "@/helpers/responsive"
 import { table } from "../Tables/Table/Table.css"
 
 type ColVariantsType = {

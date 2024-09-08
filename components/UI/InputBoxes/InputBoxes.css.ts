@@ -1,6 +1,7 @@
 import { style } from "@vanilla-extract/css"
 
-import { flexCentered, flexRow, responsiveStyle } from "@/styles/shared.css"
+import { responsiveStyle } from "@/helpers/responsive"
+import { flexCentered, flexRow } from "@/styles/shared.css"
 import { vars } from "@/theme/theme.css"
 import typographyCss from "@/theme/typography.css"
 

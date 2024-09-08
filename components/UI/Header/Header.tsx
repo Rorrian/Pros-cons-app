@@ -6,28 +6,25 @@ import i18next from "i18next"
 import localFont from "next/font/local"
 import { useTranslation } from "react-i18next"
 
+import { ToggleThemeBtn } from "@/components/ToggleThemeBtn/ToggleThemeBtn"
 import { MTitle } from "@/components/UI/Title/Title"
 import LanguageIcon from "@/public/icons/language.svg"
-import MoonIcon from "@/public/icons/moon.svg"
-import SunIcon from "@/public/icons/sun.svg"
-import { Kind, Size } from "@/types/button/enums"
 
 import { locales } from "../../../helpers/constants"
-import { Button } from "../Button/Button"
 import { Dropdown } from "../Dropdown/Dropdown"
 import { headerStyles } from "./Header.css"
 
-export type HeaderProps = {
-	isDarkMode: boolean
-	toggleTheme: () => void
-}
+import "../../../config/i18n"
 
 const AlayaRoza = localFont({ src: "../../../fonts/AlayaRozaDemo.woff2" })
 
-export const Header = ({ isDarkMode, toggleTheme }: HeaderProps) => {
+export const Header = () => {
 	const { t, i18n } = useTranslation()
 
 	const textElements = t("main.title", { returnObjects: true }) as string[]
+
+	console.log(`i18next.resolvedLanguage = `)
+	console.log(i18next.resolvedLanguage)
 
 	return (
 		<header className={headerStyles.header}>
@@ -60,15 +57,7 @@ export const Header = ({ isDarkMode, toggleTheme }: HeaderProps) => {
 				</MTitle>
 			)}
 
-			<Button
-				aria-label="Toggle theme"
-				className={headerStyles.themeBtn}
-				icon={isDarkMode ? <MoonIcon /> : <SunIcon />}
-				iconClassName={headerStyles.icon}
-				kind={Kind.Transparent}
-				size={Size.Small}
-				onClick={toggleTheme}
-			/>
+			<ToggleThemeBtn />
 		</header>
 	)
 }

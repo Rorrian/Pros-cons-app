@@ -1,6 +1,7 @@
 import { globalStyle, style } from "@vanilla-extract/css"
 
-import { flexCentered, flexRow, responsiveStyle } from "@/styles/shared.css"
+import { responsiveStyle } from "@/helpers/responsive"
+import { flexCentered, flexRow } from "@/styles/shared.css"
 
 const tableWrapper = style(
 	[
