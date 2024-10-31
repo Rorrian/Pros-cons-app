@@ -2,7 +2,7 @@
 
 _Приложение для отслеживания плюсов и минусов_
 
-![alt text](Example-2.gif)
+![alt text](Example-.gif)
 
 ## Technologies:
 - React
