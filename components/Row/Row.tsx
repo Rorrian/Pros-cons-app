@@ -24,6 +24,8 @@ interface RowProps {
   totalWeight?: number
 }
 
+/* TODO: Пересмотреть ширину колонок */
+
 export const Row = forwardRef(
   (
     {
@@ -137,7 +139,7 @@ export const Row = forwardRef(
             >
               <TextField
                 className={rowStyles.input}
-                errorMessage={t('main.weightError')}
+                errorMessage={t('errors.weight.invalid')}
                 isValid={isValidWeight}
                 type="number"
                 value={weight}

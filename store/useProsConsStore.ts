@@ -8,14 +8,15 @@ import { createStore } from './createStore'
 
 export interface PropsConsStore {
   items: Item[]
-  setItems: (newItems: Item[], type?: ItemType) => void
+  setItems: (newItems: Item[], type: ItemType) => void
+  setAiItems: (newItems: Item[], isReset: boolean) => void
   setInitialItems: () => void
   createItem: (name: string, weight: number, type: ItemType) => void
   updateItem: (id: string, name: string, weight: number) => void
   removeItem: (id: string) => void
   removeAllItems: () => void
   sortField: 'name' | 'weight' | null
-  sortOrder: 'asc' | 'desc'
+  sortOrder: 'asc' | 'desc' | null
   toggleSort: (type: 'name' | 'weight') => void
 }
 
@@ -24,26 +25,32 @@ export const useProsConsStore = createStore<PropsConsStore>(
     (set, get) => ({
       items: [],
       sortField: null,
-      sortOrder: 'asc',
-      // TODO: проанализировать где используется setItems и зачем type
-      setItems: (newItems: Item[], type?: ItemType) => {
+      sortOrder: null,
+      setItems: (newItems: Item[], type: ItemType) => {
         const { items } = get()
 
-        if (type) {
-          const prosItems = items.filter(item => item.type === ItemType.Pros)
-          const consItems = items.filter(item => item.type === ItemType.Cons)
+        const prosItems = items.filter(item => item.type === ItemType.Pros)
+        const consItems = items.filter(item => item.type === ItemType.Cons)
 
-          const updatedItems =
-            type === ItemType.Pros
-              ? [...newItems, ...consItems]
-              : [...prosItems, ...newItems]
+        const updatedItems =
+          type === ItemType.Pros
+            ? [...newItems, ...consItems]
+            : [...prosItems, ...newItems]
 
+        set({
+          items: updatedItems,
+        })
+      },
+      setAiItems: (newItems: Item[], isReset: boolean = false) => {
+        const { items } = get()
+
+        if (isReset) {
           set({
-            items: updatedItems,
+            items: [...newItems],
           })
         } else {
           set({
-            items: [...newItems],
+            items: [...items, ...newItems],
           })
         }
       },
@@ -95,7 +102,6 @@ export const useProsConsStore = createStore<PropsConsStore>(
 
         const sortedItems = [...items].sort((a, b) => {
           if (field === 'name') {
-            // FIXME: почему newOrder === 'asc'
             return newOrder === 'asc'
               ? a.name.localeCompare(b.name)
               : b.name.localeCompare(a.name)

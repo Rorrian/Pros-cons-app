@@ -30,23 +30,6 @@ export const textarea = style(
   'textarea',
 )
 
-export const error = style(
-  [
-    typographyCss.caption.small,
-    {
-      position: 'absolute',
-      bottom: '-16px',
-      left: '0px',
-      right: '0px',
-
-      fontWeight: 700,
-      color: vars.content.error,
-      textShadow: '#fff 0px 0px 3px',
-      whiteSpace: 'nowrap',
-    },
-  ],
-  'error',
-)
 export const clearButton = style(
   [
     flexRow,
@@ -63,7 +46,6 @@ export const clearButton = style(
       backgroundColor: vars.background.secondary,
       borderRadius: vars.borderRadius.round,
       opacity: 0,
-      // transition: 'opacity 0.3s ease-in-out',
       transition: `opacity  ${vars.transition}`,
 
       selectors: {
@@ -76,4 +58,4 @@ export const clearButton = style(
   'clearButton',
 )
 
-export const inputBoxesStyles = { textfield, textarea, error, clearButton }
+export const inputBoxesStyles = { textfield, textarea, clearButton }

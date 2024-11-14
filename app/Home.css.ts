@@ -29,7 +29,6 @@ const main = style(
           backgroundAttachment: 'fixed',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          // transition: 'background-image 0.3s ease-in-out',
           transition: `background-image ${vars.transition}`,
         },
       },

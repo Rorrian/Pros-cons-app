@@ -3,6 +3,7 @@ import React, { ComponentPropsWithoutRef, useId } from 'react'
 
 import { MAX_LENGTH_CHARACTERS_IN_NAME } from '@/helpers/constants'
 import ClearIcon from '@/public/icons/close.svg'
+import { errorText } from '@/styles/shared.css'
 
 import { inputBoxesStyles } from './InputBoxes.css'
 
@@ -21,13 +22,10 @@ export const TextArea = ({
   onClearButtonClick,
   ...props
 }: TextAreaProps) => {
-  const id = useId()
-
   return (
     <>
       <textarea
         className={clsx(inputBoxesStyles.textarea, className)}
-        id={id}
         maxLength={MAX_LENGTH_CHARACTERS_IN_NAME}
         spellCheck={false}
         value={value}
@@ -42,9 +40,7 @@ export const TextArea = ({
         <ClearIcon />
       </button>
 
-      {!isValid && errorMessage && (
-        <b className={inputBoxesStyles.error}>{errorMessage}</b>
-      )}
+      {!isValid && errorMessage && <b className={errorText}>{errorMessage}</b>}
     </>
   )
 }

@@ -145,7 +145,9 @@ const col = recipe(
         padding: '3px',
         backgroundColor: vars.themeVariables.background.primary,
         borderRadius: vars.borderRadius.small,
+
         textAlign: 'center',
+
         transition: `border ${vars.transition}, color  ${vars.transition}, background-color  ${vars.transition}`,
 
         ...responsiveStyle({
@@ -286,7 +288,6 @@ const button = recipe(
   'button',
 )
 
-/* TODO: Пересмотреть дизайн */
 const sortIcon = recipe(
   {
     base: {

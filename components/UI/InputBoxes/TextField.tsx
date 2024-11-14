@@ -1,15 +1,19 @@
 import clsx from 'clsx'
-import React, { ComponentPropsWithoutRef, useId } from 'react'
+import React, { ComponentPropsWithoutRef } from 'react'
+
+import { errorText } from '@/styles/shared.css'
 
 import { inputBoxesStyles } from './InputBoxes.css'
 
 export type TextFieldProps = {
+  errorClassName?: string
   errorMessage?: string | null
   isValid?: boolean
 } & ComponentPropsWithoutRef<'input'>
 
 export const TextField = ({
   className,
+  errorClassName,
   errorMessage,
   isValid = true,
   type,
@@ -17,13 +21,10 @@ export const TextField = ({
   onChange,
   ...props
 }: TextFieldProps) => {
-  const id = useId()
-
   return (
     <>
       <input
         className={clsx(inputBoxesStyles.textfield, className)}
-        id={id}
         type={type}
         spellCheck={false}
         value={value}
@@ -32,7 +33,7 @@ export const TextField = ({
       />
 
       {!isValid && errorMessage && (
-        <b className={inputBoxesStyles.error}>{errorMessage}</b>
+        <b className={clsx(errorText, errorClassName)}>{errorMessage}</b>
       )}
     </>
   )

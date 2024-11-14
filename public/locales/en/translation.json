@@ -1,23 +1,35 @@
 {
-	"main": {
-		"text": "Some text",
-		"title": [
-			"Let ",
-			"us ",
-			"weigh ",
-			"the ",
-			"<b>Pros</b> ",
-			" and ",
-			"<b>Cons</b> "
-		],
-		"deleteAll": "Delete all data",
-		"resetAndLoadSample": "Reset & Load Sample",
-		"columns": {
-			"pros": "Pros",
-			"cons": "Cons",
-			"weight": "Weight(1-10)",
-			"total": "Total"
-		},
-		"weightError": "Enter a number from 0 to 10"
-	}
+  "main": {
+    "checkboxLabel": "Reset all current data?",
+    "title": [
+      "Let ",
+      "us ",
+      "weigh ",
+      "the ",
+      "<b>Pros</b> ",
+      " and ",
+      "<b>Cons</b> "
+    ],
+    "placeholderAiInput": "Write your idea and generate pros and cons with AI...",
+    "deleteAll": "Delete all data",
+    "resetAndLoadSample": "Reset & Load Sample",
+    "columns": {
+      "pros": "Pros",
+      "cons": "Cons",
+      "weight": "Weight(1-10)",
+      "total": "Total"
+    }
+  },
+  "errors": {
+    "aiIdea": {
+      "required": "You must enter the text of the idea",
+      "pattern": "AI idea can only contain letters, numbers, dots, coma and hyphens",
+      "minLength": "AI idea must be at least 6 characters long",
+      "maxLength": "AI idea must not exceed 300 characters",
+      "loading": "Error generating pros and cons"
+    },
+    "weight": {
+      "invalid": "Enter a number from 0 to 10"
+    }
+  }
 }

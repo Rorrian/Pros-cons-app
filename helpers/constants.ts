@@ -7,6 +7,8 @@ export const defaultTransition = {
   duration: ANIMATION_DURATION,
 }
 
+export const AI_IDEA_REGEXP = /^[a-zA-Z0-9.,-]+$/
+
 export const locales = [
   {
     alt: 'English flag',
