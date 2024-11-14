@@ -1,46 +1,46 @@
-import { style } from "@vanilla-extract/css"
+import { style } from '@vanilla-extract/css'
 
 export const flexRow = style(
-	{
-		display: "flex",
-		flexDirection: "row",
-	},
-	"flexColumn"
+  {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  'flexColumn',
 )
 
 export const flexColumn = style(
-	{
-		display: "flex",
-		flexDirection: "column",
-	},
-	"flexColumn"
+  {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  'flexColumn',
 )
 
 export const flexCentered = style(
-	{
-		justifyContent: "center",
-		alignItems: "center",
-	},
-	"flexCentered"
+  {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  'flexCentered',
 )
 
 export const justifyContentCenter = style(
-	{
-		justifyContent: "center",
-	},
-	"justifyContentCenter"
+  {
+    justifyContent: 'center',
+  },
+  'justifyContentCenter',
 )
 
 export const justifyContentStart = style(
-	{
-		justifyContent: "start",
-	},
-	"justifyContentStart"
+  {
+    justifyContent: 'start',
+  },
+  'justifyContentStart',
 )
 
 export const alignItemsCentered = style(
-	{
-		alignItems: "center",
-	},
-	"alignItemsCentered"
+  {
+    alignItems: 'center',
+  },
+  'alignItemsCentered',
 )

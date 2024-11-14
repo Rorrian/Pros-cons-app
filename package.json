@@ -1,39 +1,68 @@
 {
-	"name": "pros-cons-app",
-	"version": "0.1.0",
-	"private": true,
-	"scripts": {
-		"dev": "next dev",
-		"devT": "next dev --turbo",
-		"build": "next build",
-		"start": "next start",
-		"lint": "next lint"
-	},
-	"dependencies": {
-		"@vanilla-extract/css": "^1.14.2",
-		"@vanilla-extract/recipes": "^0.5.2",
-		"clsx": "^2.1.1",
-		"framer-motion": "^11.3.28",
-		"i18next": "^23.14.0",
-		"i18next-browser-languagedetector": "^8.0.0",
-		"i18next-http-backend": "^2.6.1",
-		"nanoid": "^5.0.7",
-		"next": "14.2.5",
-		"react": "^18",
-		"react-dom": "^18",
-		"react-i18next": "^15.0.1",
-		"zustand": "^4.5.4"
-	},
-	"devDependencies": {
-		"@svgr/webpack": "^8.1.0",
-		"@types/node": "^20",
-		"@types/react": "^18",
-		"@types/react-dom": "^18",
-		"@vanilla-extract/next-plugin": "^2.4.0",
-		"autoprefixer": "^10.4.19",
-		"eslint": "^9.9.0",
-		"i18next-parser": "^9.0.2",
-		"sass": "^1.77.8",
-		"typescript": "^5"
-	}
+  "name": "pros-cons-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "devT": "next dev --turbo",
+    "build": "next build",
+    "start": "next start",
+    "nextLint": "next lint",
+    "lint": "cross-env ESLINT_USE_FLAT_CONFIG=true npx eslint . --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint . --ext js,jsx,ts,tsx --fix",
+    "prettier": "prettier . --check --ignore-unknown",
+    "prettier:fix": "prettier . -w"
+  },
+  "dependencies": {
+		"@tanstack/react-query": "^5.56.2",
+    "@vanilla-extract/css": "^1.14.2",
+    "@vanilla-extract/recipes": "^0.5.2",
+		"axios": "^1.7.7",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.3.28",
+    "i18next": "^23.14.0",
+    "i18next-browser-languagedetector": "^8.0.0",
+    "i18next-http-backend": "^2.6.1",
+    "nanoid": "^5.0.7",
+    "next": "15.0.3",
+    "react": "19.0.0-rc-66855b96-20241106",
+    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "react-i18next": "^15.0.1",
+    "zustand": "^4.5.4",
+		"lucide-react": "^0.454.0"
+  },
+  "devDependencies": {
+		"@eslint/js": "^9.14.0",
+    "@tanstack/react-query-devtools": "^5.56.2",
+    "@svgr/webpack": "^8.1.0",
+    "@types/node": "^20",
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
+    "@vanilla-extract/next-plugin": "^2.4.0",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^9.9.0",
+    "i18next-parser": "^9.0.2",
+    "sass": "^1.77.8",
+    "typescript": "^5.5.3",
+		"@typescript-eslint/eslint-plugin": "^8.12.2",
+    "@typescript-eslint/parser": "^8.12.2",
+		"eslint": "^9.7.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.3",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-react": "^7.34.3",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.8",
+		"globals": "^15.8.0",
+		"prettier": "^3.3.2",
+		"typescript-eslint": "^7.16.0"
+  },
+  "overrides": {
+		"eslint": "^9.7.0"
+  },
+  "resolutions": {
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
+  }
 }

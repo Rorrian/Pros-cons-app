@@ -1,40 +1,42 @@
-"use client"
+'use client'
 
-import clsx from "clsx"
-import { motion } from "framer-motion"
-import React, { forwardRef, LegacyRef } from "react"
+import clsx from 'clsx'
+import { m } from 'framer-motion'
+import React, { forwardRef } from 'react'
 
-import { titleStyles } from "./Title.css"
+import { titleStyles } from './Title.css'
 
-export type TitleHeadingType = "h1" | "h2" | "h3" | "h4"
+export type TitleHeadingType = 'h1' | 'h2' | 'h3' | 'h4'
 
 interface TitleProps {
-	titleClassName?: string
-	headingType?: TitleHeadingType
-	style?: React.CSSProperties
-	children: string | React.ReactNode
+  children: string | React.ReactNode
+  headingType?: TitleHeadingType
+  style?: React.CSSProperties
+  titleClassName?: string
 }
 
 export const Title = forwardRef(
-	(
-		{ children, titleClassName, headingType = "h3", ...props }: TitleProps,
-		ref: LegacyRef<HTMLHeadingElement> | undefined
-	) => {
-		const TitleComponent = headingType
+  (
+    { children, headingType = 'h3', titleClassName, ...props }: TitleProps,
+    ref: React.Ref<HTMLHeadingElement> | undefined,
+  ) => {
+    const TitleComponent = headingType
 
-		return (
-			<TitleComponent
-				ref={ref}
-				className={clsx(
-					titleStyles.title({ type: headingType }),
-					titleClassName
-				)}
-				{...props}
-			>
-				{children}
-			</TitleComponent>
-		)
-	}
+    return (
+      <TitleComponent
+        ref={ref}
+        className={clsx(
+          titleStyles.title({ type: headingType }),
+          titleClassName,
+        )}
+        {...props}
+      >
+        {children}
+      </TitleComponent>
+    )
+  },
 )
 
-export const MTitle = motion(Title)
+Title.displayName = 'Title'
+
+export const MTitle = m.create(Title)

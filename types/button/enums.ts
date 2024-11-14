@@ -1,18 +1,18 @@
 export const enum Size {
-	Big = "big",
-	Small = "small",
+  Big = 'big',
+  Small = 'small',
 }
 export const enum Kind {
-	Primary = "primary",
-	Secondary = "secondary",
+  Primary = 'primary',
+  Secondary = 'secondary',
 
-	Positive = "positive",
-	Negative = "negative",
+  Positive = 'positive',
+  Negative = 'negative',
 
-	Transparent = "transparent",
+  Transparent = 'transparent',
 }
 
 export const enum Justify {
-	Start = "start",
-	Center = "center",
+  Start = 'start',
+  Center = 'center',
 }

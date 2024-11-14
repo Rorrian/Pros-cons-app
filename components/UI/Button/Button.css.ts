@@ -1,140 +1,141 @@
-import { ComplexStyleRule, createVar, style } from "@vanilla-extract/css"
-import { recipe } from "@vanilla-extract/recipes"
+import { ComplexStyleRule, createVar, style } from '@vanilla-extract/css'
+import { recipe } from '@vanilla-extract/recipes'
 
 import {
-	alignItemsCentered,
-	flexRow,
-	justifyContentCenter,
-	justifyContentStart,
-} from "@/styles/shared.css"
-import { vars } from "@/theme/theme.css"
-import typographyCss from "@/theme/typography.css"
-import { Justify, Kind, Size } from "@/types/button/enums"
+  alignItemsCentered,
+  flexRow,
+  justifyContentCenter,
+  justifyContentStart,
+} from '@/styles/shared.css'
+import { vars } from '@/theme/theme.css'
+import typographyCss from '@/theme/typography.css'
+import { Justify, Kind, Size } from '@/types/button/enums'
 
-const background = createVar("background")
-const titleColor = createVar("titleColor")
+const background = createVar('background')
+const titleColor = createVar('titleColor')
 
 type ButtonVariantsType = {
-	disabled: Record<"true" | "false", ComplexStyleRule | string>
-	size: Record<Size, ComplexStyleRule | string>
-	kind: Record<Kind, ComplexStyleRule | string>
-	justify: Record<Justify, ComplexStyleRule | string>
+  disabled: Record<'true' | 'false', ComplexStyleRule | string>
+  size: Record<Size, ComplexStyleRule | string>
+  kind: Record<Kind, ComplexStyleRule | string>
+  justify: Record<Justify, ComplexStyleRule | string>
 }
 
 type ButtonTitleVariantsType = {
-	size: Record<Size, ComplexStyleRule | string>
+  size: Record<Size, ComplexStyleRule | string>
 }
 
 const buttonVariants: ButtonVariantsType = {
-	size: {
-		big: {
-			padding: "8px 16px",
-			borderRadius: vars.borderRadius.small,
-		},
-		small: {
-			padding: "8px",
-			borderRadius: vars.borderRadius.big,
-		},
-	},
-	justify: {
-		[Justify.Center]: justifyContentCenter,
-		[Justify.Start]: justifyContentStart,
-	},
-	kind: {
-		[Kind.Primary]: {
-			vars: {
-				[background]: vars.themeVariables.content.primary,
-				[titleColor]: vars.content.white,
-			},
-		},
-		[Kind.Secondary]: {
-			vars: {
-				[background]: vars.background.secondary,
-				[titleColor]: vars.content.darkGrey,
-			},
-		},
-		[Kind.Positive]: {
-			vars: {
-				[background]: vars.background.green,
-				[titleColor]: vars.content.white,
-			},
-		},
-		[Kind.Negative]: {
-			vars: {
-				[background]: vars.background.red,
-				[titleColor]: vars.content.white,
-			},
-		},
-		[Kind.Transparent]: {
-			vars: {
-				[background]: vars.background.transparent,
-				[titleColor]: vars.content.white,
-			},
-		},
-	},
-	disabled: {
-		true: {
-			cursor: "default",
-			vars: {
-				[background]: vars.background.disabled,
-				[titleColor]: vars.content.disabled,
-			},
-		},
-		false: "",
-	},
+  size: {
+    big: {
+      padding: '8px 16px',
+      borderRadius: vars.borderRadius.small,
+    },
+    small: {
+      padding: '8px',
+      borderRadius: vars.borderRadius.big,
+    },
+  },
+  justify: {
+    [Justify.Center]: justifyContentCenter,
+    [Justify.Start]: justifyContentStart,
+  },
+  kind: {
+    [Kind.Primary]: {
+      vars: {
+        [background]: vars.themeVariables.content.primary,
+        [titleColor]: vars.content.white,
+      },
+    },
+    [Kind.Secondary]: {
+      vars: {
+        [background]: vars.background.secondary,
+        [titleColor]: vars.content.darkGrey,
+      },
+    },
+    [Kind.Positive]: {
+      vars: {
+        [background]: vars.background.green,
+        [titleColor]: vars.content.white,
+      },
+    },
+    [Kind.Negative]: {
+      vars: {
+        [background]: vars.background.red,
+        [titleColor]: vars.content.white,
+      },
+    },
+    [Kind.Transparent]: {
+      vars: {
+        [background]: vars.background.transparent,
+        [titleColor]: vars.content.white,
+      },
+    },
+  },
+  disabled: {
+    true: {
+      cursor: 'default',
+      vars: {
+        [background]: vars.background.disabled,
+        [titleColor]: vars.content.disabled,
+      },
+    },
+    false: '',
+  },
 }
 
 const button = recipe(
-	{
-		base: [
-			flexRow,
-			alignItemsCentered,
-			{
-				backgroundColor: background,
-				cursor: "pointer",
-				transition: "background-color 0.3s ease-in-out",
-			},
-		],
-		variants: buttonVariants,
-		defaultVariants: {
-			disabled: false,
-			size: Size.Big,
-			kind: Kind.Primary,
-			justify: Justify.Center,
-		},
-	},
-	"button"
+  {
+    base: [
+      flexRow,
+      alignItemsCentered,
+      {
+        backgroundColor: background,
+        cursor: 'pointer',
+        // transition: 'background-color 0.3s ease-in-out',
+        transition: `background-color  ${vars.transition}`,
+      },
+    ],
+    variants: buttonVariants,
+    defaultVariants: {
+      disabled: false,
+      size: Size.Big,
+      kind: Kind.Primary,
+      justify: Justify.Center,
+    },
+  },
+  'button',
 )
 
 const icon = style(
-	{
-		display: "flex",
-	},
-	"icon"
+  {
+    display: 'flex',
+  },
+  'icon',
 )
 
 const title = recipe<ButtonTitleVariantsType>(
-	{
-		base: {
-			padding: "0px 8px",
-			color: titleColor,
-		},
+  {
+    base: {
+      padding: '0px 8px',
+      color: titleColor,
+    },
 
-		variants: {
-			size: {
-				big: [typographyCss.button.big],
-				small: [typographyCss.button.small],
-			},
-		},
-		defaultVariants: {
-			size: Size.Big,
-		},
-	},
-	"title"
+    variants: {
+      size: {
+        big: [typographyCss.button.big],
+        small: [typographyCss.button.small],
+      },
+    },
+    defaultVariants: {
+      size: Size.Big,
+    },
+  },
+  'title',
 )
 
 export const buttonStyles = {
-	icon,
-	button,
-	title,
+  icon,
+  button,
+  title,
 }
