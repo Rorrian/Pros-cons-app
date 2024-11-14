@@ -14,7 +14,6 @@ const title = recipe<TitleVariantsType>(
   {
     base: {
       color: vars.themeVariables.content.primary,
-      // transition: 'color 0.3s ease-in-out',
       transition: `color  ${vars.transition}`,
     },
     variants: {

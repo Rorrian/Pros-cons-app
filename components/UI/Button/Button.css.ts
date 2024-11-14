@@ -92,7 +92,6 @@ const button = recipe(
       {
         backgroundColor: background,
         cursor: 'pointer',
-        // transition: 'background-color 0.3s ease-in-out',
         transition: `background-color  ${vars.transition}`,
       },
     ],
