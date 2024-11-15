@@ -1,5 +1,4 @@
 import { globalStyle, style } from '@vanilla-extract/css'
-import { HeartIcon } from 'lucide-react'
 
 import { responsiveStyle } from '@/helpers/responsive'
 import { flexRow } from '@/styles/shared.css'

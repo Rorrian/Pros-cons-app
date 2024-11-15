@@ -52,6 +52,7 @@ const themeVariables = createThemeContract({
 
   background: {
     primary: null,
+    primaryTransparent: null,
   },
   pageBackground: null,
   textShadow: null,
@@ -65,6 +66,7 @@ export const lightTheme = createTheme(themeVariables, {
 
   background: {
     primary: '#ffffff',
+    primaryTransparent: 'rgba(255,255,255,0.9)',
   },
   pageBackground: 'url(/background/bgDay.webp)',
   textShadow: '1px 1px #fff, 2px 2px #777',
@@ -78,6 +80,7 @@ export const darkTheme = createTheme(themeVariables, {
 
   background: {
     primary: '#222222',
+    primaryTransparent: 'rgba(34,34,34,0.9)',
   },
   pageBackground: 'url(/background/bgNight.webp)',
   textShadow: '1px 1px #fff, 2px 2px #222',

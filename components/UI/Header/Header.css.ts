@@ -40,7 +40,7 @@ const title = style(
 globalStyle(`${title} span b`, {
   color: vars.content.green,
 })
-globalStyle(`${title} span:last-of-type b`, {
+globalStyle(`${title} span:last-of-type span b`, {
   color: vars.content.red,
 })
 

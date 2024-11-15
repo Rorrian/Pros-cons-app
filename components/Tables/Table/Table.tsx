@@ -1,7 +1,7 @@
 'use client'
 
-import { AnimatePresence, m, Reorder } from 'framer-motion'
-import { forwardRef } from 'react'
+import { AnimatePresence, HTMLMotionProps, m, Reorder } from 'framer-motion'
+import { ComponentPropsWithRef, forwardRef } from 'react'
 
 import { Row } from '@/components/Row/Row'
 import { defaultTransition } from '@/helpers/constants'
@@ -10,10 +10,12 @@ import { Item, ItemType } from '@/types/item'
 
 import { tableStyles } from './Table.css'
 
-interface TablesProps {
+export type TablesProps = {
   items: Item[]
   type?: ItemType
-}
+} & ComponentPropsWithRef<'div'> &
+  HTMLMotionProps<'div'> &
+  React.RefAttributes<HTMLDivElement>
 
 const tableVariants = {
   left: {
@@ -50,10 +52,7 @@ const rowAnimation = {
 }
 
 export const Table = forwardRef(
-  (
-    { items, type }: TablesProps,
-    ref: React.Ref<HTMLDivElement> | undefined,
-  ) => {
+  ({ items, type, ...props }: TablesProps, ref) => {
     const setItems = useProsConsStore(state => state.setItems)
 
     const isInversion = type === ItemType.Cons
@@ -68,6 +67,7 @@ export const Table = forwardRef(
         variants={tableVariants}
         transition={defaultTransition}
         className={tableStyles.table}
+        {...props}
       >
         <Row isTitle isInversion={isInversion} />
 
@@ -78,9 +78,9 @@ export const Table = forwardRef(
         >
           <AnimatePresence initial={false}>
             {!!items?.length &&
-              items.map(item => (
+              items.map((item, i) => (
                 <Reorder.Item
-                  key={item.id}
+                  key={`${item.id}-${i}`}
                   value={item}
                   whileDrag={{
                     scale: 1.05,

@@ -1,6 +1,5 @@
 {
   "main": {
-    "checkboxLabel": "Reset all current data?",
     "title": [
       "Let ",
       "us ",
@@ -10,7 +9,11 @@
       " and ",
       "<b>Cons</b> "
     ],
-    "placeholderAiInput": "Write your idea and generate pros and cons with AI...",
+    "aiBlock": {
+      "checkboxLabel": "Reset all current data",
+      "inputPlaceholder": "Write your idea and generate pros and cons",
+      "tooltipText": "Write your idea and generate pros and cons using AI. For example: the idea of getting a parrot"
+    },
     "deleteAll": "Delete all data",
     "resetAndLoadSample": "Reset & Load Sample",
     "columns": {

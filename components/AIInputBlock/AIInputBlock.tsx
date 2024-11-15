@@ -10,7 +10,6 @@ import { getErrorMessage } from '@/helpers'
 import { AI_IDEA_REGEXP } from '@/helpers/constants'
 import { useAIVariants } from '@/hooks/useAIVariants'
 import { errorText } from '@/styles/shared.css'
-import { vars } from '@/theme/theme.css'
 import { Kind, Size } from '@/types/button/enums'
 
 import { aiInputBlockStyles } from './AIInputBlock.css'
@@ -18,11 +17,11 @@ import { Button } from '../UI/Button/Button'
 import { Checkbox } from '../UI/Checkbox/Checkbox'
 import { Form } from '../UI/Form/Form'
 import { TextField } from '../UI/InputBoxes/TextField'
+import { Tooltip } from '../UI/Tooltip/Tooltip'
 
 export const AIInputBlock = () => {
   const { t } = useTranslation()
   const { isLoading, error, generateProsCons } = useAIVariants()
-
   const formMethods = useForm()
   const {
     register,
@@ -30,10 +29,12 @@ export const AIInputBlock = () => {
     formState: { errors },
   } = formMethods
 
+  // FIXME: заменить тип any
   const handleFormSubmit: SubmitHandler<any> = data => {
     generateProsCons(data)
   }
 
+  // FIXME: вынести ?
   const textFieldErrorMessage = getErrorMessage(errors?.idea)
   const textFieldRules = {
     required: t('errors.aiIdea.required'),
@@ -63,13 +64,13 @@ export const AIInputBlock = () => {
           errorClassName={aiInputBlockStyles.error}
           errorMessage={textFieldErrorMessage}
           isValid={!textFieldErrorMessage}
-          placeholder={t('main.placeholderAiInput')}
+          placeholder={t('main.aiBlock.inputPlaceholder')}
           {...register('idea', textFieldRules)}
         />
 
         <Checkbox
           className={aiInputBlockStyles.checkbox}
-          label={t('main.checkboxLabel')}
+          label={t('main.aiBlock.checkboxLabel')}
           {...register('resetCheckbox')}
         />
 
@@ -100,9 +101,11 @@ export const AIInputBlock = () => {
           type="submit"
         />
 
+        <Tooltip text={t('main.aiBlock.tooltipText')} />
+
         {error && (
           <p className={clsx(errorText, aiInputBlockStyles.error)}>
-            {t('main.checkboxLabel')}
+            {t('main.aiBlock.tooltipText')}
           </p>
         )}
       </Form>

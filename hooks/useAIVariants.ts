@@ -7,7 +7,7 @@ import { useProsConsStore } from '@/store'
 import { Item } from '@/types/item'
 
 interface FormData {
-  newIdea: string
+  idea: string
   resetCheckbox: boolean
 }
 
@@ -25,7 +25,7 @@ export function useAIVariants() {
     mutationFn: (data: FormData) => {
       resetCheckboxValueRef.current = data.resetCheckbox
 
-      return huggingFaceService.generateProsCons(data.newIdea)
+      return huggingFaceService.generateProsCons(data.idea)
     },
     onSuccess: data => {
       startTransition(() => {

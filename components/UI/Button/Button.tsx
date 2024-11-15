@@ -1,7 +1,7 @@
 'use client'
 
 import clsx from 'clsx'
-import { m } from 'framer-motion'
+import { m, MotionProps } from 'framer-motion'
 import { forwardRef } from 'react'
 
 import { ButtonProps } from '@/types/button'
@@ -9,7 +9,10 @@ import { Justify, Kind, Size } from '@/types/button/enums'
 
 import { buttonStyles } from './Button.css'
 
-export const Button = forwardRef(
+export const Button = forwardRef<
+  HTMLButtonElement & { className?: string },
+  ButtonProps & MotionProps
+>(
   (
     {
       children,
@@ -25,20 +28,21 @@ export const Button = forwardRef(
       showHoverAnimation = true,
       ...props
     }: ButtonProps,
-    ref: React.Ref<HTMLButtonElement> | undefined,
+    ref,
   ) => (
     <m.button
       ref={ref}
-      disabled={disabled}
+      // TODO: ошибка билда
       className={clsx(
         buttonStyles.button({
           size,
           kind,
-          disabled: disabled,
+          disabled,
           justify,
         }),
         className,
       )}
+      disabled={disabled}
       {...props}
       whileTap={{
         scale: 0.95,

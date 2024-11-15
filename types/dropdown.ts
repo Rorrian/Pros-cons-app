@@ -1,4 +1,5 @@
-import { JSX } from 'react'
+import { HTMLMotionProps } from 'framer-motion'
+import { ComponentPropsWithoutRef, JSX } from 'react'
 
 type Option = {
   alt?: string
@@ -7,7 +8,7 @@ type Option = {
   value: string
 }
 
-export interface DropdownProps {
+export type DropdownProps = {
   buttonClassName?: string
   icon?: JSX.Element
   iconClassName?: string
@@ -19,4 +20,5 @@ export interface DropdownProps {
   titleClassName?: string
   wrapperClassName?: string
   onSelect: (value: string) => void
-}
+} & ComponentPropsWithoutRef<'div'> &
+  HTMLMotionProps<'div'>

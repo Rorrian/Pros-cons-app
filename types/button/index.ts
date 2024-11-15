@@ -4,6 +4,7 @@ import { ComponentPropsWithoutRef, JSX } from 'react'
 import { Justify, Kind, Size } from './enums'
 
 export type ButtonProps = {
+  className?: string
   icon?: JSX.Element
   iconClassName?: string
   justify?: Justify
@@ -13,4 +14,5 @@ export type ButtonProps = {
   title?: string
   titleClassName?: string
 } & ComponentPropsWithoutRef<'button'> &
-  HTMLMotionProps<'button'>
+  HTMLMotionProps<'button'> &
+  React.RefAttributes<HTMLButtonElement>

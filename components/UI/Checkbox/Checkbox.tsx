@@ -1,12 +1,12 @@
 'use client'
 
 import clsx from 'clsx'
-import { m } from 'framer-motion'
-import React, { forwardRef, ComponentPropsWithoutRef } from 'react'
+import React, { ComponentPropsWithoutRef, useState } from 'react'
 
 import { errorText } from '@/styles/shared.css'
 
 import { checkboxStyles } from './Checkbox.css'
+import { CheckboxIcon } from './CheckboxIcon'
 
 export type CheckboxProps = {
   className?: string
@@ -15,41 +15,42 @@ export type CheckboxProps = {
   label: string
 } & ComponentPropsWithoutRef<'input'>
 
-// TODO: Анимация чекбокса как в документации framer-motion
+// TODO: рефакторинг: избавиться от state?
 
-export const Checkbox = forwardRef(
-  (
-    {
-      className,
-      errorMessage,
-      isValid = true,
-      label,
-      onChange,
-      ...props
-    }: CheckboxProps,
-    ref: React.Ref<HTMLInputElement> | undefined,
-  ) => {
-    return (
-      <div className={clsx(checkboxStyles.wrapper, className)}>
-        <label className={checkboxStyles.label}>
-          <input
-            ref={ref}
-            className={checkboxStyles.checkbox}
-            type="checkbox"
-            onChange={onChange}
-            {...props}
-          />
-          {label}
-        </label>
+export const Checkbox = ({
+  className,
+  errorMessage,
+  isValid = true,
+  label,
+  onChange,
+  ...props
+}: CheckboxProps) => {
+  const [isChecked, setIsChecked] = useState(false)
 
-        {!isValid && errorMessage && (
-          <b className={errorText}>{errorMessage}</b>
-        )}
-      </div>
-    )
-  },
-)
+  const handleToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(event.target.checked)
+    onChange?.(event)
+  }
 
-Checkbox.displayName = 'Checkbox'
+  return (
+    <div className={clsx(checkboxStyles.wrapper, className)}>
+      <label className={checkboxStyles.label}>
+        <CheckboxIcon
+          isChecked={isChecked}
+          onClick={() => setIsChecked(!isChecked)}
+        />
 
-export const MCheckbox = m.create(Checkbox)
+        {label}
+
+        <input
+          className={checkboxStyles.checkbox}
+          type="checkbox"
+          onChange={handleToggle}
+          {...props}
+        />
+      </label>
+
+      {!isValid && errorMessage && <b className={errorText}>{errorMessage}</b>}
+    </div>
+  )
+}

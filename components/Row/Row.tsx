@@ -1,8 +1,8 @@
 'use client'
 
-import { m } from 'framer-motion'
+import { HTMLMotionProps, m } from 'framer-motion'
 import { ArrowDown01, ArrowDownAZ, ArrowUp10, ArrowUpZA } from 'lucide-react'
-import { forwardRef, useEffect, useState } from 'react'
+import { ComponentPropsWithRef, forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import CrossIcon from '@/public/icons/cross.svg'
@@ -16,15 +16,17 @@ import { Button } from '../UI/Button/Button'
 import { TextArea } from '../UI/InputBoxes/TextArea'
 import { TextField } from '../UI/InputBoxes/TextField'
 
-interface RowProps {
+export type RowProps = {
   item?: Item
   isInversion: boolean
   isTitle?: boolean
   isTotal?: boolean
   totalWeight?: number
-}
+} & ComponentPropsWithRef<'div'> &
+  HTMLMotionProps<'div'> &
+  React.RefAttributes<HTMLDivElement>
 
-/* TODO: Пересмотреть ширину колонок */
+/* FIXME: Пересмотреть ширину колонок */
 
 export const Row = forwardRef(
   (
@@ -34,8 +36,9 @@ export const Row = forwardRef(
       isTitle = false,
       isTotal = false,
       totalWeight,
+      ...props
     }: RowProps,
-    ref: React.Ref<HTMLDivElement> | undefined,
+    ref,
   ) => {
     const [
       sortField,
@@ -80,7 +83,7 @@ export const Row = forwardRef(
     }, [item])
 
     return (
-      <m.div ref={ref} className={rowStyles.row({ isInversion })}>
+      <m.div ref={ref} className={rowStyles.row({ isInversion })} {...props}>
         {isTitle && (
           <>
             <span

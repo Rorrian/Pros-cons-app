@@ -37,8 +37,9 @@ export const AnimatedText = ({ textElements }: AnimatedTextProps) => (
           key={`${el}-${i}`}
           variants={wordVariants}
           transition={defaultTransition}
-          dangerouslySetInnerHTML={{ __html: el }}
-        />
+        >
+          <span dangerouslySetInnerHTML={{ __html: el }} />
+        </m.span>
       ))}
     </m.div>
   </m.div>
