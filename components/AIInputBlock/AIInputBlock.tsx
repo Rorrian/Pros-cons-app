@@ -106,9 +106,7 @@ export const AIInputBlock = () => {
         <Tooltip text={t('main.aiBlock.tooltipText')} />
 
         {error && (
-          <p className={clsx(errorText, aiInputBlockStyles.error)}>
-            {t('main.aiBlock.tooltipText')}
-          </p>
+          <p className={clsx(errorText, aiInputBlockStyles.error)}>{error}</p>
         )}
       </Form>
     </FormProvider>

@@ -34,18 +34,27 @@ export function useAIVariants() {
     },
     onError: (currentError: any) => {
       if (axios.isAxiosError(currentError)) {
-        const message =
-          currentError.response?.data?.message || 'An error occurred'
-        console.error(message)
+        const errorMessage =
+          currentError.response?.data?.error ||
+          currentError.message ||
+          'An unknown error occurred'
+
+        if (currentError.response) {
+          console.error(
+            `Error Status: ${currentError.response.status} - ${errorMessage}`,
+          )
+        } else {
+          console.error('Network Error:', errorMessage)
+        }
       } else {
-        console.error('An unknown error occurred')
+        console.error('An unknown error occurred:', currentError)
       }
     },
   })
 
   return {
     isLoading: isPending || isGenerateProsConsPending,
-    error,
+    error: error?.response?.data?.error,
     generateProsCons,
   }
 }
