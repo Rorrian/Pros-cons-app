@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import { AnimatePresence } from 'framer-motion'
 import i18next from 'i18next'
 import localFont from 'next/font/local'
+import { SyntheticEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { AnimatedText } from '@/components/AnimatedText/AnimatedText'
@@ -33,7 +34,9 @@ export const Header = () => {
         options={locales}
         selectedOptionValue={i18next.resolvedLanguage}
         wrapperClassName={headerStyles.dropdownWrapper}
-        onSelect={i18n.changeLanguage}
+        onSelect={(value: string | SyntheticEvent<HTMLDivElement, Event>) =>
+          i18n.changeLanguage(value as string)
+        }
       />
 
       {!!textElements.length && (

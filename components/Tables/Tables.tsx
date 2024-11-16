@@ -23,7 +23,7 @@ export const Tables = () => {
   ])
   const { t } = useTranslation()
 
-  // TODO : Проверить как реализовать с помощью onRehydrateStorage(persist)
+  // FIXME: Проверить как реализовать с помощью onRehydrateStorage(persist)
   // https://www.youtube.com/watch?v=SYk6F7tWCa0&t=220s
   useEffect(() => {
     const currentState = getCurrentState('PropsCons')

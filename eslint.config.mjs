@@ -118,7 +118,7 @@ export default tseslint.config(
       'no-plusplus': 'off',
       // Использование типа any
       '@typescript-eslint/no-explicit-any': 'warn',
-      // TODO: Проверить и исправить все ошибки линтера "eslintimport/named"
+      // FIXME: Проверить и исправить все ошибки линтера "eslintimport/named"
       'import/named': 'off',
     },
   },

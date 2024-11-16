@@ -16,7 +16,7 @@ export function getErrorMessage(error: any): string | null {
 
 export const parseProsConsText = (responseText: string) => {
   try {
-    const jsonArrays = responseText.match(/\[.*?\]/gs)
+    const jsonArrays = responseText.match(/\[[\s\S]*?\]/g)
 
     if (!jsonArrays || jsonArrays.length === 0) {
       throw new Error('No valid JSON arrays found in response text')

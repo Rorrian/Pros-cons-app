@@ -7,8 +7,12 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import { getErrorMessage } from '@/helpers'
-import { AI_IDEA_REGEXP } from '@/helpers/constants'
-import { useAIVariants } from '@/hooks/useAIVariants'
+import {
+  AI_IDEA_MAX_LENGTH,
+  AI_IDEA_MIN_LENGTH,
+  AI_IDEA_REGEXP,
+} from '@/helpers/constants'
+import { FormData, useAIVariants } from '@/hooks/useAIVariants'
 import { errorText } from '@/styles/shared.css'
 import { Kind, Size } from '@/types/button/enums'
 
@@ -19,44 +23,44 @@ import { Form } from '../UI/Form/Form'
 import { TextField } from '../UI/InputBoxes/TextField'
 import { Tooltip } from '../UI/Tooltip/Tooltip'
 
+const getTextFieldRules = (t: (key: string) => string) => ({
+  required: t('errors.aiIdea.required'),
+  pattern: {
+    value: AI_IDEA_REGEXP,
+    message: t('errors.aiIdea.pattern'),
+  },
+  minLength: {
+    value: AI_IDEA_MIN_LENGTH,
+    message: t('errors.aiIdea.minLength'),
+  },
+  maxLength: {
+    value: AI_IDEA_MAX_LENGTH,
+    message: t('errors.aiIdea.maxLength'),
+  },
+})
+
 export const AIInputBlock = () => {
   const { t } = useTranslation()
   const { isLoading, error, generateProsCons } = useAIVariants()
-  const formMethods = useForm()
+  const formMethods = useForm<FormData>()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = formMethods
 
-  // FIXME: заменить тип any
-  const handleFormSubmit: SubmitHandler<any> = data => {
+  const handleFormSubmit: SubmitHandler<FormData> = data => {
     generateProsCons(data)
   }
 
-  // FIXME: вынести ?
   const textFieldErrorMessage = getErrorMessage(errors?.idea)
-  const textFieldRules = {
-    required: t('errors.aiIdea.required'),
-    pattern: {
-      value: AI_IDEA_REGEXP,
-      message: t('errors.aiIdea.pattern'),
-    },
-    minLength: {
-      value: 5,
-      message: t('errors.aiIdea.minLength'),
-    },
-    maxLength: {
-      value: 1000000,
-      message: t('errors.aiIdea.maxLength'),
-    },
-  }
+  const textFieldRules = getTextFieldRules(t)
 
   return (
     <FormProvider {...formMethods}>
       <Form
         className={aiInputBlockStyles.aiBlock}
-        id="changePasswordForm"
+        id="aiForm"
         onSubmit={handleSubmit(handleFormSubmit)}
       >
         <TextField
@@ -82,9 +86,7 @@ export const AIInputBlock = () => {
               <Brain size={24} />
             ) : (
               <m.div
-                animate={{
-                  rotate: 360,
-                }}
+                animate={{ rotate: 360 }}
                 transition={{
                   duration: 0.5,
                   repeat: Infinity,

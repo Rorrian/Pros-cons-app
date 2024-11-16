@@ -12,7 +12,7 @@ import { Button } from '../UI/Button/Button'
 import { headerStyles } from '../UI/Header/Header.css'
 
 export const ToggleThemeBtn = forwardRef(
-  ({}, ref: React.Ref<HTMLButtonElement> | undefined) => {
+  (props, ref: React.Ref<HTMLButtonElement> | undefined) => {
     const [isDarkMode, toggleTheme] = useThemeStore(state => [
       state.isDarkMode,
       state.toggleTheme,

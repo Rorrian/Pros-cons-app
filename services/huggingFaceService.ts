@@ -3,7 +3,7 @@ import { parseProsConsText } from '@/helpers'
 import { Item } from '@/types/item'
 
 interface GenerateProsConsResponse {
-  prosConsArray: Item[]
+  data: { generated_text: string }[]
 }
 
 // TODO: Запрос и ответ не только на английском, но и на русском
@@ -29,11 +29,11 @@ class HuggingFaceService {
         },
       },
     )
-    if (!response?.data) {
+    if (!response?.data || !Array.isArray(response.data)) {
       throw new Error('Invalid data')
     }
 
-    const newProsConsData = parseProsConsText(response?.data[0]?.generated_text)
+    const newProsConsData = parseProsConsText(response.data[0].generated_text)
 
     return newProsConsData || []
   }

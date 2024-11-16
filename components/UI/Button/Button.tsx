@@ -2,17 +2,14 @@
 
 import clsx from 'clsx'
 import { m, MotionProps } from 'framer-motion'
-import { forwardRef } from 'react'
+import { ButtonHTMLAttributes, forwardRef } from 'react'
 
 import { ButtonProps } from '@/types/button'
 import { Justify, Kind, Size } from '@/types/button/enums'
 
 import { buttonStyles } from './Button.css'
 
-export const Button = forwardRef<
-  HTMLButtonElement & { className?: string },
-  ButtonProps & MotionProps
->(
+export const Button = forwardRef(
   (
     {
       children,
@@ -32,7 +29,6 @@ export const Button = forwardRef<
   ) => (
     <m.button
       ref={ref}
-      // TODO: ошибка билда
       className={clsx(
         buttonStyles.button({
           size,
@@ -43,7 +39,9 @@ export const Button = forwardRef<
         className,
       )}
       disabled={disabled}
-      {...props}
+      // Решение ошибки:
+      // Property 'className' does not exist on type 'IntrinsicAttributes & HTMLAttributesWithoutMotionProps<unknown, unknown> & MotionProps & RefAttributes<unknown>'.ts(2322)
+      {...(props as ButtonHTMLAttributes<HTMLButtonElement> & MotionProps)}
       whileTap={{
         scale: 0.95,
       }}

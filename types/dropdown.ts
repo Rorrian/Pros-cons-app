@@ -1,5 +1,5 @@
 import { HTMLMotionProps } from 'framer-motion'
-import { ComponentPropsWithoutRef, JSX } from 'react'
+import { ComponentPropsWithoutRef, JSX, SyntheticEvent } from 'react'
 
 type Option = {
   alt?: string
@@ -19,6 +19,6 @@ export type DropdownProps = {
   title?: string
   titleClassName?: string
   wrapperClassName?: string
-  onSelect: (value: string) => void
+  onSelect: (value: string | SyntheticEvent<HTMLDivElement, Event>) => void
 } & ComponentPropsWithoutRef<'div'> &
   HTMLMotionProps<'div'>

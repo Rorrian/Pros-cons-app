@@ -39,7 +39,7 @@ export const createStore = <T>(
     }
   }
 
-  // TODO: Обертка для setState, кот. автоматически добавляет указание actionName в девтулзах для дева
+  // FIXME: Обертка для setState, кот. автоматически добавляет указание actionName в девтулзах для дева
   // store.setState = (partial, replace = false) => {
   // 	if (process.env.NODE_ENV === "development") {
   // 		const actionName = getCallerName()

@@ -90,7 +90,7 @@ export const useProsConsStore = createStore<PropsConsStore>(
         set(
           { items: [] },
           false,
-          // TODO: Обертка для setState, кот. автоматически добавляет указание actionName в девтулзах для дева
+          // FIXME: Обертка для setState, кот. автоматически добавляет указание actionName в девтулзах для дева
           // "removeAllItems"
         )
       },
@@ -121,8 +121,8 @@ export const useProsConsStore = createStore<PropsConsStore>(
     }),
     {
       name: 'PropsCons',
-      // TODO: Проверить как реализовать с помощью onRehydrateStorage(persist)
-      // TODO: https://www.youtube.com/watch?v=SYk6F7tWCa0&t=220s
+      // FIXME: Проверить как реализовать с помощью onRehydrateStorage(persist)
+      // FIXME: https://www.youtube.com/watch?v=SYk6F7tWCa0&t=220s
       // onRehydrateStorage: state => {
       // 	if (state) {
       // 		if (typeof window !== undefined && state.items.length === 0) {

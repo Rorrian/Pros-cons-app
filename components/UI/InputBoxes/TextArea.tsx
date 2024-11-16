@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import React, { ComponentPropsWithoutRef, useId } from 'react'
+import React, { ComponentPropsWithoutRef } from 'react'
 
 import { MAX_LENGTH_CHARACTERS_IN_NAME } from '@/helpers/constants'
 import ClearIcon from '@/public/icons/close.svg'

@@ -3,7 +3,6 @@ import { style } from '@vanilla-extract/css'
 import { responsiveStyle } from '@/helpers/responsive'
 import { flexCentered, flexRow } from '@/styles/shared.css'
 import { vars } from '@/theme/theme.css'
-import typographyCss from '@/theme/typography.css'
 
 export const textfield = style(
   {

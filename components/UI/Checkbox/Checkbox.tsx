@@ -15,7 +15,7 @@ export type CheckboxProps = {
   label: string
 } & ComponentPropsWithoutRef<'input'>
 
-// TODO: рефакторинг: избавиться от state?
+// FIXME: рефакторинг: избавиться от state?
 
 export const Checkbox = ({
   className,

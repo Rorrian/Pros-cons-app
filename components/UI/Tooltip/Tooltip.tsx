@@ -19,7 +19,7 @@ export const Tooltip = ({
   text,
   textClassName,
 }: TooltipProps) => {
-  const [IsVisible, setIsVisible] = useState(true)
+  const [IsVisible, setIsVisible] = useState(false)
 
   const handleMouseEnter = () => {
     setIsVisible(true)

@@ -62,12 +62,6 @@ const icon = style(
       width: '24px',
       height: '24px',
     },
-    responsiveStyle({
-      tablet: {
-        width: '20px',
-        height: '20px',
-      },
-    }),
   ],
   'icon',
 )

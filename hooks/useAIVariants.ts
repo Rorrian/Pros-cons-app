@@ -6,7 +6,7 @@ import huggingFaceService from '@/services/huggingFaceService'
 import { useProsConsStore } from '@/store'
 import { Item } from '@/types/item'
 
-interface FormData {
+export type FormData = {
   idea: string
   resetCheckbox: boolean
 }
@@ -32,9 +32,10 @@ export function useAIVariants() {
         setAiItems(data, resetCheckboxValueRef.current || false)
       })
     },
-    onError: (error: any) => {
-      if (axios.isAxiosError(error)) {
-        const message = error.response?.data?.message || 'An error occurred'
+    onError: (currentError: any) => {
+      if (axios.isAxiosError(currentError)) {
+        const message =
+          currentError.response?.data?.message || 'An error occurred'
         console.error(message)
       } else {
         console.error('An unknown error occurred')
