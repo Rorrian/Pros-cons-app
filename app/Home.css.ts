@@ -15,7 +15,7 @@ const main = style(
 
       minHeight: '100vh',
       width: '100%',
-      padding: '32px 48px 0px',
+      padding: '32px 48px 32px',
 
       selectors: {
         '&&:before': {

@@ -78,9 +78,9 @@ export const Table = forwardRef(
         >
           <AnimatePresence initial={false}>
             {!!items?.length &&
-              items.map((item, i) => (
+              items.map(item => (
                 <Reorder.Item
-                  key={`${item.id}-${i}`}
+                  key={item.id}
                   value={item}
                   whileDrag={{
                     scale: 1.05,
