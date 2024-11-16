@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { useRef, useTransition } from 'react'
 
 import huggingFaceService from '@/services/huggingFaceService'
@@ -11,6 +11,14 @@ export type FormData = {
   resetCheckbox: boolean
 }
 
+type CustomAxiosError = AxiosError & {
+  response?: {
+    data: {
+      error: string
+    }
+  }
+}
+
 export function useAIVariants() {
   const setAiItems = useProsConsStore(state => state.setAiItems)
   const [isPending, startTransition] = useTransition()
@@ -20,7 +28,7 @@ export function useAIVariants() {
     mutate: generateProsCons,
     isPending: isGenerateProsConsPending,
     error,
-  } = useMutation<Item[], Error, FormData>({
+  } = useMutation<Item[], CustomAxiosError, FormData>({
     mutationKey: ['generate-pros-cons'],
     mutationFn: (data: FormData) => {
       resetCheckboxValueRef.current = data.resetCheckbox
