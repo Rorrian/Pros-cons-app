@@ -1,13 +1,12 @@
-import { AIRequestForm, Tables } from '@/components'
-import { Footer, Header } from '@/components/UI'
+import { AIRequestForm, Footer, Header, Tables } from '@/components'
 
 import { homeStyles } from './Home.css'
-
-// TODO: Постараться по максимуму сделать компоненты серверными и выделить клиентский функционал в отдельные компоненты
 
 // TODO: ошибка Hydration failed
 
 // TODO: Анимировать смену темы как в доке Framer motion
+
+// TODO: !!! Добавить возможность сохранять несколько списков
 
 export default function Home() {
   return (

@@ -8,7 +8,7 @@ export const table = style(
     flexColumn,
     fullWidth,
     {
-      minWidth: '484px',
+      minWidth: '503px',
 
       ...responsiveStyle({
         tablet: {

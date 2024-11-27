@@ -1,11 +1,8 @@
-import { globalStyle, style } from '@vanilla-extract/css'
+import { style } from '@vanilla-extract/css'
 
 import { responsiveStyle } from '@/helpers/responsive'
-import { flexCentered, flexRow } from '@/styles/shared.css'
+import { flexCentered } from '@/styles/shared.css'
 import { vars } from '@/theme/theme.css'
-import typographyCss from '@/theme/typography.css'
-
-const wrapper = style([flexRow, flexCentered], 'wrapper')
 
 const dropdownWrapper = style(
   {
@@ -27,23 +24,6 @@ const dropdownBtn = style(
   'dropdownBtn',
 )
 
-const title = style(
-  [
-    typographyCss.title.h1,
-    {
-      textAlign: 'center',
-      textShadow: vars.themeVariables.textShadow,
-    },
-  ],
-  'title',
-)
-globalStyle(`${title} span b`, {
-  color: vars.content.green,
-})
-globalStyle(`${title} span:last-of-type span b`, {
-  color: vars.content.red,
-})
-
 const icon = style(
   [
     flexCentered,
@@ -61,10 +41,8 @@ const icon = style(
   'icon',
 )
 
-export const headerStyles = {
-  wrapper,
+export const languageDropdownStyles = {
   dropdownWrapper,
   dropdownBtn,
-  title,
   icon,
 }

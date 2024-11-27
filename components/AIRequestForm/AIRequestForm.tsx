@@ -33,7 +33,6 @@ export const AIRequestForm = (props: AIRequestFormProps) => {
   const searchParams = useSearchParams()
   const hasSharedList = searchParams.get('sharedList')
   const sharedItemsError = useProsConsStore(state => state.sharedItemsError)
-
   const {
     formMethods,
     handleFormSubmit,

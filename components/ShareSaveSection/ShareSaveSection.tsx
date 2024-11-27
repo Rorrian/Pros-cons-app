@@ -1,23 +1,19 @@
 'use client'
 
-import { m, MotionProps } from 'framer-motion'
-import { BaseHTMLAttributes, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { SaveListForm } from '@/components/SaveListForm/SaveListForm'
 import { generateShareableLink } from '@/helpers'
-import { defaultTransition } from '@/helpers/constants'
 import ShareIcon from '@/public/icons/share.svg'
 import SuccessIcon from '@/public/icons/success.svg'
 import { useProsConsStore } from '@/store'
 import { Kind, Size } from '@/types/button/enums'
 
-import { footerStyles } from './Footer.css'
-import { Button } from '../../Button/Button'
+import { shareSaveSectionStyles } from './ShareSaveSection.css'
+import { Button } from '../UI'
 
-export const Footer = (
-  props: BaseHTMLAttributes<HTMLElement> & MotionProps,
-) => {
+export const ShareSaveSection = () => {
   const { t } = useTranslation()
   const [isCopied, setIsCopied] = useState(false)
   const [items, sharedItems, sharedItemsError] = useProsConsStore(state => [
@@ -44,20 +40,13 @@ export const Footer = (
   if (sharedItemsError) return null
 
   return (
-    <m.footer
-      className={footerStyles.wrapper}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={defaultTransition}
-      {...props}
-    >
+    <>
       {isSharedItems ? (
         <SaveListForm />
       ) : (
         <Button
           aria-label="Share list"
-          className={footerStyles.shareBtn}
+          className={shareSaveSectionStyles.shareBtn}
           icon={!isCopied ? <ShareIcon /> : <SuccessIcon />}
           kind={Kind.Secondary}
           size={Size.Small}
@@ -69,6 +58,6 @@ export const Footer = (
           onClick={() => handleShareList()}
         />
       )}
-    </m.footer>
+    </>
   )
 }

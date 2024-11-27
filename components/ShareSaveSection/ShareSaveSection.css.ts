@@ -2,15 +2,6 @@ import { style } from '@vanilla-extract/css'
 
 import typographyCss from '@/theme/typography.css'
 
-const wrapper = style(
-  {
-    flex: '0 0 auto',
-
-    marginTop: 'auto',
-  },
-  'wrapper',
-)
-
 const shareBtn = style(
   [
     typographyCss.button.small,
@@ -23,7 +14,6 @@ const shareBtn = style(
   'shareBtn',
 )
 
-export const footerStyles = {
-  wrapper,
+export const shareSaveSectionStyles = {
   shareBtn,
 }
