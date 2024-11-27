@@ -1,14 +1,10 @@
 import { globalStyle, style } from '@vanilla-extract/css'
 
-import { alignItemsCentered, flexRow } from '@/styles/shared.css'
+import { flexRow } from '@/styles/shared.css'
 import { vars } from '@/theme/theme.css'
 
 const wrapper = style(
   {
-    position: 'absolute',
-    bottom: '-30px',
-    left: 0,
-
     color: vars.themeVariables.content.primary,
 
     transition: `color ${vars.transition}`,
@@ -16,21 +12,33 @@ const wrapper = style(
   'wrapper',
 )
 
-const icon = style(
-  {
-    outline: 'none',
-  },
-  'icon',
-)
+const inner = style(
+  [
+    flexRow,
+    {
+      alignItems: 'end',
 
-const label = style([flexRow, alignItemsCentered], 'label')
-globalStyle(`${label} svg`, {
+      whiteSpace: 'nowrap',
+    },
+  ],
+  'inner',
+)
+globalStyle(`${inner} svg`, {
+  marginRight: vars.spaces.xs,
   outline: 'none',
 })
 
+const label = style(
+  {
+    marginBottom: '2px',
+  },
+  'label',
+)
+
 const checkbox = style(
   {
-    marginRight: '6px',
+    width: 0,
+    height: 0,
 
     appearance: 'none',
   },
@@ -39,7 +47,7 @@ const checkbox = style(
 
 export const checkboxStyles = {
   wrapper,
-  icon,
+  inner,
   label,
   checkbox,
 }

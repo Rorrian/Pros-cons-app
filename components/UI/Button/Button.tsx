@@ -39,8 +39,6 @@ export const Button = forwardRef(
         className,
       )}
       disabled={disabled}
-      // Решение ошибки:
-      // Property 'className' does not exist on type 'IntrinsicAttributes & HTMLAttributesWithoutMotionProps<unknown, unknown> & MotionProps & RefAttributes<unknown>'.ts(2322)
       {...(props as ButtonHTMLAttributes<HTMLButtonElement> & MotionProps)}
       whileTap={{
         scale: 0.95,

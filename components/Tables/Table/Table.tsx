@@ -1,9 +1,9 @@
 'use client'
 
 import { AnimatePresence, HTMLMotionProps, m, Reorder } from 'framer-motion'
-import { ComponentPropsWithRef, forwardRef } from 'react'
+import { ComponentPropsWithRef } from 'react'
 
-import { Row } from '@/components/Row/Row'
+import { MRow, Row, RowType } from '@/components/Row/Row'
 import { defaultTransition } from '@/helpers/constants'
 import { useProsConsStore } from '@/store'
 import { Item, ItemType } from '@/types/item'
@@ -11,66 +11,66 @@ import { Item, ItemType } from '@/types/item'
 import { tableStyles } from './Table.css'
 
 export type TablesProps = {
+  isSharedItems: boolean
   items: Item[]
-  type?: ItemType
+  type: ItemType
 } & ComponentPropsWithRef<'div'> &
   HTMLMotionProps<'div'> &
   React.RefAttributes<HTMLDivElement>
 
 const tableVariants = {
-  left: {
-    x: -100,
-    opacity: 0,
-  },
-  right: {
-    x: 100,
-    opacity: 0,
-  },
-  show: {
-    x: 0,
-    opacity: 1,
-  },
+  left: { x: -100, opacity: 0 },
+  right: { x: 100, opacity: 0 },
+  show: { x: 0, opacity: 1 },
 }
 
 const rowAnimation = {
-  initial: {
-    y: 20,
-    height: 0,
-    opacity: 0,
-  },
-  animate: {
-    y: 0,
-    height: 'auto',
-    opacity: 1,
-  },
-  exit: {
-    y: -20,
-    opacity: 0,
-    height: 0,
-    transition: defaultTransition,
-  },
+  initial: { y: 20, height: 0, opacity: 0 },
+  animate: { y: 0, height: 'auto', opacity: 1 },
+  exit: { y: -20, opacity: 0, height: 0, transition: defaultTransition },
 }
 
-export const Table = forwardRef(
-  ({ items, type, ...props }: TablesProps, ref) => {
-    const setItems = useProsConsStore(state => state.setItems)
+export const Table = ({
+  isSharedItems = false,
+  items,
+  type,
+  ...props
+}: TablesProps) => {
+  const setItems = useProsConsStore(state => state.setItems)
 
-    const isInversion = type === ItemType.Cons
-    const totalScore = (currItems: Item[]) =>
-      currItems?.reduce((acc, item) => acc + item.weight, 0)
+  const isInversion = type === ItemType.Cons
+  const totalScore = (currItems: Item[]) =>
+    currItems?.reduce((acc, item) => acc + item.weight, 0)
 
-    return (
-      <m.div
-        ref={ref}
-        initial={!isInversion ? 'left' : 'right'}
-        animate={'show'}
-        variants={tableVariants}
-        transition={defaultTransition}
-        className={tableStyles.table}
-        {...props}
-      >
-        <Row isTitle isInversion={isInversion} />
+  return (
+    <m.div
+      initial={!isInversion ? 'left' : 'right'}
+      animate={'show'}
+      variants={tableVariants}
+      transition={defaultTransition}
+      className={tableStyles.table}
+      {...props}
+    >
+      <Row
+        isEditable={!isSharedItems}
+        isInversion={isInversion}
+        type={RowType.Title}
+      />
 
+      {isSharedItems ? (
+        <AnimatePresence initial={false}>
+          {!!items?.length &&
+            items.map(item => (
+              <MRow
+                key={item.id}
+                item={item}
+                isEditable={!isSharedItems}
+                isInversion={isInversion}
+                {...rowAnimation}
+              />
+            ))}
+        </AnimatePresence>
+      ) : (
         <Reorder.Group
           axis="y"
           values={items}
@@ -87,22 +87,22 @@ export const Table = forwardRef(
                   }}
                   {...rowAnimation}
                 >
-                  <Row item={item} isInversion={isInversion} />
+                  <Row
+                    item={item}
+                    isEditable={!isSharedItems}
+                    isInversion={isInversion}
+                  />
                 </Reorder.Item>
               ))}
           </AnimatePresence>
         </Reorder.Group>
+      )}
 
-        <Row
-          isInversion={isInversion}
-          isTotal
-          totalWeight={totalScore(items || [])}
-        />
-      </m.div>
-    )
-  },
-)
-
-Table.displayName = 'Table'
-
-export const MTable = m.create(Table)
+      <Row
+        isInversion={isInversion}
+        totalWeight={totalScore(items || [])}
+        type={RowType.Total}
+      />
+    </m.div>
+  )
+}

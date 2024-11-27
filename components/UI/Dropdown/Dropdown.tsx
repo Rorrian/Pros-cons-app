@@ -56,6 +56,7 @@ export const Dropdown = ({
   return (
     <div className={wrapperClassName}>
       <Button
+        aria-label="Open drop-down list to select language"
         className={clsx(dropdownStyles.button, buttonClassName)}
         icon={icon}
         iconClassName={iconClassName}
@@ -79,6 +80,7 @@ export const Dropdown = ({
               return (
                 <m.li key={option.value}>
                   <Button
+                    aria-label="Toggle language"
                     className={clsx(dropdownStyles.option, optionClassName)}
                     disabled={isSelected!}
                     icon={

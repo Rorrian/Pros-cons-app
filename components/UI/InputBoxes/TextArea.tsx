@@ -33,6 +33,7 @@ export const TextArea = ({
         onChange={onChange}
       />
       <button
+        aria-label="Clear field"
         type="button"
         className={inputBoxesStyles.clearButton}
         onClick={onClearButtonClick}

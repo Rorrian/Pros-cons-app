@@ -1,35 +1,34 @@
 import { globalStyle, style } from '@vanilla-extract/css'
 
 import { responsiveStyle } from '@/helpers/responsive'
-import { flexRow } from '@/styles/shared.css'
+import { flexRow, fullWidth } from '@/styles/shared.css'
 import { vars } from '@/theme/theme.css'
 import typographyCss from '@/theme/typography.css'
 
-const aiBlock = style(
+const form = style(
   [
     flexRow,
+    fullWidth,
     {
+      columnGap: vars.spaces.sm,
+
       position: 'relative',
 
-      alignItems: 'stretch',
-      columnGap: '8px',
-
-      marginBottom: '30px',
+      marginBottom: vars.spaces.xl,
     },
   ],
-  'aiBlock',
+  'form',
 )
 
 const input = style(
   [
     typographyCss.paragraph.regular,
+    fullWidth,
     {
-      width: '70vw',
       border: vars.border.grey,
       borderRadius: vars.borderRadius.small,
       backgroundColor: vars.themeVariables.background.primary,
 
-      textAlign: 'start',
       color: vars.themeVariables.content.primary,
 
       transition: `color ${vars.transition}, background-color  ${vars.transition}`,
@@ -40,6 +39,7 @@ const input = style(
 globalStyle(`${input}::placeholder`, {
   color: vars.themeVariables.content.primary,
   fontStyle: 'italic',
+
   opacity: 0.5,
   transition: `color ${vars.transition}`,
 })
@@ -47,6 +47,9 @@ globalStyle(`${input}::placeholder`, {
 const checkbox = style(
   [
     typographyCss.paragraph.regular,
+
+    { position: 'absolute', bottom: '-28px', left: 0 },
+
     responsiveStyle({
       mobile: {
         color: `${vars.content.white} !important`,
@@ -57,25 +60,34 @@ const checkbox = style(
 )
 
 const icon = style(
-  [
-    {
-      width: '24px',
-      height: '24px',
-    },
-  ],
+  {
+    width: vars.iconSizes.md,
+    height: vars.iconSizes.md,
+
+    ...responsiveStyle({
+      tablet: {
+        width: vars.iconSizes.sm,
+        height: vars.iconSizes.sm,
+      },
+    }),
+  },
   'icon',
 )
+globalStyle(`${icon} svg`, {
+  width: '100%',
+  height: '100%',
+})
 
 const error = style(
   {
-    left: '4px',
-    bottom: '-45px',
+    left: vars.spaces.xs,
+    bottom: '-42px',
   },
   'error',
 )
 
-export const aiInputBlockStyles = {
-  aiBlock,
+export const aiRequestFormStyles = {
+  form,
   input,
   checkbox,
   icon,

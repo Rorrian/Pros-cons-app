@@ -1,21 +1,22 @@
 import { style } from '@vanilla-extract/css'
 
 import { responsiveStyle } from '@/helpers/responsive'
-import { flexColumn } from '@/styles/shared.css'
+import { flexColumn, fullHeight, fullWidth } from '@/styles/shared.css'
 import { vars } from '@/theme/theme.css'
 
-const main = style(
+const wrapper = style(
   [
     flexColumn,
+    fullHeight,
+    fullWidth,
     {
       alignItems: 'center',
-      rowGap: '35px',
+      rowGap: vars.spaces.xxl,
 
       position: 'relative',
 
       minHeight: '100vh',
-      width: '100%',
-      padding: '32px 48px 32px',
+      padding: `${vars.spaces.xl} ${vars.spaces.xxl} ${vars.spaces.xl}`,
 
       selectors: {
         '&&:before': {
@@ -35,21 +36,42 @@ const main = style(
     },
     responsiveStyle({
       tablet: {
-        rowGap: '20px',
+        rowGap: vars.spaces.xl,
 
         backgroundAttachment: 'unset',
-        padding: '32px 40px 32px',
+        padding: `${vars.spaces.xl} 40px ${vars.spaces.xl}`,
       },
       mobile: {
-        rowGap: '16px',
+        rowGap: vars.spaces.lg,
 
-        padding: '24px 40px 28px 24px',
+        padding: vars.spaces.lg,
       },
     }),
   ],
-  'main',
+  'wrapper',
+)
+
+const inner = style(
+  [
+    flexColumn,
+    {
+      flex: '1 0 auto',
+      alignItems: 'center',
+      rowGap: vars.spaces.xl,
+    },
+    responsiveStyle({
+      tablet: {
+        rowGap: vars.spaces.lg,
+      },
+      mobile: {
+        rowGap: vars.spaces.md,
+      },
+    }),
+  ],
+  'inner',
 )
 
 export const homeStyles = {
-  main,
+  wrapper,
+  inner,
 }

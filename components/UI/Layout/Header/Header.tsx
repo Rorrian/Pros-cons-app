@@ -7,18 +7,16 @@ import localFont from 'next/font/local'
 import { SyntheticEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { AnimatedText } from '@/components/AnimatedText/AnimatedText'
-import { ToggleThemeBtn } from '@/components/ToggleThemeBtn/ToggleThemeBtn'
-import { MTitle } from '@/components/UI/Title/Title'
+import { AnimatedText, ThemeSwitcher } from '@/components'
+import { locales } from '@/helpers/constants'
 import LanguageIcon from '@/public/icons/language.svg'
 
 import { headerStyles } from './Header.css'
-import { locales } from '../../../helpers/constants'
-import { Dropdown } from '../Dropdown/Dropdown'
+import { Dropdown, Title } from '../../'
 
-import '../../../config/i18n'
+import '../../../../config/i18n'
 
-const AlayaRoza = localFont({ src: '../../../fonts/AlayaRozaDemo.woff2' })
+const AlayaRoza = localFont({ src: '../../../../fonts/AlayaRozaDemo.woff2' })
 
 export const Header = () => {
   const { t, i18n } = useTranslation()
@@ -26,7 +24,7 @@ export const Header = () => {
   const textElements = t('main.title', { returnObjects: true }) as string[]
 
   return (
-    <header className={headerStyles.header}>
+    <header className={headerStyles.wrapper}>
       <Dropdown
         buttonClassName={headerStyles.dropdownBtn}
         icon={<LanguageIcon />}
@@ -40,17 +38,17 @@ export const Header = () => {
       />
 
       {!!textElements.length && (
-        <MTitle
+        <Title
           headingType="h1"
           titleClassName={clsx(AlayaRoza.className, headerStyles.title)}
         >
           <AnimatePresence mode="wait">
             <AnimatedText textElements={textElements} />
           </AnimatePresence>
-        </MTitle>
+        </Title>
       )}
 
-      <ToggleThemeBtn />
+      <ThemeSwitcher />
     </header>
   )
 }

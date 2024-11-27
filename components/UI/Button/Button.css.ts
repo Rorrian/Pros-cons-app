@@ -28,11 +28,11 @@ type ButtonTitleVariantsType = {
 const buttonVariants: ButtonVariantsType = {
   size: {
     big: {
-      padding: '8px 16px',
+      padding: `${vars.spaces.sm} ${vars.spaces.md}`,
       borderRadius: vars.borderRadius.small,
     },
     small: {
-      padding: '8px',
+      padding: vars.spaces.sm,
       borderRadius: vars.borderRadius.big,
     },
   },
@@ -43,8 +43,8 @@ const buttonVariants: ButtonVariantsType = {
   kind: {
     [Kind.Primary]: {
       vars: {
-        [background]: vars.themeVariables.content.primary,
-        [titleColor]: vars.content.white,
+        [background]: vars.themeVariables.background.primary,
+        [titleColor]: vars.themeVariables.content.primary,
       },
     },
     [Kind.Secondary]: {
@@ -116,7 +116,7 @@ const icon = style(
 const title = recipe<ButtonTitleVariantsType>(
   {
     base: {
-      padding: '0px 8px',
+      padding: `0px ${vars.spaces.sm}`,
       color: titleColor,
     },
 

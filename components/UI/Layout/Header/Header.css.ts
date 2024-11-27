@@ -5,13 +5,13 @@ import { flexCentered, flexRow } from '@/styles/shared.css'
 import { vars } from '@/theme/theme.css'
 import typographyCss from '@/theme/typography.css'
 
-const header = style([flexRow, flexCentered], 'header')
+const wrapper = style([flexRow, flexCentered], 'wrapper')
 
 const dropdownWrapper = style(
   {
     position: 'absolute',
-    top: '10px',
-    left: '10px',
+    top: vars.spaces.md,
+    left: vars.spaces.md,
   },
   'dropdownWrapper',
 )
@@ -20,7 +20,7 @@ const dropdownBtn = style(
   {
     ...responsiveStyle({
       tablet: {
-        padding: '4px',
+        padding: vars.spaces.xs,
       },
     }),
   },
@@ -48,36 +48,23 @@ const icon = style(
   [
     flexCentered,
     {
-      width: '2rem',
-      height: '2rem',
+      width: vars.iconSizes.lg,
+      height: vars.iconSizes.lg,
     },
     responsiveStyle({
       tablet: {
-        width: '1.5rem',
-        height: '1.5rem',
+        width: vars.iconSizes.md,
+        height: vars.iconSizes.md,
       },
     }),
   ],
   'icon',
 )
 
-const themeBtn = style(
-  [
-    dropdownBtn,
-    {
-      position: 'absolute',
-      top: '10px',
-      right: '10px',
-    },
-  ],
-  'themeBtn',
-)
-
 export const headerStyles = {
-  header,
+  wrapper,
   dropdownWrapper,
   dropdownBtn,
-  icon,
   title,
-  themeBtn,
+  icon,
 }

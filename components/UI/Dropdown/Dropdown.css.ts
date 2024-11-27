@@ -1,11 +1,18 @@
 import { style } from '@vanilla-extract/css'
 
-import { flexColumn } from '@/styles/shared.css'
+import { responsiveStyle } from '@/helpers/responsive'
+import { flexColumn, fullWidth } from '@/styles/shared.css'
 import { vars } from '@/theme/theme.css'
 
 const button = style(
   {
-    marginBottom: '6px',
+    marginBottom: vars.spaces.md,
+
+    ...responsiveStyle({
+      mobile: {
+        marginBottom: vars.spaces.sm,
+      },
+    }),
   },
   'button',
 )
@@ -17,9 +24,9 @@ const list = style(
       position: 'relative',
       zIndex: 1,
 
-      gap: '6px',
+      gap: vars.spaces.sm,
 
-      padding: '4px',
+      padding: vars.spaces.xs,
       backgroundColor: vars.background.transparent,
       borderRadius: vars.borderRadius.small,
       overflow: 'hidden',
@@ -29,11 +36,12 @@ const list = style(
 )
 
 const option = style(
-  {
-    justifyContent: 'flex-start',
-
-    width: '100%',
-  },
+  [
+    fullWidth,
+    {
+      justifyContent: 'flex-start',
+    },
+  ],
   'option',
 )
 

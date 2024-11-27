@@ -41,6 +41,22 @@ const root = createGlobalTheme(':root', {
     round: '50%',
   },
 
+  spaces: {
+    xs: '4px',
+    sm: '8px',
+    md: '12px',
+    lg: '24px',
+    xl: '32px',
+    xxl: '48px',
+  },
+
+  iconSizes: {
+    xs: '18px',
+    sm: '20px',
+    md: '24px',
+    lg: '32px',
+  },
+
   transition: '0.3s ease-in-out',
 })
 

@@ -1,75 +1,97 @@
 'use client'
 
+import { useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { getCurrentState } from '@/helpers'
+import { useSharedItemsFromURL } from '@/hooks/useSharedItemsFromURL'
 import BulbIcon from '@/public/icons/bulb.svg'
 import DeleteIcon from '@/public/icons/delete.svg'
 import { useProsConsStore } from '@/store'
 import { Kind, Size } from '@/types/button/enums'
 import { ItemType } from '@/types/item'
 
-import { Table } from './Table/Table'
 import { tablesStyles } from './Tables.css'
-import { AIInputBlock } from '../AIInputBlock/AIInputBlock'
-import { Button } from '../UI/Button/Button'
+import { Caption, Error, MButton } from '../UI'
+import { Table } from './Table/Table'
 
 export const Tables = () => {
-  const [items, setInitialItems, removeAllItems] = useProsConsStore(state => [
-    state.items,
-    state.setInitialItems,
-    state.removeAllItems,
-  ])
   const { t } = useTranslation()
+  const searchParams = useSearchParams()
+  const hasSharedList = searchParams.get('sharedList')
+  const [
+    items,
+    setExampleItems,
+    removeAllItems,
+    sharedItems,
+    sharedItemsError,
+  ] = useProsConsStore(state => [
+    state.items,
+    state.setExampleItems,
+    state.removeAllItems,
+    state.sharedItems,
+    state.sharedItemsError,
+  ])
+  useSharedItemsFromURL()
 
-  // FIXME: Проверить как реализовать с помощью onRehydrateStorage(persist)
-  // https://www.youtube.com/watch?v=SYk6F7tWCa0&t=220s
+  const isSharedItems = !!sharedItems?.length
+  const usingItems = isSharedItems ? sharedItems : items
+
+  // FIXME: Проверить как реализовать с помощью onRehydrateStorage(persist) - https://www.youtube.com/watch?v=SYk6F7tWCa0&t=220s
   useEffect(() => {
     const currentState = getCurrentState('PropsCons')
-    if (!currentState?.state?.items?.length) setInitialItems()
+    if (!currentState?.state?.items?.length) setExampleItems()
   }, [])
+
+  if (sharedItemsError) return <Error text={sharedItemsError} />
 
   return (
     <>
-      <AIInputBlock />
+      <Caption text="main.sharedListWarning" />
 
       <div className={tablesStyles.tableWrapper}>
         <Table
-          items={items.filter(item => item.type === ItemType.Pros)}
+          isSharedItems={isSharedItems}
+          items={usingItems.filter(item => item.type === ItemType.Pros)}
           type={ItemType.Pros}
         />
         <Table
-          items={items.filter(item => item.type === ItemType.Cons)}
+          isSharedItems={isSharedItems}
+          items={usingItems.filter(item => item.type === ItemType.Cons)}
           type={ItemType.Cons}
         />
       </div>
 
-      <div className={tablesStyles.buttons}>
-        <Button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className={tablesStyles.button}
-          icon={<DeleteIcon />}
-          kind={Kind.Secondary}
-          size={Size.Small}
-          title={t('main.deleteAll')}
-          onClick={() => removeAllItems()}
-        />
+      {!hasSharedList && (
+        <div className={tablesStyles.buttons}>
+          <MButton
+            aria-label="Delete all"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className={tablesStyles.button}
+            icon={<DeleteIcon />}
+            kind={Kind.Secondary}
+            size={Size.Small}
+            title={t('main.deleteAll')}
+            onClick={() => removeAllItems()}
+          />
 
-        <Button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className={tablesStyles.button}
-          icon={<BulbIcon />}
-          kind={Kind.Secondary}
-          size={Size.Small}
-          title={t('main.resetAndLoadSample')}
-          onClick={() => {
-            setInitialItems()
-          }}
-        />
-      </div>
+          <MButton
+            aria-label="Reset all and load sample"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className={tablesStyles.button}
+            icon={<BulbIcon />}
+            kind={Kind.Secondary}
+            size={Size.Small}
+            title={t('main.resetAndLoadSample')}
+            onClick={() => {
+              setExampleItems()
+            }}
+          />
+        </div>
+      )}
     </>
   )
 }

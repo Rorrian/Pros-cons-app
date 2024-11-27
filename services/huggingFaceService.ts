@@ -18,24 +18,36 @@ class HuggingFaceService {
 			- 'type': either 'pros' or 'cons'`
     const combinedInput = `${systemMessage}\n${userMessage}`
 
-    const response = await axiosClassic.post<GenerateProsConsResponse>(
-      'Qwen/Qwen2.5-Coder-32B-Instruct',
-      {
-        inputs: combinedInput,
-        parameters: {
-          max_length: 1500, // Ограничиваем длину ответа
-          max_new_tokens: 1000, // Устанавливаем максимальное количество новых токенов
-          temperature: 0.7, // Степень креативности
+    try {
+      const response = await axiosClassic.post<GenerateProsConsResponse>(
+        'Qwen/Qwen2.5-Coder-32B-Instruct',
+        {
+          inputs: combinedInput,
+          parameters: {
+            max_length: 1500, // Ограничиваем длину ответа
+            max_new_tokens: 1000, // Устанавливаем максимальное количество новых токенов
+            temperature: 0.7, // Степень креативности
+          },
         },
-      },
-    )
-    if (!response?.data || !Array.isArray(response.data)) {
-      throw new Error('Invalid data')
+      )
+      if (!response?.data || !Array.isArray(response.data)) {
+        throw new Error('Invalid data received from the API')
+      }
+
+      const { data, error } = parseProsConsText(response.data[0].generated_text)
+
+      if (error) {
+        throw new Error(error)
+      }
+
+      return data || []
+    } catch (error) {
+      throw new Error(
+        error instanceof Error
+          ? error.message
+          : 'Error during pros/cons generation: An unknown error occurred',
+      )
     }
-
-    const newProsConsData = parseProsConsText(response.data[0].generated_text)
-
-    return newProsConsData || []
   }
 }
 

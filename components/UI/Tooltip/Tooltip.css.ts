@@ -1,49 +1,110 @@
-import { globalStyle, style } from '@vanilla-extract/css'
+import { ComplexStyleRule, style } from '@vanilla-extract/css'
+import { recipe } from '@vanilla-extract/recipes'
 
+import { responsiveStyle } from '@/helpers/responsive'
+import {
+  alignItemsCentered,
+  flexRow,
+  justifyContentCenter,
+} from '@/styles/shared.css'
 import { vars } from '@/theme/theme.css'
 import typographyCss from '@/theme/typography.css'
 
+type TooltipPositionVariantsType = {
+  position: Record<'top' | 'bottom', ComplexStyleRule | string>
+}
+
 const wrapper = style(
-  {
-    position: 'relative',
-
-    alignSelf: 'center',
-
-    width: '18px',
-    height: '18px',
-  },
-  'wrapper',
-)
-globalStyle(`${wrapper} svg`, {
-  color: vars.themeVariables.content.primary,
-  transition: `color ${vars.transition}`,
-})
-
-const inner = style(
   [
-    typographyCss.caption.regular,
+    flexRow,
+    alignItemsCentered,
+    justifyContentCenter,
     {
-      position: 'absolute',
-      top: '35px',
-      left: '50%',
-      zIndex: 10,
-      transform: 'translateX(-50%)',
+      alignSelf: 'center',
 
-      minWidth: '150px',
-      padding: '8px',
-      backgroundColor: vars.themeVariables.background.primaryTransparent,
-      border: `1px solid ${vars.themeVariables.content.primary}`,
-      borderRadius: vars.borderRadius.small,
+      position: 'relative',
 
-      color: vars.themeVariables.content.primary,
-
-      transition: `color ${vars.transition}, border ${vars.transition}, background-color ${vars.transition}`,
+      width: vars.iconSizes.sm,
+      height: vars.iconSizes.sm,
     },
   ],
+  'wrapper',
+)
+
+const questionMark = style(
+  {
+    opacity: 0.7,
+  },
+  'questionMark',
+)
+
+const inner = recipe<TooltipPositionVariantsType>(
+  {
+    base: [
+      typographyCss.caption.regular,
+      {
+        position: 'absolute',
+        left: '50%',
+        zIndex: 2,
+        transform: 'translateX(-50%)',
+
+        padding: vars.spaces.sm,
+        backgroundColor: vars.themeVariables.background.primaryTransparent,
+        border: `1px solid ${vars.themeVariables.content.primary}`,
+        borderRadius: vars.borderRadius.small,
+
+        color: vars.themeVariables.content.primary,
+
+        transition: `color ${vars.transition}, border ${vars.transition}, background-color ${vars.transition}`,
+
+        ...responsiveStyle({
+          tablet: {
+            right: 0,
+            left: 'unset',
+            transform: 'unset',
+          },
+        }),
+      },
+    ],
+    variants: {
+      position: {
+        top: {
+          bottom: vars.spaces.xl,
+
+          ...responsiveStyle({
+            mobile: {
+              bottom: vars.spaces.lg,
+            },
+          }),
+        },
+        bottom: {
+          top: vars.spaces.xl,
+
+          ...responsiveStyle({
+            mobile: {
+              top: vars.spaces.lg,
+            },
+          }),
+        },
+      },
+    },
+    defaultVariants: {
+      position: 'bottom',
+    },
+  },
   'inner',
+)
+
+const text = style(
+  {
+    minWidth: '200px',
+  },
+  'text',
 )
 
 export const tooltipStyles = {
   wrapper,
+  questionMark,
   inner,
+  text,
 }

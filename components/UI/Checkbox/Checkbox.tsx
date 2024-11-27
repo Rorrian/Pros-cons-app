@@ -1,7 +1,7 @@
 'use client'
 
 import clsx from 'clsx'
-import React, { ComponentPropsWithoutRef, useState } from 'react'
+import React, { ComponentPropsWithoutRef, useEffect, useState } from 'react'
 
 import { errorText } from '@/styles/shared.css'
 
@@ -10,15 +10,15 @@ import { CheckboxIcon } from './CheckboxIcon'
 
 export type CheckboxProps = {
   className?: string
+  defaultChecked?: boolean
   errorMessage?: string | null
   isValid?: boolean
   label: string
 } & ComponentPropsWithoutRef<'input'>
 
-// FIXME: рефакторинг: избавиться от state?
-
 export const Checkbox = ({
   className,
+  defaultChecked,
   errorMessage,
   isValid = true,
   label,
@@ -27,6 +27,12 @@ export const Checkbox = ({
 }: CheckboxProps) => {
   const [isChecked, setIsChecked] = useState(false)
 
+  useEffect(() => {
+    if (defaultChecked !== undefined) {
+      setIsChecked(defaultChecked)
+    }
+  }, [defaultChecked])
+
   const handleToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked)
     onChange?.(event)
@@ -34,16 +40,17 @@ export const Checkbox = ({
 
   return (
     <div className={clsx(checkboxStyles.wrapper, className)}>
-      <label className={checkboxStyles.label}>
+      <label className={checkboxStyles.inner}>
         <CheckboxIcon
           isChecked={isChecked}
           onClick={() => setIsChecked(!isChecked)}
         />
 
-        {label}
+        <span className={checkboxStyles.label}>{label}</span>
 
         <input
           className={checkboxStyles.checkbox}
+          defaultChecked={defaultChecked}
           type="checkbox"
           onChange={handleToggle}
           {...props}

@@ -2,13 +2,19 @@ import { ComplexStyleRule, style } from '@vanilla-extract/css'
 import { recipe } from '@vanilla-extract/recipes'
 
 import { responsiveStyle } from '@/helpers/responsive'
-import { flexCentered, flexRow } from '@/styles/shared.css'
+import {
+  flexCentered,
+  flexRow,
+  fullHeight,
+  fullWidth,
+} from '@/styles/shared.css'
 import { vars } from '@/theme/theme.css'
 import typographyCss from '@/theme/typography.css'
 
 import { table } from '../Tables/Table/Table.css'
 
 type ColVariantsType = {
+  isEditable: Record<'true' | 'false', ComplexStyleRule | string>
   isInversion: Record<'true' | 'false', ComplexStyleRule | string>
   isTitle: Record<'true' | 'false', ComplexStyleRule | string>
   isTotal: Record<'true' | 'false', ComplexStyleRule | string>
@@ -20,7 +26,7 @@ const colVariants: ColVariantsType = {
     true: {
       border: 'none',
 
-      fontWeight: '700',
+      fontWeight: 700,
       color: vars.themeVariables.content.tertiary,
 
       selectors: {
@@ -71,7 +77,7 @@ const colVariants: ColVariantsType = {
       border: 'none',
 
       color: vars.content.darkGrey,
-      fontWeight: '700',
+      fontWeight: 700,
     },
     false: {},
   },
@@ -80,6 +86,10 @@ const colVariants: ColVariantsType = {
     false: {
       border: vars.border.red,
     },
+  },
+  isEditable: {
+    true: {},
+    false: {},
   },
 }
 
@@ -91,34 +101,49 @@ const row = recipe(
         position: 'relative',
 
         display: 'grid',
-        columnGap: '8px',
+        columnGap: vars.spaces.sm,
 
-        padding: '8px',
+        padding: vars.spaces.sm,
 
         selectors: {
           '&&:last-child': {
             marginTop: 'auto',
           },
         },
+
+        ...responsiveStyle({
+          mobile: {
+            columnGap: vars.spaces.xs,
+
+            paddingLeft: 0,
+            marginRight: vars.spaces.md,
+          },
+        }),
       },
     ],
     variants: {
       isInversion: {
         true: {
-          gridTemplateColumns: '30% 1fr',
+          gridTemplateColumns: '22% 1fr',
 
           ...responsiveStyle({
+            tablet: {
+              gridTemplateColumns: '25% 1fr',
+            },
             mobile: {
-              gridTemplateColumns: '1fr 40%',
+              gridTemplateColumns: '1fr 30%',
             },
           }),
         },
         false: {
-          gridTemplateColumns: '1fr 30%',
+          gridTemplateColumns: '1fr 22%',
 
           ...responsiveStyle({
+            tablet: {
+              gridTemplateColumns: '1fr 25%',
+            },
             mobile: {
-              gridTemplateColumns: '1fr 40%',
+              gridTemplateColumns: '1fr 30%',
             },
           }),
         },
@@ -136,13 +161,13 @@ const col = recipe(
     base: [
       flexRow,
       flexCentered,
+      fullWidth,
       {
         position: 'relative',
 
-        width: '100%',
         minHeight: '35.6px',
         border: vars.border.grey,
-        padding: '3px',
+        padding: vars.spaces.xs,
         backgroundColor: vars.themeVariables.background.primary,
         borderRadius: vars.borderRadius.small,
 
@@ -162,6 +187,7 @@ const col = recipe(
     ],
     variants: colVariants,
     defaultVariants: {
+      isEditable: true,
       isInversion: false,
       isTitle: false,
       isTotal: false,
@@ -170,6 +196,7 @@ const col = recipe(
     compoundVariants: [
       {
         variants: {
+          isEditable: true,
           isTitle: false,
           isTotal: false,
         },
@@ -189,38 +216,40 @@ const col = recipe(
 )
 
 const input = style(
-  {
-    position: 'relative',
+  [
+    fullHeight,
+    fullWidth,
+    {
+      position: 'relative',
 
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'inherit',
+      backgroundColor: 'inherit',
 
-    color: 'inherit',
+      color: 'inherit',
 
-    selectors: {
-      '&::-webkit-outer-spin-button': {
-        ...{ '-webkit-appearance': 'none' },
-        margin: 0,
-      },
-      '&::-webkit-inner-spin-button': {
-        ...{ '-webkit-appearance': 'none' },
-        margin: 0,
-      },
-      /* Для Firefox */
-      "&[type='number']": {
-        ...({
-          '-moz-appearance': 'textfield',
-        } as React.CSSProperties),
-      },
-      /* Для Edge и IE */
-      '&::-ms-clear, &::-ms-reveal': {
-        display: 'none',
-        width: 0,
-        height: 0,
+      selectors: {
+        '&::-webkit-outer-spin-button': {
+          ...{ '-webkit-appearance': 'none' },
+          margin: 0,
+        },
+        '&::-webkit-inner-spin-button': {
+          ...{ '-webkit-appearance': 'none' },
+          margin: 0,
+        },
+        /* Для Firefox */
+        "&[type='number']": {
+          ...({
+            '-moz-appearance': 'textfield',
+          } as React.CSSProperties),
+        },
+        /* Для Edge и IE */
+        '&::-ms-clear, &::-ms-reveal': {
+          display: 'none',
+          width: 0,
+          height: 0,
+        },
       },
     },
-  },
+  ],
   'input',
 )
 
@@ -231,14 +260,14 @@ const button = recipe(
       flexCentered,
       {
         position: 'absolute',
-        top: '9px',
+        top: vars.spaces.sm,
 
-        width: '20px',
-        height: '20px',
-        padding: '0px',
+        width: vars.iconSizes.sm,
+        height: vars.iconSizes.sm,
+        padding: 0,
         borderRadius: vars.borderRadius.round,
 
-        opacity: '0.75',
+        opacity: '0.7',
         transition: `opacity ${vars.transition}`,
 
         selectors: {
@@ -254,19 +283,11 @@ const button = recipe(
               },
             }),
           },
-          '&:last-of-type': {
-            ...responsiveStyle({
-              mobile: {
-                right: '-20px',
-                left: 'unset',
-              },
-            }),
-          },
         },
 
         ...responsiveStyle({
           mobile: {
-            opacity: '0.8',
+            opacity: '0.85',
           },
         }),
       },
@@ -292,14 +313,18 @@ const sortIcon = recipe(
   {
     base: {
       position: 'absolute',
-      left: '4px',
-      top: '4px',
+      left: vars.spaces.xs,
+      top: ' 50%',
+      transform: 'translateY(-50%)',
 
+      width: vars.iconSizes.md,
+      height: vars.iconSizes.md,
       opacity: 0.5,
 
       ...responsiveStyle({
         tablet: {
-          top: '2px',
+          width: vars.iconSizes.sm,
+          height: vars.iconSizes.sm,
         },
       }),
     },
@@ -317,10 +342,30 @@ const sortIcon = recipe(
   'sortIcon',
 )
 
+const tooltipWrapper = style(
+  {
+    position: 'absolute',
+    right: vars.spaces.xs,
+    top: ' 50%',
+    transform: 'translateY(-50%)',
+  },
+  'tooltipWrapper',
+)
+
+const tooltipText = style(
+  {
+    minWidth: 'auto',
+    whiteSpace: 'nowrap',
+  },
+  'tooltipText',
+)
+
 export const rowStyles = {
   row,
   col,
   input,
   button,
   sortIcon,
+  tooltipWrapper,
+  tooltipText,
 }

@@ -1,49 +1,18 @@
 import { globalStyle, style } from '@vanilla-extract/css'
 
 import { responsiveStyle } from '@/helpers/responsive'
-import { flexCentered, flexRow } from '@/styles/shared.css'
+import { flexCentered, flexRow, fullWidth } from '@/styles/shared.css'
 import { vars } from '@/theme/theme.css'
-
-const aiBlock = style(
-  [
-    flexRow,
-    {
-      alignItems: 'stretch',
-      columnGap: '8px',
-    },
-  ],
-  'aiBlock',
-)
-const input = style(
-  {
-    width: '70vw',
-    border: vars.border.grey,
-    borderRadius: vars.borderRadius.small,
-    backgroundColor: vars.themeVariables.background.primary,
-
-    textAlign: 'start',
-    color: vars.themeVariables.content.primary,
-
-    transition: `color ${vars.transition}, background-color  ${vars.transition}`,
-  },
-  'input',
-)
-globalStyle(`${input}::placeholder`, {
-  color: vars.themeVariables.content.primary,
-  fontStyle: 'italic',
-  opacity: 0.5,
-  transition: `color ${vars.transition}`,
-})
 
 const tableWrapper = style(
   [
     flexRow,
+    fullWidth,
 
     responsiveStyle({
       mobile: {
         flexDirection: 'column',
 
-        width: '100%',
         maxWidth: '500px',
       },
     }),
@@ -63,13 +32,13 @@ const buttons = style(
     flexRow,
     flexCentered,
     {
-      gap: '30px',
+      gap: vars.spaces.lg,
     },
 
     responsiveStyle({
       mobile: {
         flexDirection: 'column',
-        gap: '10px',
+        gap: vars.spaces.sm,
       },
     }),
   ],
@@ -82,8 +51,6 @@ globalStyle(`${buttons} button`, {
 })
 
 export const tablesStyles = {
-  aiBlock,
-  input,
   tableWrapper,
   button,
   buttons,

@@ -16,7 +16,7 @@ const tickVariants = {
 const boxVariants = {
   hover: { scale: 1.05, strokeWidth: 2.5 },
   pressed: { scale: 0.95, strokeWidth: 2.7 },
-  checked: { stroke: vars.content.darkGrey, strokeWidth: 2.5 },
+  checked: { stroke: vars.themeVariables.content.primary, strokeWidth: 2.5 },
   unchecked: { stroke: 'rgb(164 164 164)', strokeWidth: 2 },
 }
 
@@ -57,7 +57,7 @@ export const CheckboxIcon = ({ isChecked, onClick }: CheckboxIconProps) => {
         d="M 0 9.5 L 9.5 19 L 23 0"
         transform="translate(1.5 2.5) rotate(-4 12 12)"
         fill="transparent"
-        strokeWidth="3"
+        strokeWidth="4"
         stroke={vars.content.red}
         strokeLinecap="round"
         strokeLinejoin="round"

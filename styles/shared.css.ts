@@ -54,8 +54,8 @@ export const errorText = style(
     {
       position: 'absolute',
       bottom: '-16px',
-      left: '0px',
-      right: '0px',
+      left: 0,
+      right: 0,
 
       fontWeight: 700,
       color: vars.content.error,
@@ -64,4 +64,25 @@ export const errorText = style(
     },
   ],
   'errorText',
+)
+
+export const fullHeight = style(
+  {
+    height: '100%',
+  },
+  'fullHeight',
+)
+
+export const fullWidth = style(
+  {
+    width: '100%',
+  },
+  'fullWidth',
+)
+
+export const overflowXHidden = style(
+  {
+    overflowX: 'hidden',
+  },
+  'overflowXHidden',
 )

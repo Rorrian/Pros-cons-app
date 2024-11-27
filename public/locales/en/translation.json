@@ -9,17 +9,25 @@
       " and ",
       "<b>Cons</b> "
     ],
-    "aiBlock": {
+    "sharedListWarning": "You are viewing a list sent by another user. Save it to edit it.",
+    "aiRequestForm": {
       "checkboxLabel": "Reset all current data",
       "inputPlaceholder": "Write your idea and generate pros and cons",
       "tooltipText": "Write your idea and generate pros and cons using AI. For example: the idea of getting a parrot"
+    },
+    "footer": {
+      "shareButton": "Share list",
+      "shareButtonSuccess": "Copied!",
+      "saveButton": "Save list to you",
+      "checkboxLabel": "Reset all current data",
+      "tooltipText": "When saving without a check mark, the items of the current list will be added as additional to the current list"
     },
     "deleteAll": "Delete all data",
     "resetAndLoadSample": "Reset & Load Sample",
     "columns": {
       "pros": "Pros",
       "cons": "Cons",
-      "weight": "Weight(1-10)",
+      "weight": "Weight",
       "total": "Total"
     }
   },

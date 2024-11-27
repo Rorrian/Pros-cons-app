@@ -6,26 +6,39 @@ import { Item, ItemType } from '@/types/item'
 
 import { createStore } from './createStore'
 
+export enum SortField {
+  Name = 'name',
+  Weight = 'weight',
+}
+
 export interface PropsConsStore {
   items: Item[]
+  setExampleItems: () => void
   setItems: (newItems: Item[], type: ItemType) => void
   setAiItems: (newItems: Item[], isReset: boolean) => void
-  setInitialItems: () => void
   createItem: (name: string, weight: number, type: ItemType) => void
   updateItem: (id: string, name: string, weight: number) => void
   removeItem: (id: string) => void
   removeAllItems: () => void
-  sortField: 'name' | 'weight' | null
+
+  sortField: SortField | null
   sortOrder: 'asc' | 'desc' | null
-  toggleSort: (type: 'name' | 'weight') => void
+  toggleSort: (type: SortField) => void
+
+  sharedItems: Item[]
+  setSharedItems: (newItems: Item[]) => void
+  saveSharedItems: () => void
+  sharedItemsError: string | null
+  setSharedItemsError: (error: string | null) => void
 }
 
 export const useProsConsStore = createStore<PropsConsStore>(
   persist(
     (set, get) => ({
       items: [],
-      sortField: null,
-      sortOrder: null,
+      setExampleItems: () => {
+        set({ items: mockProsConsData })
+      },
       setItems: (newItems: Item[], type: ItemType) => {
         const { items } = get()
 
@@ -53,9 +66,6 @@ export const useProsConsStore = createStore<PropsConsStore>(
             items: [...items, ...newItems],
           })
         }
-      },
-      setInitialItems: () => {
-        set({ items: mockProsConsData })
       },
       createItem: (name: string, weight: number, type: ItemType) => {
         const { items } = get()
@@ -94,14 +104,17 @@ export const useProsConsStore = createStore<PropsConsStore>(
           // "removeAllItems"
         )
       },
-      toggleSort: (field: 'name' | 'weight') => {
+
+      sortField: null,
+      sortOrder: null,
+      toggleSort: (field: SortField) => {
         const { items, sortField, sortOrder } = get()
 
         const newOrder =
           sortField === field && sortOrder === 'asc' ? 'desc' : 'asc'
 
         const sortedItems = [...items].sort((a, b) => {
-          if (field === 'name') {
+          if (field === SortField.Name) {
             return newOrder === 'asc'
               ? a.name.localeCompare(b.name)
               : b.name.localeCompare(a.name)
@@ -116,6 +129,24 @@ export const useProsConsStore = createStore<PropsConsStore>(
           items: sortedItems,
           sortField: field,
           sortOrder: newOrder,
+        })
+      },
+
+      sharedItems: [],
+      setSharedItems: (newItems: Item[]) => {
+        set({
+          sharedItems: newItems,
+        })
+      },
+      saveSharedItems: () => {
+        const { sharedItems } = get()
+
+        set({ items: sharedItems })
+      },
+      sharedItemsError: '',
+      setSharedItemsError: (error: string | null) => {
+        set({
+          sharedItemsError: error,
         })
       },
     }),

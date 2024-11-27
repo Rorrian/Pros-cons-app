@@ -14,7 +14,7 @@ export const textfield = style(
 export const textarea = style(
   {
     resize: 'none',
-    paddingRight: '20px',
+    paddingRight: vars.spaces.lg,
 
     textAlign: 'center',
 
@@ -35,12 +35,12 @@ export const clearButton = style(
     flexCentered,
     {
       position: 'absolute',
-      top: '5px',
-      right: '5px',
+      top: vars.spaces.xs,
+      right: vars.spaces.xs,
       zIndex: 1,
 
-      width: '15px',
-      height: '15px',
+      width: '16px',
+      height: '16px',
       cursor: 'pointer',
       backgroundColor: vars.background.secondary,
       borderRadius: vars.borderRadius.round,
