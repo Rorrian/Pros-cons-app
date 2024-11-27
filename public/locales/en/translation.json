@@ -13,7 +13,7 @@
     "aiRequestForm": {
       "checkboxLabel": "Reset all current data",
       "inputPlaceholder": "Write your idea and generate pros and cons",
-      "tooltipText": "Write your idea and generate pros and cons using AI. For example: the idea of getting a parrot"
+      "tooltipText": "Write your idea in English and generate pros and cons using AI. For example: the idea of ​​getting a parrot. Note! This functionality only works with local deployment, as you must specify a personal API key from the Hugging Face service!"
     },
     "footer": {
       "shareButton": "Share list",
