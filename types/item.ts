@@ -9,3 +9,9 @@ export interface Item {
   weight: number
   type: ItemType
 }
+
+export interface List {
+  id: string
+  name: string
+  items: Item[]
+}

@@ -6,10 +6,6 @@ import { vars } from '@/theme/theme.css'
 
 const themeBtn = style(
   {
-    position: 'absolute',
-    top: vars.spaces.md,
-    right: vars.spaces.md,
-
     ...responsiveStyle({
       tablet: {
         padding: vars.spaces.xs,

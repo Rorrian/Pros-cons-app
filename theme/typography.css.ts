@@ -25,10 +25,19 @@ export const typographyObject = {
     h2: {
       fontFamily: 'AlayaRoza',
       fontWeight: '400',
-      lineHeight: '28px',
-      fontSize: '26px',
-      letterSpacing: '-0.02em',
+      lineHeight: 1,
+      fontSize: '60px',
+      letterSpacing: '-0.01em',
       textDecoration: 'none',
+
+      ...responsiveStyle({
+        tablet: {
+          fontSize: '48px',
+        },
+        mobile: {
+          fontSize: '36px',
+        },
+      }),
     },
     h3: {
       fontFamily: 'AlayaRoza',

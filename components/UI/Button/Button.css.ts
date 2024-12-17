@@ -92,7 +92,7 @@ const button = recipe(
       {
         backgroundColor: background,
         cursor: 'pointer',
-        transition: `background-color  ${vars.transition}`,
+        transition: `background-color ${vars.transition}`,
       },
     ],
     variants: buttonVariants,
@@ -119,7 +119,6 @@ const title = recipe<ButtonTitleVariantsType>(
       padding: `0px ${vars.spaces.sm}`,
       color: titleColor,
     },
-
     variants: {
       size: {
         big: [typographyCss.button.big],

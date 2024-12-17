@@ -15,6 +15,10 @@
       "inputPlaceholder": "Write your idea and generate pros and cons",
       "tooltipText": "Write your idea in English and generate pros and cons using AI. For example: the idea of ​​getting a parrot. Note! This functionality only works with local deployment, as you must specify a personal API key from the Hugging Face service!"
     },
+    "sidebar": {
+      "defaultListName": "Unnamed list",
+      "listNamePlaceholder": "Enter the list name"
+    },
     "footer": {
       "shareButton": "Share list",
       "shareButtonSuccess": "Copied!",

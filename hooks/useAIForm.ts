@@ -29,7 +29,9 @@ type CustomAxiosError = AxiosError & {
 export function useAIForm() {
   const { t } = useTranslation()
   const [isPending, startTransition] = useTransition()
-  const setAiItems = useProsConsStore(state => state.setAiItems)
+  const setAiItemsToCurrentList = useProsConsStore(
+    state => state.setAiItemsToCurrentList,
+  )
   const resetCheckboxValueRef = useRef<boolean | null>(null)
   const formMethods = useForm<AIRequestFormData>()
   const {
@@ -67,7 +69,7 @@ export function useAIForm() {
     },
     onSuccess: data => {
       startTransition(() => {
-        setAiItems(data, resetCheckboxValueRef.current || false)
+        setAiItemsToCurrentList(data, resetCheckboxValueRef.current || false)
       })
     },
     onError: (currentError: any) => {

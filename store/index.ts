@@ -4,6 +4,10 @@ import {
   PropsConsStore,
   useProsConsStore as useProsConsStoreZus,
 } from './useProsConsStore'
+import {
+  SidebarStore,
+  useSidebarStore as useSidebarStoreZus,
+} from './useSidebarStore'
 import { ThemeStore, useThemeStore as useThemeStoreZus } from './useThemeStore'
 
 const useThemeStore = <T>(
@@ -16,4 +20,9 @@ const useProsConsStore = <T>(
   equalityFn: (a: T, b: T) => boolean = shallow,
 ): T => useProsConsStoreZus(selector, equalityFn)
 
-export { useProsConsStore, useThemeStore }
+const useSidebarStore = <T>(
+  selector: (state: SidebarStore) => T,
+  equalityFn: (a: T, b: T) => boolean = shallow,
+): T => useSidebarStoreZus(selector, equalityFn)
+
+export { useProsConsStore, useThemeStore, useSidebarStore }

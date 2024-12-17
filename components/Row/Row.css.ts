@@ -173,7 +173,7 @@ const col = recipe(
 
         textAlign: 'center',
 
-        transition: `border ${vars.transition}, color  ${vars.transition}, background-color  ${vars.transition}`,
+        transition: `border ${vars.transition} color  ${vars.transition} background-color ${vars.transition}`,
 
         ...responsiveStyle({
           tablet: {

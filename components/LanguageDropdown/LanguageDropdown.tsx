@@ -10,20 +10,27 @@ import LanguageIcon from '@/public/icons/language.svg'
 import { languageDropdownStyles } from './LanguageDropdown.css'
 import { Dropdown } from '../UI'
 
-export const LanguageDropdown = () => {
+interface LanguageDropdownProps {
+  className?: string
+}
+
+// TODO: Сделать автоперевод данных в стейте
+
+export const LanguageDropdown = ({ className }: LanguageDropdownProps) => {
   const { i18n } = useTranslation()
 
   return (
-    <Dropdown
-      buttonClassName={languageDropdownStyles.dropdownBtn}
-      icon={<LanguageIcon />}
-      iconClassName={languageDropdownStyles.icon}
-      options={locales}
-      selectedOptionValue={i18next.resolvedLanguage}
-      wrapperClassName={languageDropdownStyles.dropdownWrapper}
-      onSelect={(value: string | SyntheticEvent<HTMLDivElement, Event>) =>
-        i18n.changeLanguage(value as string)
-      }
-    />
+    <div className={className}>
+      <Dropdown
+        buttonClassName={languageDropdownStyles.toggleButton}
+        icon={<LanguageIcon />}
+        iconClassName={languageDropdownStyles.icon}
+        options={locales}
+        selectedOptionValue={i18next.resolvedLanguage}
+        onSelect={(value: string | SyntheticEvent<HTMLDivElement, Event>) => {
+          i18n.changeLanguage(value as string)
+        }}
+      />
+    </div>
   )
 }

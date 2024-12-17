@@ -12,7 +12,11 @@ import { dropdownStyles } from './Dropdown.css'
 import { Button } from '../Button/Button'
 
 const Icon = ({ src, alt }: { src: string; alt?: string }) => (
-  <img src={src} alt={alt} style={{ width: ICON_SIZE, height: ICON_SIZE }} />
+  <img
+    src={src}
+    alt={alt}
+    style={{ width: ICON_SIZE, height: ICON_SIZE, maxWidth: 'unset' }}
+  />
 )
 
 export const Dropdown = ({
@@ -54,7 +58,7 @@ export const Dropdown = ({
   if (!title && !icon) return null
 
   return (
-    <div className={wrapperClassName}>
+    <div className={clsx(dropdownStyles.wrapper, wrapperClassName)}>
       <Button
         aria-label="Open drop-down list to select language"
         className={clsx(dropdownStyles.button, buttonClassName)}

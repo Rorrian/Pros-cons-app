@@ -1,8 +1,20 @@
 import { style } from '@vanilla-extract/css'
 
 import { responsiveStyle } from '@/helpers/responsive'
-import { flexColumn, fullHeight, fullWidth } from '@/styles/shared.css'
+import { flexColumn, flexRow, fullHeight, fullWidth } from '@/styles/shared.css'
 import { vars } from '@/theme/theme.css'
+
+const main = style(
+  [
+    flexRow,
+    {
+      backgroundColor: vars.themeVariables.background.primary,
+      color: vars.themeVariables.content.primary,
+      transition: `background-color ${vars.transition} color ${vars.transition}`,
+    },
+  ],
+  'main',
+)
 
 const wrapper = style(
   [
@@ -23,7 +35,7 @@ const wrapper = style(
           content: '',
           position: 'absolute',
           inset: 0,
-          zIndex: '-1',
+          zIndex: 0,
 
           backgroundImage: vars.themeVariables.pageBackground,
           backgroundSize: 'cover',
@@ -58,6 +70,8 @@ const inner = style(
       flex: '1 0 auto',
       alignItems: 'center',
       rowGap: vars.spaces.xl,
+
+      zIndex: 0,
     },
     responsiveStyle({
       tablet: {
@@ -71,7 +85,18 @@ const inner = style(
   'inner',
 )
 
+const caption = style(
+  {
+    marginTop: 'auto',
+
+    textAlign: 'center',
+  },
+  'caption',
+)
+
 export const homeStyles = {
+  main,
   wrapper,
   inner,
+  caption,
 }

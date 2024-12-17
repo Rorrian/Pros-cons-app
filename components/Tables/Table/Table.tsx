@@ -12,7 +12,7 @@ import { tableStyles } from './Table.css'
 
 export type TablesProps = {
   isSharedItems: boolean
-  items: Item[]
+  items?: Item[]
   type: ItemType
 } & ComponentPropsWithRef<'div'> &
   HTMLMotionProps<'div'> &
@@ -36,7 +36,9 @@ export const Table = ({
   type,
   ...props
 }: TablesProps) => {
-  const setItems = useProsConsStore(state => state.setItems)
+  const setItemsToCurrentList = useProsConsStore(
+    state => state.setItemsToCurrentList,
+  )
 
   const isInversion = type === ItemType.Cons
   const totalScore = (currItems: Item[]) =>
@@ -73,8 +75,8 @@ export const Table = ({
       ) : (
         <Reorder.Group
           axis="y"
-          values={items}
-          onReorder={newItems => setItems(newItems, type!)}
+          values={items || []}
+          onReorder={newItems => setItemsToCurrentList(newItems, type!)}
         >
           <AnimatePresence initial={false}>
             {!!items?.length &&

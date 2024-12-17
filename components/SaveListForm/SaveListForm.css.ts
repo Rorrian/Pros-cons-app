@@ -10,6 +10,7 @@ const form = style(
     flexColumn,
     {
       gap: vars.spaces.md,
+      alignItems: 'center',
 
       position: 'relative',
     },

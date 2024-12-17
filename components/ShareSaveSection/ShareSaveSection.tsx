@@ -16,17 +16,20 @@ import { Button } from '../UI'
 export const ShareSaveSection = () => {
   const { t } = useTranslation()
   const [isCopied, setIsCopied] = useState(false)
-  const [items, sharedItems, sharedItemsError] = useProsConsStore(state => [
-    state.items,
-    state.sharedItems,
-    state.sharedItemsError,
-  ])
+  const [lists, currentListId, sharedItems, sharedItemsError] =
+    useProsConsStore(state => [
+      state.lists,
+      state.currentListId,
+      state.sharedItems,
+      state.sharedItemsError,
+    ])
 
+  const currentListItems = lists.find(list => list.id === currentListId)?.items
   const isSharedItems = !!sharedItems?.length
 
   const handleShareList = () => {
-    if (items?.length) {
-      const shareLink = generateShareableLink(items)
+    if (currentListItems?.length) {
+      const shareLink = generateShareableLink(currentListItems)
       navigator.clipboard.writeText(shareLink).then(() => {
         setIsCopied(true)
 

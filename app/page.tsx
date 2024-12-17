@@ -1,4 +1,4 @@
-import { AIRequestForm, Footer, Header, Tables } from '@/components'
+import { AIRequestForm, ListTitle, Tables } from '@/components'
 
 import { homeStyles } from './Home.css'
 
@@ -6,19 +6,12 @@ import { homeStyles } from './Home.css'
 
 // TODO: Анимировать смену темы как в доке Framer motion
 
-// TODO: !!! Добавить возможность сохранять несколько списков
-
 export default function Home() {
   return (
-    <div className={homeStyles.wrapper}>
-      <Header />
-
-      <div className={homeStyles.inner}>
-        <AIRequestForm />
-        <Tables />
-      </div>
-
-      <Footer />
+    <div className={homeStyles.inner}>
+      <ListTitle />
+      <AIRequestForm />
+      <Tables />
     </div>
   )
 }

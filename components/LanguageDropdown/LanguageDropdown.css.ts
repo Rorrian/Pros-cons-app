@@ -4,16 +4,7 @@ import { responsiveStyle } from '@/helpers/responsive'
 import { flexCentered } from '@/styles/shared.css'
 import { vars } from '@/theme/theme.css'
 
-const dropdownWrapper = style(
-  {
-    position: 'absolute',
-    top: vars.spaces.md,
-    left: vars.spaces.md,
-  },
-  'dropdownWrapper',
-)
-
-const dropdownBtn = style(
+const toggleButton = style(
   {
     ...responsiveStyle({
       tablet: {
@@ -21,7 +12,7 @@ const dropdownBtn = style(
       },
     }),
   },
-  'dropdownBtn',
+  'toggleButton',
 )
 
 const icon = style(
@@ -42,7 +33,6 @@ const icon = style(
 )
 
 export const languageDropdownStyles = {
-  dropdownWrapper,
-  dropdownBtn,
+  toggleButton,
   icon,
 }

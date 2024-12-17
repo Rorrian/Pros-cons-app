@@ -1,5 +1,7 @@
 'use client'
 
+import clsx from 'clsx'
+
 import MoonIcon from '@/public/icons/moon.svg'
 import SunIcon from '@/public/icons/sun.svg'
 import { useThemeStore } from '@/store'
@@ -8,7 +10,11 @@ import { Kind, Size } from '@/types/button/enums'
 import { themeSwitcherStyles } from './ThemeSwitcher.css'
 import { Button } from '../UI'
 
-export const ThemeSwitcher = () => {
+interface ThemeSwitcherProps {
+  className?: string
+}
+
+export const ThemeSwitcher = ({ className }: ThemeSwitcherProps) => {
   const [isDarkMode, toggleTheme] = useThemeStore(state => [
     state.isDarkMode,
     state.toggleTheme,
@@ -17,7 +23,7 @@ export const ThemeSwitcher = () => {
   return (
     <Button
       aria-label="Toggle theme"
-      className={themeSwitcherStyles.themeBtn}
+      className={clsx(themeSwitcherStyles.themeBtn, className)}
       icon={isDarkMode ? <MoonIcon /> : <SunIcon />}
       iconClassName={themeSwitcherStyles.icon}
       kind={Kind.Transparent}

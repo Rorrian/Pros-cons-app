@@ -31,7 +31,7 @@ const input = style(
 
       color: vars.themeVariables.content.primary,
 
-      transition: `color ${vars.transition}, background-color  ${vars.transition}`,
+      transition: `color ${vars.transition} background-color  ${vars.transition}`,
     },
   ],
   'input',

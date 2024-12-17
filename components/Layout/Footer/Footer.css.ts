@@ -1,11 +1,18 @@
 import { style } from '@vanilla-extract/css'
 
-const wrapper = style(
-  {
-    flex: '0 0 auto',
+import { fullWidth } from '@/styles/shared.css'
 
-    marginTop: 'auto',
-  },
+const wrapper = style(
+  [
+    fullWidth,
+    {
+      zIndex: 0,
+
+      flex: '0 0 auto',
+
+      marginTop: 'auto',
+    },
+  ],
   'wrapper',
 )
 

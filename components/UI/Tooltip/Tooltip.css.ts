@@ -1,4 +1,4 @@
-import { ComplexStyleRule, style } from '@vanilla-extract/css'
+import { ComplexStyleRule, globalStyle, style } from '@vanilla-extract/css'
 import { recipe } from '@vanilla-extract/recipes'
 
 import { responsiveStyle } from '@/helpers/responsive'
@@ -30,6 +30,9 @@ const wrapper = style(
   ],
   'wrapper',
 )
+globalStyle(`${wrapper} svg`, {
+  color: vars.content.darkGrey,
+})
 
 const questionMark = style(
   {
@@ -55,7 +58,7 @@ const inner = recipe<TooltipPositionVariantsType>(
 
         color: vars.themeVariables.content.primary,
 
-        transition: `color ${vars.transition}, border ${vars.transition}, background-color ${vars.transition}`,
+        transition: `color ${vars.transition} border ${vars.transition} background-color ${vars.transition}`,
 
         ...responsiveStyle({
           tablet: {

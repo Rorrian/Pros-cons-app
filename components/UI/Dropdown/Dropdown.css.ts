@@ -4,6 +4,13 @@ import { responsiveStyle } from '@/helpers/responsive'
 import { flexColumn, fullWidth } from '@/styles/shared.css'
 import { vars } from '@/theme/theme.css'
 
+const wrapper = style(
+  {
+    position: 'relative',
+  },
+  'wrapper',
+)
+
 const button = style(
   {
     marginBottom: vars.spaces.md,
@@ -21,7 +28,8 @@ const list = style(
   [
     flexColumn,
     {
-      position: 'relative',
+      position: 'absolute',
+      right: 0,
       zIndex: 1,
 
       gap: vars.spaces.sm,
@@ -46,6 +54,7 @@ const option = style(
 )
 
 export const dropdownStyles = {
+  wrapper,
   button,
   list,
   option,

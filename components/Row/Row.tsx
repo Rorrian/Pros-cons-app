@@ -55,16 +55,16 @@ export const Row = forwardRef(
     const [
       sortField,
       sortOrder,
-      createItem,
-      updateItem,
-      removeItem,
+      addItemToCurrentList,
+      updateItemInCurrentList,
+      removeItemFromCurrentList,
       toggleSort,
     ] = useProsConsStore(state => [
       state.sortField,
       state.sortOrder,
-      state.createItem,
-      state.updateItem,
-      state.removeItem,
+      state.addItemToCurrentList,
+      state.updateItemInCurrentList,
+      state.removeItemFromCurrentList,
       state.toggleSort,
     ])
     const [name, setName] = useState(item?.name)
@@ -73,9 +73,6 @@ export const Row = forwardRef(
 
     const isTitle = type === RowType.Title
     const isTotal = type === RowType.Total
-
-    // TODO: Проверить количество рендеров
-    // console.log(`isTotal`)
 
     const confirmWeightValue = (
       id: string,
@@ -86,7 +83,7 @@ export const Row = forwardRef(
         setIsValidWeight(false)
       } else {
         setIsValidWeight(true)
-        updateItem(id, currName, currWeight)
+        updateItemInCurrentList(id, currName, currWeight)
       }
     }
 
@@ -136,7 +133,11 @@ export const Row = forwardRef(
                 icon={<PlusIcon />}
                 kind={Kind.Transparent}
                 onClick={() =>
-                  createItem('', 0, isInversion ? ItemType.Cons : ItemType.Pros)
+                  addItemToCurrentList(
+                    '',
+                    0,
+                    isInversion ? ItemType.Cons : ItemType.Pros,
+                  )
                 }
               />
             )}
@@ -151,7 +152,9 @@ export const Row = forwardRef(
                 disabled={!isEditable}
                 value={name}
                 onChange={e => setName(e.target.value)}
-                onBlur={() => updateItem(item?.id, name || '', weight || 0)}
+                onBlur={() =>
+                  updateItemInCurrentList(item?.id, name || '', weight || 0)
+                }
                 onClearButtonClick={() => setName('')}
               />
             </div>
@@ -182,7 +185,7 @@ export const Row = forwardRef(
                 className={rowStyles.button({ isInversion })}
                 icon={<CrossIcon />}
                 kind={Kind.Transparent}
-                onClick={() => removeItem(item.id)}
+                onClick={() => removeItemFromCurrentList(item.id)}
               />
             )}
           </>
