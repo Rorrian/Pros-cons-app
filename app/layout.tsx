@@ -3,11 +3,11 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { PropsWithChildren, Suspense } from 'react'
 
-import { Footer, Header, ListPanel, Sidebar } from '@/components'
-import { Caption } from '@/components/UI'
-import Providers from '@/providers/Providers'
+import { Header, ListPanel, Sidebar } from '@/shared/components'
+import { Caption } from '@/shared/components/UI'
+import Providers from '@/shared/providers/Providers'
 
-import '../styles/index.scss'
+import '../shared/styles/index.scss'
 
 import { homeStyles } from './Home.css'
 
@@ -31,20 +31,17 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <Suspense fallback={<div>Loading...</div>}>
           <Providers>
             <main className={homeStyles.main}>
-              <Sidebar>
-                <ListPanel />
-                <Caption
-                  className={homeStyles.caption}
-                  text="Handcrafted by Rorrian ✨"
-                />
-              </Sidebar>
+              <Header />
 
-              <div className={homeStyles.wrapper}>
-                <Header />
-
-                {children}
-
-                <Footer />
+              <div className={homeStyles.outerWrapper}>
+                <Sidebar>
+                  <ListPanel />
+                  <Caption
+                    className={homeStyles.caption}
+                    text="Handcrafted by Rorrian ✨"
+                  />
+                </Sidebar>
+                <div className={homeStyles.wrapper}>{children}</div>
               </div>
             </main>
           </Providers>

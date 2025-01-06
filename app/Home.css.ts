@@ -1,12 +1,17 @@
 import { style } from '@vanilla-extract/css'
 
-import { responsiveStyle } from '@/helpers/responsive'
-import { flexColumn, flexRow, fullHeight, fullWidth } from '@/styles/shared.css'
-import { vars } from '@/theme/theme.css'
+import { responsiveStyle } from '@/shared/helpers/responsive'
+import {
+  flexColumn,
+  flexRow,
+  fullHeight,
+  fullWidth,
+} from '@/shared/styles/shared.css'
+import { vars } from '@/shared/theme/theme.css'
 
 const main = style(
   [
-    flexRow,
+    flexColumn,
     {
       backgroundColor: vars.themeVariables.background.primary,
       color: vars.themeVariables.content.primary,
@@ -16,20 +21,14 @@ const main = style(
   'main',
 )
 
-const wrapper = style(
+const outerWrapper = style(
   [
-    flexColumn,
+    flexRow,
     fullHeight,
-    fullWidth,
     {
-      alignItems: 'center',
-      rowGap: vars.spaces.xxl,
-
       position: 'relative',
 
-      minHeight: '100vh',
-      padding: `${vars.spaces.xl} ${vars.spaces.xxl} ${vars.spaces.xl}`,
-
+      minHeight: 'calc(100vh - 60px)',
       selectors: {
         '&&:before': {
           content: '',
@@ -45,6 +44,30 @@ const wrapper = style(
           transition: `background-image ${vars.transition}`,
         },
       },
+    },
+
+    responsiveStyle({
+      tablet: {
+        paddingTop: '49px',
+      },
+    }),
+  ],
+  'outerWrapper',
+)
+
+const wrapper = style(
+  [
+    flexColumn,
+    fullHeight,
+    fullWidth,
+    {
+      alignItems: 'center',
+      rowGap: vars.spaces.xxl,
+
+      position: 'relative',
+
+      minHeight: '100%',
+      padding: `${vars.spaces.xl} ${vars.spaces.xxl} ${vars.spaces.xl}`,
     },
     responsiveStyle({
       tablet: {
@@ -96,6 +119,7 @@ const caption = style(
 
 export const homeStyles = {
   main,
+  outerWrapper,
   wrapper,
   inner,
   caption,

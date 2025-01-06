@@ -1,4 +1,7 @@
-import { AIRequestForm, ListTitle, Tables } from '@/components'
+import { AIRequestForm } from '@/modules/AISection'
+import { ShareSaveSection } from '@/modules/Share'
+import { Tables } from '@/modules/Tables'
+import { HeaderTitle } from '@/shared/components'
 
 import { homeStyles } from './Home.css'
 
@@ -9,9 +12,11 @@ import { homeStyles } from './Home.css'
 export default function Home() {
   return (
     <div className={homeStyles.inner}>
-      <ListTitle />
+      <HeaderTitle />
+
       <AIRequestForm />
       <Tables />
+      <ShareSaveSection />
     </div>
   )
 }
