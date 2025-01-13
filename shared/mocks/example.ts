@@ -39,15 +39,15 @@ export const mockProsConsData2: Item[] = [
   { id: '2', name: 'Why not?', weight: 0, type: ItemType.Cons },
 ]
 
-export const mockProsConsLists: List[] = [
-  {
+export const mockProsConsLists: Record<string, List | undefined> = {
+  '1': {
     id: '1',
-    name: 'Idea: "Get a parrot"',
+    name: 'Example idea: "Get a parrot"',
     items: mockProsConsData,
   },
-  {
+  '2': {
     id: '2',
-    name: 'Idea: "Get a cat"',
+    name: 'Example idea: "Get a cat"',
     items: mockProsConsData2,
   },
-]
+}

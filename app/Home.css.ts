@@ -48,7 +48,7 @@ const outerWrapper = style(
 
     responsiveStyle({
       tablet: {
-        paddingTop: '49px',
+        paddingTop: '37px',
       },
     }),
   ],
@@ -89,12 +89,15 @@ const wrapper = style(
 const inner = style(
   [
     flexColumn,
+    fullWidth,
     {
       flex: '1 0 auto',
       alignItems: 'center',
       rowGap: vars.spaces.xl,
 
       zIndex: 0,
+
+      maxWidth: '1000px',
     },
     responsiveStyle({
       tablet: {

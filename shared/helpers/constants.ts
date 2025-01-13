@@ -7,6 +7,13 @@ export const defaultTransition = {
   duration: ANIMATION_DURATION,
 }
 
+export const opacityAnimation = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 },
+  transition: defaultTransition,
+}
+
 export const SIDEBAR_WIDTH = 50
 
 export const locales = [

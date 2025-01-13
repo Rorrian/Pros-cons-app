@@ -5,7 +5,7 @@ import { HeaderTitle } from '@/shared/components'
 
 import { homeStyles } from './Home.css'
 
-// TODO: ошибка Hydration failed
+// TODO: ошибка Hydration failed при загрузке с русским языком
 
 // TODO: Анимировать смену темы как в доке Framer motion
 

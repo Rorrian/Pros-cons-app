@@ -34,7 +34,7 @@ const wrapper = recipe(
         tablet: {
           position: 'fixed',
 
-          height: 'calc(100vh - 49px)',
+          height: 'calc(100vh - 37px)',
           backgroundColor: 'unset',
           maxWidth: 'unset',
         },

@@ -1,29 +1,27 @@
 'use client'
 
 import { AnimatePresence, m, MotionProps } from 'framer-motion'
-import { BaseHTMLAttributes, useEffect, useRef, useState } from 'react'
+import { BaseHTMLAttributes, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import CancelIcon from '@/public/icons/cancel.svg'
-import DeleteIcon from '@/public/icons/delete.svg'
-import EditIcon from '@/public/icons/edit.svg'
 import PlusIcon from '@/public/icons/plus.svg'
-import SuccessIcon from '@/public/icons/success.svg'
 import { defaultTransition } from '@/shared/helpers/constants'
 import useIsMobile from '@/shared/hooks/useIsMobile'
 import { useProsConsStore, useSidebarStore } from '@/shared/store'
 import { Kind, Size } from '@/shared/types/button/enums'
 
-import { listStyles } from './ListPanel.css'
 import { Button } from '../UI'
+import { ListItem } from './ListItem'
+import { listStyles } from './ListPanel.css'
+
+const wrapperAnimation = {
+  initial: { height: 0, opacity: 0 },
+  animate: { height: 'auto', opacity: 1 },
+  exit: { height: 0, opacity: 0 },
+  transition: defaultTransition,
+}
 
 type ListPanelProps = BaseHTMLAttributes<HTMLElement> & MotionProps
-
-const itemAnimation = {
-  initial: { y: 20, height: 0, opacity: 0 },
-  animate: { y: 0, height: 'auto', opacity: 1 },
-  exit: { y: -20, opacity: 0, height: 0, transition: defaultTransition },
-}
 
 export const ListPanel = (props: ListPanelProps) => {
   const { t } = useTranslation()
@@ -42,163 +40,76 @@ export const ListPanel = (props: ListPanelProps) => {
     state.toggleSidebar,
   ])
 
-  const [newListName, setNewListName] = useState('')
+  const [newListName, setNewListName] = useState<string>('')
   const [editingListId, setEditingListId] = useState<string | null>(null)
   const inputRef = useRef<HTMLInputElement | null>(null)
 
-  const handleCreateList = () => {
-    createList()
-    if (!isCollapsed && isMobile) toggleSidebar()
-  }
+  const listsData = Object.values(lists)
 
-  const handleStartEditing = (listId: string, currentName: string) => {
+  const startEditing = (listId: string, currentName: string) => {
     setEditingListId(listId)
     setNewListName(currentName)
+    setTimeout(() => inputRef.current?.focus(), 0)
   }
-  const handleRenameList = () => {
+
+  const submitEditing = () => {
     if (editingListId) {
       const trimmedName =
         newListName.trim() || t('main.sidebar.defaultListName')
       updateList(editingListId, trimmedName)
-      setEditingListId(null)
+      cancelEditing()
     }
   }
-  const handleCancelEditing = () => {
+
+  const cancelEditing = () => {
     setEditingListId(null)
     setNewListName('')
   }
 
-  useEffect(() => {
-    const handleClickOutsideInput = (event: MouseEvent) => {
-      if (
-        editingListId &&
-        inputRef.current &&
-        !inputRef.current.contains(event.target as Node)
-      ) {
-        handleCancelEditing()
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutsideInput)
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutsideInput)
-    }
-  }, [editingListId])
-
-  // TODO: Рефакторинг - упростить или выделить
   return (
-    <m.div
-      className={listStyles.wrapper}
-      initial={{ height: 0, opacity: 0 }}
-      animate={{ height: 'auto', opacity: 1 }}
-      exit={{ height: 0, opacity: 0 }}
-      transition={defaultTransition}
-      {...props}
-    >
+    <m.div className={listStyles.wrapper} {...wrapperAnimation} {...props}>
       <Button
         aria-label="Create new list"
         icon={<PlusIcon />}
         kind={Kind.Secondary}
         title={!isCollapsed ? 'Create new list' : ''}
         size={Size.Big}
-        onClick={() => handleCreateList()}
+        onClick={() => {
+          createList()
+          if (!isCollapsed && isMobile) toggleSidebar()
+        }}
       />
 
       <m.ul
         className={listStyles.list}
-        animate={{ marginTop: isCollapsed ? 38 : 0 }}
+        animate={{ marginTop: isCollapsed ? '38px' : '0px' }}
         transition={defaultTransition}
         {...props}
       >
         <AnimatePresence initial={false}>
-          {lists?.map(item => {
-            const isSelected = currentListId === item.id
-            const isEditing = editingListId === item.id
-
-            return (
-              <m.li
-                key={item.id}
-                className={listStyles.item({ isSelected, isEditing })}
-                {...itemAnimation}
-                {...(props as BaseHTMLAttributes<HTMLElement> & MotionProps)}
-              >
-                {isEditing ? (
-                  <>
-                    <input
-                      ref={inputRef}
-                      placeholder={t('main.sidebar.listNamePlaceholder')}
-                      className={listStyles.listItem}
-                      value={newListName}
-                      onChange={e => setNewListName(e.target.value)}
-                      onKeyDown={e => {
-                        if (e.key === 'Enter') handleRenameList()
-                        if (e.key === 'Escape') handleCancelEditing()
-                      }}
-                      autoFocus
-                    />
-                    {isSelected && (
-                      <div className={listStyles.actionButtons({ isSelected })}>
-                        <Button
-                          className={listStyles.actionButton}
-                          aria-label="Save new list's title"
-                          icon={<SuccessIcon />}
-                          kind={Kind.Transparent}
-                          size={Size.Small}
-                          onClick={handleRenameList}
-                        />
-                        <Button
-                          className={listStyles.actionButton}
-                          aria-label="Cancel editing"
-                          icon={<CancelIcon />}
-                          kind={Kind.Transparent}
-                          size={Size.Small}
-                          onClick={handleCancelEditing}
-                        />
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <>
-                    <button
-                      className={listStyles.listItem}
-                      onClick={() => {
-                        if (!isSelected) {
-                          selectList(item.id)
-                          if (!isCollapsed && isMobile) toggleSidebar()
-                        }
-                      }}
-                    >
-                      {item.name}
-                    </button>
-
-                    {isSelected && (
-                      <div className={listStyles.actionButtons({ isSelected })}>
-                        <Button
-                          className={listStyles.actionButton}
-                          aria-label="Edit list's title"
-                          icon={<EditIcon />}
-                          kind={Kind.Transparent}
-                          size={Size.Small}
-                          onClick={() => handleStartEditing(item.id, item.name)}
-                        />
-                        {lists?.length > 1 && (
-                          <Button
-                            className={listStyles.actionButton}
-                            aria-label="Delete list"
-                            icon={<DeleteIcon />}
-                            kind={Kind.Transparent}
-                            size={Size.Small}
-                            onClick={() => deleteList(item.id)}
-                          />
-                        )}
-                      </div>
-                    )}
-                  </>
-                )}
-              </m.li>
-            )
-          })}
+          {listsData.map(
+            item =>
+              item && (
+                <ListItem
+                  key={item.id}
+                  item={item}
+                  listState={{
+                    isSelected: currentListId === item.id,
+                    isEditing: editingListId === item.id,
+                    newListName,
+                  }}
+                  inputRef={inputRef}
+                  actions={{
+                    setNewListName: setNewListName,
+                    startEditing: startEditing,
+                    submitEditing: submitEditing,
+                    cancelEditing: cancelEditing,
+                    deleteList: deleteList,
+                    selectList: selectList,
+                  }}
+                />
+              ),
+          )}
         </AnimatePresence>
       </m.ul>
     </m.div>

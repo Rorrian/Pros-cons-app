@@ -3,6 +3,7 @@
 import clsx from 'clsx'
 import { m, MotionProps } from 'framer-motion'
 import { PanelLeftOpen, PanelLeftClose } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
 import {
   BaseHTMLAttributes,
   ButtonHTMLAttributes,
@@ -12,7 +13,6 @@ import {
 
 import { defaultTransition, SIDEBAR_WIDTH } from '@/shared/helpers/constants'
 import useIsMobile from '@/shared/hooks/useIsMobile'
-import { useOutsideClickAndEscape } from '@/shared/hooks/useOutsideClickAndEscape'
 import { useSidebarStore } from '@/shared/store'
 
 import { sidebarStyles } from './Sidebar.css'
@@ -27,6 +27,7 @@ const BUTTON_STYLES = {
 }
 
 export const Sidebar = ({ children, ...props }: SidebarProps) => {
+  const hasSharedList = useSearchParams().get('sharedList')
   const [isCollapsed, toggleSidebar] = useSidebarStore(state => [
     state.isCollapsed,
     state.toggleSidebar,
@@ -48,10 +49,7 @@ export const Sidebar = ({ children, ...props }: SidebarProps) => {
     }
   }
 
-  useOutsideClickAndEscape(isCollapsed, toggleSidebar, [
-    sidebarRef,
-    sidebarInnerRef,
-  ])
+  if (hasSharedList) return null
 
   return (
     <m.aside

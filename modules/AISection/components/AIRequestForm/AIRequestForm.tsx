@@ -18,8 +18,7 @@ import {
   Tooltip,
 } from '@/shared/components/UI'
 import { getErrorMessage } from '@/shared/helpers'
-import { defaultTransition } from '@/shared/helpers/constants'
-import { useProsConsStore } from '@/shared/store'
+import { opacityAnimation } from '@/shared/helpers/constants'
 import { errorText, fullWidth } from '@/shared/styles/shared.css'
 import { Kind, Size } from '@/shared/types/button/enums'
 
@@ -30,9 +29,7 @@ type AIRequestFormProps = BaseHTMLAttributes<HTMLElement> & MotionProps
 
 export const AIRequestForm = (props: AIRequestFormProps) => {
   const { t } = useTranslation()
-  const searchParams = useSearchParams()
-  const hasSharedList = searchParams.get('sharedList')
-  const sharedItemsError = useProsConsStore(state => state.sharedItemsError)
+  const hasSharedList = useSearchParams().get('sharedList')
   const {
     formMethods,
     handleFormSubmit,
@@ -45,17 +42,10 @@ export const AIRequestForm = (props: AIRequestFormProps) => {
 
   const textFieldErrorMessage = getErrorMessage(errors?.idea)
 
-  if (hasSharedList || sharedItemsError) return null
+  if (hasSharedList) return null
 
   return (
-    <m.div
-      className={fullWidth}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={defaultTransition}
-      {...props}
-    >
+    <m.div className={fullWidth} {...opacityAnimation} {...props}>
       <FormProvider {...formMethods}>
         <Form
           className={aiRequestFormStyles.form}

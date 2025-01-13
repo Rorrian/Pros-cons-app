@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import { AnimatePresence, m, MotionProps } from 'framer-motion'
 import { useState } from 'react'
 
-import { ICON_SIZE } from '@/shared/helpers/constants'
+import { ICON_SIZE, opacityAnimation } from '@/shared/helpers/constants'
 import { Kind, Size } from '@/shared/types/button/enums'
 import { DropdownProps } from '@/shared/types/dropdown'
 
@@ -43,18 +43,6 @@ export const Dropdown = ({
     setIsOpen(false)
   }
 
-  const listAnimation = {
-    initial: {
-      opacity: 0,
-    },
-    animate: {
-      opacity: 1,
-    },
-    exit: {
-      opacity: 0,
-    },
-  }
-
   if (!title && !icon) return null
 
   return (
@@ -75,7 +63,7 @@ export const Dropdown = ({
         {isOpen && (
           <m.ul
             className={clsx(dropdownStyles.list, listClassName)}
-            {...(listAnimation as React.HTMLAttributes<HTMLUListElement> &
+            {...(opacityAnimation as React.HTMLAttributes<HTMLUListElement> &
               MotionProps)}
           >
             {options.map(option => {

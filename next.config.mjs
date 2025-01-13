@@ -4,6 +4,7 @@ const withVanillaExtract = createVanillaExtractPlugin()
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // reactStrictMode: false,
 	webpack(config, options) {
 		config.module.rules.push({
 			test: /\.svg$/,

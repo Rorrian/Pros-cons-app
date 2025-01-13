@@ -3,7 +3,7 @@
 import React, { JSX } from 'react'
 
 import { Position, Tooltip } from '@/shared/components/UI/Tooltip/Tooltip'
-import { SortField } from '@/shared/store/useProsConsStore'
+import { SortField } from '@/shared/store/useProsConsStore/types'
 
 import { rowStyles } from '../Row/Row.css'
 

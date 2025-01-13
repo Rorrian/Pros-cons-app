@@ -1,9 +1,7 @@
 import { shallow } from 'zustand/shallow'
 
-import {
-  PropsConsStore,
-  useProsConsStore as useProsConsStoreZus,
-} from './useProsConsStore'
+import { ProsConsStore } from './useProsConsStore/types'
+import { useProsConsStore as useProsConsStoreZus } from './useProsConsStore/useProsConsStore'
 import {
   SidebarStore,
   useSidebarStore as useSidebarStoreZus,
@@ -16,7 +14,7 @@ const useThemeStore = <T>(
 ): T => useThemeStoreZus(selector, equalityFn)
 
 const useProsConsStore = <T>(
-  selector: (state: PropsConsStore) => T,
+  selector: (state: ProsConsStore) => T,
   equalityFn: (a: T, b: T) => boolean = shallow,
 ): T => useProsConsStoreZus(selector, equalityFn)
 
