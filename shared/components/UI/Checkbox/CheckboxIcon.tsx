@@ -2,7 +2,7 @@ import { m, useMotionValue, useTransform } from 'framer-motion'
 
 import { vars } from '@/shared/theme/theme.css'
 
-export type CheckboxIconProps = {
+type CheckboxIconProps = {
   isChecked: boolean
   onClick: () => void
 }

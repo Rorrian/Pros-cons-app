@@ -9,7 +9,8 @@ import {
 } from '@/shared/styles/shared.css'
 import { vars } from '@/shared/theme/theme.css'
 import typographyCss from '@/shared/theme/typography.css'
-import { Justify, Kind, Size } from '@/shared/types/button/enums'
+
+import { Justify, Kind, Size } from './enums'
 
 const background = createVar('background')
 const titleColor = createVar('titleColor')

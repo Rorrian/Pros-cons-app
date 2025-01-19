@@ -1,15 +1,17 @@
 import clsx from 'clsx'
 import React, { ComponentPropsWithoutRef } from 'react'
 
+import ClearIcon from '@/public/icons/close.svg'
 import { errorText } from '@/shared/styles/shared.css'
 
 import { inputBoxesStyles } from './InputBoxes.css'
 
-export type TextFieldProps = {
+interface TextFieldProps extends ComponentPropsWithoutRef<'input'> {
   errorClassName?: string
   errorMessage?: string | null
   isValid?: boolean
-} & ComponentPropsWithoutRef<'input'>
+  onClearButtonClick?: () => void
+}
 
 export const TextField = ({
   className,
@@ -19,6 +21,7 @@ export const TextField = ({
   type,
   value,
   onChange,
+  onClearButtonClick,
   ...props
 }: TextFieldProps) => {
   return (
@@ -31,9 +34,18 @@ export const TextField = ({
         {...props}
         onChange={onChange}
       />
-
+      {!!value && (
+        <button
+          aria-label="Clear field"
+          type="button"
+          className={inputBoxesStyles.clearButton}
+          onClick={onClearButtonClick}
+        >
+          <ClearIcon />
+        </button>
+      )}
       {!isValid && errorMessage && (
-        <b className={clsx(errorText, errorClassName)}>{errorMessage}</b>
+        <span className={clsx(errorText, errorClassName)}>{errorMessage}</span>
       )}
     </>
   )

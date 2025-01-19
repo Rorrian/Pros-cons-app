@@ -1,13 +1,30 @@
 'use client'
 
 import clsx from 'clsx'
-import { m, MotionProps } from 'framer-motion'
-import { ButtonHTMLAttributes, forwardRef } from 'react'
-
-import { ButtonProps } from '@/shared/types/button'
-import { Justify, Kind, Size } from '@/shared/types/button/enums'
+import { HTMLMotionProps, m, MotionProps } from 'framer-motion'
+import {
+  JSX,
+  ButtonHTMLAttributes,
+  forwardRef,
+  ComponentPropsWithoutRef,
+} from 'react'
 
 import { buttonStyles } from './Button.css'
+import { Justify, Kind, Size } from './enums'
+
+type ButtonProps = {
+  className?: string
+  icon?: JSX.Element
+  iconClassName?: string
+  justify?: Justify
+  kind?: Kind
+  showHoverAnimation?: boolean
+  size?: Size
+  title?: string
+  titleClassName?: string
+} & ComponentPropsWithoutRef<'button'> &
+  HTMLMotionProps<'button'> &
+  React.RefAttributes<HTMLButtonElement>
 
 export const Button = forwardRef(
   (
@@ -61,5 +78,3 @@ export const Button = forwardRef(
 )
 
 Button.displayName = 'Button'
-
-export const MButton = m.create(Button)

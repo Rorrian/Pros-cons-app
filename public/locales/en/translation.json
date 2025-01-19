@@ -17,7 +17,8 @@
     },
     "sidebar": {
       "defaultListName": "Unnamed list",
-      "listNamePlaceholder": "Enter the list name"
+      "listNamePlaceholder": "Enter the list name",
+      "createButton": "Create new list"
     },
     "footer": {
       "shareButton": "Share list",

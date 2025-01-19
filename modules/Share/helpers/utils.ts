@@ -1,6 +1,6 @@
-import { Item } from '@/shared/types/item'
+import { ProsConsItem } from '@/shared/types/item'
 
-export const generateShareableLink = (items: Item[]): string => {
+export const generateShareableLink = (items: ProsConsItem[]): string => {
   const serializedData = JSON.stringify(items)
   const encodedData = encodeURIComponent(serializedData)
   const url = `${window.location.origin}?sharedList=${encodedData}`

@@ -22,13 +22,14 @@ export const Header = () => {
           alt="logo"
           width={logoSize}
           height={logoSize}
+          priority
         />
         <p className={headerStyles.title}>DecisionWise</p>
       </div>
 
       <div className={headerStyles.buttons}>
-        <LanguageDropdown className={headerStyles.dropdown} />
-        <ThemeSwitcher className={headerStyles.themeSwitcher} />
+        <LanguageDropdown />
+        <ThemeSwitcher />
       </div>
     </header>
   )

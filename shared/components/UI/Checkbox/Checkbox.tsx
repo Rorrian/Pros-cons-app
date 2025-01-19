@@ -4,17 +4,19 @@ import clsx from 'clsx'
 import React, { ComponentPropsWithoutRef, useEffect, useState } from 'react'
 
 import { errorText } from '@/shared/styles/shared.css'
+import { WithClassName } from '@/shared/types/common'
 
 import { checkboxStyles } from './Checkbox.css'
 import { CheckboxIcon } from './CheckboxIcon'
 
-export type CheckboxProps = {
-  className?: string
+interface CheckboxProps
+  extends WithClassName,
+    ComponentPropsWithoutRef<'input'> {
   defaultChecked?: boolean
   errorMessage?: string | null
   isValid?: boolean
   label: string
-} & ComponentPropsWithoutRef<'input'>
+}
 
 export const Checkbox = ({
   className,

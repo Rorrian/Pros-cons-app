@@ -1,23 +1,17 @@
-'use client'
-
 import clsx from 'clsx'
-import { AnimatePresence, m, MotionProps } from 'framer-motion'
-import { useState } from 'react'
+import { AnimatePresence, m } from 'framer-motion'
 
-import { ICON_SIZE, opacityAnimation } from '@/shared/helpers/constants'
-import { Kind, Size } from '@/shared/types/button/enums'
-import { DropdownProps } from '@/shared/types/dropdown'
+import { opacityAnimation } from '@/shared/helpers/constants'
+import { MotionElementProps } from '@/shared/types/common'
 
 import { dropdownStyles } from './Dropdown.css'
+import { DropdownIcon } from './DropdownIcon'
+import { DropdownProps } from './types'
+import { useDropdown } from './useDropdown'
+import { Kind } from '../Button'
 import { Button } from '../Button/Button'
 
-const Icon = ({ src, alt }: { src: string; alt?: string }) => (
-  <img
-    src={src}
-    alt={alt}
-    style={{ width: ICON_SIZE, height: ICON_SIZE, maxWidth: 'unset' }}
-  />
-)
+const MotionUl = m.ul as React.FC<MotionElementProps>
 
 export const Dropdown = ({
   buttonClassName,
@@ -32,15 +26,11 @@ export const Dropdown = ({
   wrapperClassName,
   onSelect,
 }: DropdownProps) => {
-  const [isOpen, setIsOpen] = useState(false)
-
-  const handleButtonClick = () => {
-    setIsOpen(!isOpen)
-  }
+  const { isOpen, toggle, close } = useDropdown()
 
   const handleOptionClick = (value: string) => {
     onSelect(value)
-    setIsOpen(false)
+    close()
   }
 
   if (!title && !icon) return null
@@ -48,49 +38,44 @@ export const Dropdown = ({
   return (
     <div className={clsx(dropdownStyles.wrapper, wrapperClassName)}>
       <Button
-        aria-label="Open drop-down list to select language"
+        aria-label="Open drop-down list"
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
         className={buttonClassName}
         icon={icon}
         iconClassName={iconClassName}
         kind={Kind.Transparent}
-        size={Size.Small}
         title={title}
         titleClassName={titleClassName}
-        onClick={handleButtonClick}
+        onClick={toggle}
       />
 
       <AnimatePresence initial={false}>
         {isOpen && (
-          <m.ul
+          <MotionUl
             className={clsx(dropdownStyles.list, listClassName)}
-            {...(opacityAnimation as React.HTMLAttributes<HTMLUListElement> &
-              MotionProps)}
+            {...opacityAnimation}
           >
-            {options.map(option => {
-              const isSelected = selectedOptionValue === option.value
-
-              return (
-                <m.li key={option.value}>
-                  <Button
-                    aria-label="Toggle language"
-                    className={clsx(dropdownStyles.option, optionClassName)}
-                    disabled={isSelected!}
-                    icon={
-                      option.icon ? (
-                        <Icon src={option.icon} alt={option?.alt} />
-                      ) : undefined
-                    }
-                    kind={Kind.Secondary}
-                    size={Size.Small}
-                    showHoverAnimation={false}
-                    title={option.label}
-                    type="submit"
-                    onClick={() => handleOptionClick(option.value)}
-                  />
-                </m.li>
-              )
-            })}
-          </m.ul>
+            {options.map(option => (
+              <li
+                key={option.value}
+                className={clsx(dropdownStyles.option, optionClassName)}
+              >
+                <Button
+                  disabled={selectedOptionValue === option.value}
+                  icon={
+                    option.icon ? (
+                      <DropdownIcon src={option.icon} alt={option?.alt} />
+                    ) : undefined
+                  }
+                  kind={Kind.Secondary}
+                  showHoverAnimation={false}
+                  title={option.label}
+                  onClick={() => handleOptionClick(option.value)}
+                />
+              </li>
+            ))}
+          </MotionUl>
         )}
       </AnimatePresence>
     </div>

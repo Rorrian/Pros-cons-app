@@ -5,10 +5,16 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import SaveIcon from '@/public/icons/save.svg'
-import { Button, Checkbox, Form, Tooltip } from '@/shared/components/UI'
+import {
+  Button,
+  Checkbox,
+  Form,
+  Kind,
+  Size,
+  Tooltip,
+} from '@/shared/components/UI'
 import { Position } from '@/shared/components/UI/Tooltip/Tooltip'
 import { useProsConsStore } from '@/shared/store'
-import { Kind, Size } from '@/shared/types/button/enums'
 
 import { saveListFormStyles } from './SaveListForm.css'
 

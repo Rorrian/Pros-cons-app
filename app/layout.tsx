@@ -3,7 +3,12 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { PropsWithChildren, Suspense } from 'react'
 
-import { Header, ListPanel, Sidebar } from '@/shared/components'
+import {
+  Header,
+  ListPanel,
+  ListPanelProvider,
+  Sidebar,
+} from '@/shared/components'
 import { Caption } from '@/shared/components/UI'
 import Providers from '@/shared/providers/Providers'
 
@@ -19,6 +24,8 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.ico',
   },
+  // !
+  // The resource http://localhost:3000/_next/image?url=%2Fscales.webp&w=64&q=75 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
   other: {
     preloadImages: ['/background/bgDay.webp', '/background/bgNight.webp'],
   },
@@ -34,12 +41,17 @@ export default function RootLayout({ children }: PropsWithChildren) {
               <Header />
 
               <div className={homeStyles.outerWrapper}>
-                <Sidebar>
-                  <ListPanel />
-                  <Caption
-                    className={homeStyles.caption}
-                    text="Handcrafted by Rorrian ✨"
-                  />
+                <Sidebar
+                  footer={
+                    <Caption
+                      className={homeStyles.caption}
+                      text="Handcrafted by Rorrian ✨"
+                    />
+                  }
+                >
+                  <ListPanelProvider>
+                    <ListPanel />
+                  </ListPanelProvider>
                 </Sidebar>
                 <div className={homeStyles.wrapper}>{children}</div>
               </div>

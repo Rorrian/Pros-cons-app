@@ -1,18 +1,18 @@
 'use client'
 
-import { AnimatePresence, m, MotionProps } from 'framer-motion'
-import { BaseHTMLAttributes, useRef, useState } from 'react'
+import { AnimatePresence, m } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 
 import PlusIcon from '@/public/icons/plus.svg'
 import { defaultTransition } from '@/shared/helpers/constants'
 import useIsMobile from '@/shared/hooks/useIsMobile'
-import { useProsConsStore, useSidebarStore } from '@/shared/store'
-import { Kind, Size } from '@/shared/types/button/enums'
+import { useSidebarStore } from '@/shared/store'
+import { MotionElementProps } from '@/shared/types/common'
 
-import { Button } from '../UI'
+import { Button, Kind, Size } from '../UI'
 import { ListItem } from './ListItem'
 import { listStyles } from './ListPanel.css'
+import { useListPanelContext } from './ListPanelContext/ListPanelContext'
 
 const wrapperAnimation = {
   initial: { height: 0, opacity: 0 },
@@ -21,50 +21,17 @@ const wrapperAnimation = {
   transition: defaultTransition,
 }
 
-type ListPanelProps = BaseHTMLAttributes<HTMLElement> & MotionProps
+//! Pattern Compound components - for practice
 
-export const ListPanel = (props: ListPanelProps) => {
+export const ListPanel = (props: MotionElementProps) => {
   const { t } = useTranslation()
   const { isMobile } = useIsMobile(999)
-  const [lists, currentListId, createList, updateList, selectList, deleteList] =
-    useProsConsStore(state => [
-      state.lists,
-      state.currentListId,
-      state.createList,
-      state.updateList,
-      state.selectList,
-      state.deleteList,
-    ])
+  const { lists, currentListId, createList, editingListId } =
+    useListPanelContext()
   const [isCollapsed, toggleSidebar] = useSidebarStore(state => [
     state.isCollapsed,
     state.toggleSidebar,
   ])
-
-  const [newListName, setNewListName] = useState<string>('')
-  const [editingListId, setEditingListId] = useState<string | null>(null)
-  const inputRef = useRef<HTMLInputElement | null>(null)
-
-  const listsData = Object.values(lists)
-
-  const startEditing = (listId: string, currentName: string) => {
-    setEditingListId(listId)
-    setNewListName(currentName)
-    setTimeout(() => inputRef.current?.focus(), 0)
-  }
-
-  const submitEditing = () => {
-    if (editingListId) {
-      const trimmedName =
-        newListName.trim() || t('main.sidebar.defaultListName')
-      updateList(editingListId, trimmedName)
-      cancelEditing()
-    }
-  }
-
-  const cancelEditing = () => {
-    setEditingListId(null)
-    setNewListName('')
-  }
 
   return (
     <m.div className={listStyles.wrapper} {...wrapperAnimation} {...props}>
@@ -72,8 +39,8 @@ export const ListPanel = (props: ListPanelProps) => {
         aria-label="Create new list"
         icon={<PlusIcon />}
         kind={Kind.Secondary}
-        title={!isCollapsed ? 'Create new list' : ''}
         size={Size.Big}
+        title={!isCollapsed ? t('main.sidebar.createButton') : ''}
         onClick={() => {
           createList()
           if (!isCollapsed && isMobile) toggleSidebar()
@@ -87,26 +54,14 @@ export const ListPanel = (props: ListPanelProps) => {
         {...props}
       >
         <AnimatePresence initial={false}>
-          {listsData.map(
+          {lists.map(
             item =>
               item && (
                 <ListItem
                   key={item.id}
                   item={item}
-                  listState={{
-                    isSelected: currentListId === item.id,
-                    isEditing: editingListId === item.id,
-                    newListName,
-                  }}
-                  inputRef={inputRef}
-                  actions={{
-                    setNewListName: setNewListName,
-                    startEditing: startEditing,
-                    submitEditing: submitEditing,
-                    cancelEditing: cancelEditing,
-                    deleteList: deleteList,
-                    selectList: selectList,
-                  }}
+                  isSelected={currentListId === item.id}
+                  isEditing={editingListId === item.id}
                 />
               ),
           )}

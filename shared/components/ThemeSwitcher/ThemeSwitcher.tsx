@@ -5,14 +5,10 @@ import clsx from 'clsx'
 // import MoonIcon from '@/public/icons/moon.svg'
 import SunIcon from '@/public/icons/sun.svg'
 import { useThemeStore } from '@/shared/store'
-import { Kind, Size } from '@/shared/types/button/enums'
+import { WithClassName } from '@/shared/types'
 
 import { themeSwitcherStyles } from './ThemeSwitcher.css'
-import { Button } from '../UI'
-
-interface ThemeSwitcherProps {
-  className?: string
-}
+import { Button, Kind } from '../UI'
 
 const MoonIcon = () => (
   <img
@@ -21,22 +17,22 @@ const MoonIcon = () => (
   />
 )
 
-export const ThemeSwitcher = ({ className }: ThemeSwitcherProps) => {
+export const ThemeSwitcher = ({ className }: WithClassName) => {
   const [isDarkMode, toggleTheme] = useThemeStore(state => [
     state.isDarkMode,
     state.toggleTheme,
   ])
 
-  const icon = isDarkMode ? <SunIcon /> : <MoonIcon />
+  const themeIcon = isDarkMode ? <SunIcon /> : <MoonIcon />
+  const ariaLabel = isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'
 
   return (
     <Button
-      aria-label="Toggle theme"
+      aria-label={ariaLabel}
       className={clsx(themeSwitcherStyles.themeBtn, className)}
-      icon={icon}
+      icon={themeIcon}
       iconClassName={themeSwitcherStyles.icon}
       kind={Kind.Transparent}
-      size={Size.Small}
       onClick={toggleTheme}
     />
   )

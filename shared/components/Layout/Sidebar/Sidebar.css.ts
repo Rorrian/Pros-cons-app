@@ -121,8 +121,16 @@ const toggleButton = style(
   'toggleButton',
 )
 
+const footer = style(
+  {
+    marginTop: 'auto',
+  },
+  'footer',
+)
+
 export const sidebarStyles = {
   wrapper,
   inner,
   toggleButton,
+  footer,
 }

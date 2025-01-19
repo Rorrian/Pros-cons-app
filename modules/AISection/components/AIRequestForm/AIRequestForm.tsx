@@ -1,10 +1,9 @@
 'use client'
 
 import clsx from 'clsx'
-import { m, MotionProps } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Brain } from 'lucide-react'
 import { useSearchParams } from 'next/navigation'
-import { BaseHTMLAttributes } from 'react'
 import { FormProvider } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
@@ -13,6 +12,7 @@ import {
   Checkbox,
   Error,
   Form,
+  Kind,
   Loader,
   TextField,
   Tooltip,
@@ -20,27 +20,25 @@ import {
 import { getErrorMessage } from '@/shared/helpers'
 import { opacityAnimation } from '@/shared/helpers/constants'
 import { errorText, fullWidth } from '@/shared/styles/shared.css'
-import { Kind, Size } from '@/shared/types/button/enums'
+import { MotionElementProps } from '@/shared/types/common'
 
 import { aiRequestFormStyles } from './AIRequestForm.css'
 import { useAIForm } from '../../hooks/useAIForm'
 
-type AIRequestFormProps = BaseHTMLAttributes<HTMLElement> & MotionProps
-
-export const AIRequestForm = (props: AIRequestFormProps) => {
+export const AIRequestForm = (props: MotionElementProps) => {
   const { t } = useTranslation()
   const hasSharedList = useSearchParams().get('sharedList')
   const {
     formMethods,
     handleFormSubmit,
     register,
-    errors,
-    textFieldRules,
+    formErrors,
+    ideaInputRules,
     isLoading,
-    error: responseError,
+    apiErrorMessage,
   } = useAIForm()
 
-  const textFieldErrorMessage = getErrorMessage(errors?.idea)
+  const textFieldErrorMessage = getErrorMessage(formErrors?.idea)
 
   if (hasSharedList) return null
 
@@ -58,7 +56,7 @@ export const AIRequestForm = (props: AIRequestFormProps) => {
             errorMessage={textFieldErrorMessage}
             isValid={!textFieldErrorMessage}
             placeholder={t('main.aiRequestForm.inputPlaceholder')}
-            {...register('idea', textFieldRules)}
+            {...register('idea', ideaInputRules)}
           />
 
           <Button
@@ -67,7 +65,6 @@ export const AIRequestForm = (props: AIRequestFormProps) => {
             icon={!isLoading ? <Brain size={24} /> : <Loader />}
             iconClassName={aiRequestFormStyles.icon}
             kind={Kind.Secondary}
-            size={Size.Small}
             type="submit"
           />
 
@@ -79,9 +76,9 @@ export const AIRequestForm = (props: AIRequestFormProps) => {
             {...register('resetCheckbox')}
           />
 
-          {responseError && (
+          {apiErrorMessage && (
             <Error
-              text={responseError}
+              text={apiErrorMessage}
               className={clsx(errorText, aiRequestFormStyles.error)}
             />
           )}

@@ -1,9 +1,10 @@
 'use client'
 
 import clsx from 'clsx'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 
 import InfoIcon from '@/public/icons/info.svg'
+import { WithClassName } from '@/shared/types'
 
 import { tooltipStyles } from './Tooltip.css'
 
@@ -12,9 +13,7 @@ export const enum Position {
   Bottom = 'bottom',
 }
 
-interface TooltipProps {
-  children?: string | React.ReactNode
-  className?: string
+interface TooltipProps extends WithClassName {
   position?: Position
   text: string
   textClassName?: string
@@ -22,22 +21,16 @@ interface TooltipProps {
 }
 
 export const Tooltip = ({
-  children,
   className,
   position = Position.Bottom,
   text,
   textClassName,
   withIcon = true,
 }: TooltipProps) => {
-  const [IsVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
 
-  const handleMouseEnter = () => {
-    setIsVisible(true)
-  }
-
-  const handleMouseLeave = () => {
-    setIsVisible(false)
-  }
+  const handleMouseEnter = useCallback(() => setIsVisible(true), [])
+  const handleMouseLeave = useCallback(() => setIsVisible(false), [])
 
   return (
     <div
@@ -51,10 +44,8 @@ export const Tooltip = ({
         <span className={tooltipStyles.questionMark}>?</span>
       )}
 
-      {IsVisible && (
+      {isVisible && (
         <div className={tooltipStyles.inner({ position })}>
-          {children}
-
           <p className={clsx(tooltipStyles.text, textClassName)}>{text}</p>
         </div>
       )}

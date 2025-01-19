@@ -1,15 +1,13 @@
 'use client'
 
-import { m, MotionProps } from 'framer-motion'
-import { BaseHTMLAttributes } from 'react'
+import { m } from 'framer-motion'
 
 import { opacityAnimation } from '@/shared/helpers/constants'
+import { MotionElementProps } from '@/shared/types/common'
 
 import { footerStyles } from './Footer.css'
 
-type FooterProps = BaseHTMLAttributes<HTMLElement> & MotionProps
-
-export const Footer = ({ children, ...props }: FooterProps) => {
+export const Footer = ({ children, ...props }: MotionElementProps) => {
   return (
     <m.footer className={footerStyles.wrapper} {...opacityAnimation} {...props}>
       {children}

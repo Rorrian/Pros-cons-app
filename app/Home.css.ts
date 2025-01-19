@@ -97,7 +97,7 @@ const inner = style(
 
       zIndex: 0,
 
-      maxWidth: '1000px',
+      maxWidth: '1100px',
     },
     responsiveStyle({
       tablet: {
@@ -113,8 +113,6 @@ const inner = style(
 
 const caption = style(
   {
-    marginTop: 'auto',
-
     textAlign: 'center',
   },
   'caption',

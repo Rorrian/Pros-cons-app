@@ -1,4 +1,4 @@
-import { Button, MButton } from './Button/Button'
+import { Justify, Kind, Size, Button } from './Button'
 import { Caption } from './Caption/Caption'
 import { Checkbox } from './Checkbox/Checkbox'
 import { Dropdown } from './Dropdown/Dropdown'
@@ -11,7 +11,6 @@ import { Tooltip } from './Tooltip/Tooltip'
 
 export {
   Button,
-  MButton,
   Caption,
   Checkbox,
   Dropdown,
@@ -23,3 +22,5 @@ export {
   Title,
   Tooltip,
 }
+
+export { Justify, Kind, Size }

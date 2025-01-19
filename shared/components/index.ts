@@ -3,6 +3,7 @@ import { HeaderTitle } from './HeaderTitle/HeaderTitle'
 import { LanguageDropdown } from './LanguageDropdown/LanguageDropdown'
 import { Footer, Header, Sidebar } from './Layout'
 import { ListPanel } from './ListPanel/ListPanel'
+import { ListPanelProvider } from './ListPanel/ListPanelContext/ListPanelProvider'
 import { ThemeSwitcher } from './ThemeSwitcher/ThemeSwitcher'
 
 export {
@@ -13,5 +14,6 @@ export {
   Header,
   Sidebar,
   ListPanel,
+  ListPanelProvider,
   ThemeSwitcher,
 }

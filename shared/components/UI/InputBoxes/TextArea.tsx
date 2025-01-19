@@ -1,17 +1,17 @@
 import clsx from 'clsx'
 import React, { ComponentPropsWithoutRef } from 'react'
 
-import { MAX_LENGTH_CHARACTERS_IN_NAME } from '@/shared/helpers/constants'
 import ClearIcon from '@/public/icons/close.svg'
+import { MAX_LENGTH_CHARACTERS_IN_NAME } from '@/shared/helpers/constants'
 import { errorText } from '@/shared/styles/shared.css'
 
 import { inputBoxesStyles } from './InputBoxes.css'
 
-export type TextAreaProps = {
+interface TextAreaProps extends ComponentPropsWithoutRef<'textarea'> {
   errorMessage?: string | null
   isValid?: boolean
   onClearButtonClick?: () => void
-} & ComponentPropsWithoutRef<'textarea'>
+}
 
 export const TextArea = ({
   className,
@@ -32,16 +32,19 @@ export const TextArea = ({
         {...props}
         onChange={onChange}
       />
-      <button
-        aria-label="Clear field"
-        type="button"
-        className={inputBoxesStyles.clearButton}
-        onClick={onClearButtonClick}
-      >
-        <ClearIcon />
-      </button>
-
-      {!isValid && errorMessage && <b className={errorText}>{errorMessage}</b>}
+      {!!value && (
+        <button
+          aria-label="Clear field"
+          type="button"
+          className={inputBoxesStyles.clearButton}
+          onClick={onClearButtonClick}
+        >
+          <ClearIcon />
+        </button>
+      )}
+      {!isValid && errorMessage && (
+        <span className={errorText}>{errorMessage}</span>
+      )}
     </>
   )
 }

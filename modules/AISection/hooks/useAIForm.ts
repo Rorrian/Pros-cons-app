@@ -1,11 +1,11 @@
 import { useMutation } from '@tanstack/react-query'
-import axios, { AxiosError } from 'axios'
+import { AxiosError, isAxiosError } from 'axios'
 import { useRef, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import { useProsConsStore } from '@/shared/store'
-import { Item } from '@/shared/types/item'
+import { ProsConsItem } from '@/shared/types/item'
 
 import {
   AI_IDEA_MAX_LENGTH,
@@ -14,7 +14,7 @@ import {
 } from '../helpers/constants'
 import huggingFaceService from '../services/huggingFace.service'
 
-export type AIRequestFormData = {
+type AIRequestFormData = {
   idea: string
   resetCheckbox: boolean
 }
@@ -25,6 +25,24 @@ type CustomAxiosError = AxiosError & {
       error: string
     }
   }
+}
+
+const handleApiError = (error: CustomAxiosError): string => {
+  if (isAxiosError(error)) {
+    const apiErrorMessage = error.response?.data?.error || error.message
+    if (error.response) {
+      console.error(
+        `Error Status: ${error.response.status} - ${apiErrorMessage}`,
+      )
+    } else {
+      console.error('Network Error:', apiErrorMessage)
+    }
+
+    return `API Error: ${apiErrorMessage}`
+  }
+  console.error('An unknown error occurred:', error)
+
+  return 'Error request pros/cons generation: An unknown error occurred'
 }
 
 export function useAIForm() {
@@ -38,10 +56,29 @@ export function useAIForm() {
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors: formErrors },
   } = formMethods
 
-  const textFieldRules = {
+  const {
+    mutate: generateProsCons,
+    isPending: isGenerateProsConsPending,
+    error,
+  } = useMutation<ProsConsItem[], CustomAxiosError, AIRequestFormData>({
+    mutationKey: ['generate-pros-cons'],
+    mutationFn: (data: AIRequestFormData) => {
+      resetCheckboxValueRef.current = data.resetCheckbox
+
+      return huggingFaceService.generateProsCons(data.idea)
+    },
+    onSuccess: data => {
+      startTransition(() => {
+        setAiItemsToCurrentList(data, resetCheckboxValueRef.current || false)
+      })
+    },
+    onError: (currentError: CustomAxiosError) => handleApiError(currentError),
+  })
+
+  const ideaInputRules = {
     required: t('errors.aiIdea.required'),
     pattern: {
       value: AI_IDEA_REGEXP,
@@ -57,55 +94,17 @@ export function useAIForm() {
     },
   }
 
-  const {
-    mutate: generateProsCons,
-    isPending: isGenerateProsConsPending,
-    error,
-  } = useMutation<Item[], CustomAxiosError, AIRequestFormData>({
-    mutationKey: ['generate-pros-cons'],
-    mutationFn: (data: AIRequestFormData) => {
-      resetCheckboxValueRef.current = data.resetCheckbox
-
-      return huggingFaceService.generateProsCons(data.idea)
-    },
-    onSuccess: data => {
-      startTransition(() => {
-        setAiItemsToCurrentList(data, resetCheckboxValueRef.current || false)
-      })
-    },
-    onError: (currentError: any) => {
-      let errorMessage =
-        'Error request pros/cons generation: An unknown error occurred'
-
-      if (axios.isAxiosError(currentError)) {
-        const apiError =
-          currentError.response?.data?.error || currentError.message
-        errorMessage = `API Error: ${apiError}`
-
-        if (currentError.response) {
-          console.error(
-            `Error Status: ${currentError.response.status} - ${apiError}`,
-          )
-        } else {
-          console.error('Network Error:', apiError)
-        }
-      } else {
-        console.error('An unknown error occurred:', currentError)
-      }
-
-      return errorMessage
-    },
-  })
-
   const handleFormSubmit = handleSubmit(data => generateProsCons(data))
+  const isLoading = isPending || isGenerateProsConsPending
+  const apiErrorMessage = error?.response?.data?.error || error?.message
 
   return {
     formMethods,
     handleFormSubmit,
     register,
-    errors,
-    textFieldRules,
-    isLoading: isPending || isGenerateProsConsPending,
-    error: error?.response?.data?.error || error?.message,
+    formErrors,
+    ideaInputRules,
+    isLoading,
+    apiErrorMessage,
   }
 }

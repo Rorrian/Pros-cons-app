@@ -1,39 +1,44 @@
-import { ItemType } from '@/shared/types/item'
+import { nanoid } from 'nanoid'
+
+import { ProsConsItem, ProsConsType } from '@/shared/types/item'
+
+import { ERR_NO_JSON_ARRAYS, ERR_NOT_AN_ARRAY, ERR_UNKNOWN } from './constants'
+
+type ProsConsRawData = {
+  name: string
+  type: 'pros' | 'cons'
+}
+
+const mapProsConsData = (data: ProsConsRawData[]): ProsConsItem[] =>
+  data.map(item => ({
+    id: nanoid(),
+    name: item.name.toString(),
+    weight: 0,
+    type: item.type === 'pros' ? ProsConsType.Pros : ProsConsType.Cons,
+  }))
 
 export const parseProsConsText = (responseText: string) => {
   try {
-    const jsonArrays = responseText.match(/\[[\s\S]*?\]/g)
+    const jsonMatches = responseText.match(/\[[\s\S]*?\]/g)
 
-    if (!jsonArrays || jsonArrays.length === 0) {
-      throw new Error(
-        'No valid JSON arrays found in response text. Try to reformulate the ideas and generate them again.',
-      )
+    if (!jsonMatches || jsonMatches.length === 0) {
+      throw new Error(ERR_NO_JSON_ARRAYS)
     }
 
-    const jsonString = jsonArrays[jsonArrays.length - 1]
-    const parsedData = JSON.parse(jsonString)
+    const lastJsonArrayMatch = jsonMatches[jsonMatches.length - 1]
+    const parsedData = JSON.parse(lastJsonArrayMatch)
 
     if (!Array.isArray(parsedData)) {
-      throw new Error(
-        'Parsed data is not an array of pros and cons. Try to reformulate the ideas and generate them again.',
-      )
+      throw new Error(ERR_NOT_AN_ARRAY)
     }
 
-    const data = parsedData.map(item => ({
-      id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-      name: item.name.toString(),
-      weight: 0,
-      type: item.type === 'pros' ? ItemType.Pros : ItemType.Cons,
-    }))
+    const data = mapProsConsData(parsedData)
 
     return { data, error: null }
   } catch (error) {
     return {
       data: [],
-      error:
-        error instanceof Error
-          ? error.message
-          : 'Error parsing pros/cons list: An unknown error occurred. Try to reformulate the ideas and generate them again.',
+      error: error instanceof Error ? error.message : ERR_UNKNOWN,
     }
   }
 }

@@ -1,15 +1,19 @@
 import { StateCreator, StoreMutatorIdentifier } from 'zustand'
 
-import { Item, ItemType, List } from '@/shared/types/item'
+import { ProsConsItem, ProsConsType, ProsConsList } from '@/shared/types/item'
 
 export enum SortField {
   Name = 'name',
   Weight = 'weight',
 }
-export type SortOrder = 'asc' | 'desc'
+
+export enum SortOrder {
+  ASC = 'asc',
+  DESC = 'desc',
+}
 
 export interface ListSlice {
-  lists: Record<string, List | undefined>
+  lists: Record<string, ProsConsList | undefined>
   currentListId: string
 
   createList: (name?: string) => void
@@ -19,10 +23,14 @@ export interface ListSlice {
 
   setExampleLists: () => void
   setExampleItemsToCurrentList: () => void
-  setItemsToCurrentList: (newItems: Item[], type: ItemType) => void
-  setAiItemsToCurrentList: (newItems: Item[], isReset: boolean) => void
+  setItemsToCurrentList: (newItems: ProsConsItem[], type: ProsConsType) => void
+  setAiItemsToCurrentList: (newItems: ProsConsItem[], isReset: boolean) => void
 
-  addItemToCurrentList: (name: string, weight: number, type: ItemType) => void
+  addItemToCurrentList: (
+    name: string,
+    weight: number,
+    type: ProsConsType,
+  ) => void
   updateItemInCurrentList: (id: string, name: string, weight: number) => void
   removeItemFromCurrentList: (id: string) => void
   removeAllItemsFromCurrentList: () => void
@@ -35,8 +43,8 @@ export interface SortSlice {
 }
 
 export interface SharedSlice {
-  sharedItems: Item[]
-  setSharedItems: (newItems: Item[]) => void
+  sharedItems: ProsConsItem[]
+  setSharedItems: (newItems: ProsConsItem[]) => void
   saveSharedItems: () => void
   sharedItemsError: string | null
   setSharedItemsError: (error: string | null) => void

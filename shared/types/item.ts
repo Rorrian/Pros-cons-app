@@ -1,17 +1,17 @@
-export const enum ItemType {
+export const enum ProsConsType {
   Pros = 'pros',
   Cons = 'cons',
 }
 
-export interface Item {
+export interface ProsConsItem {
   id: string
   name: string
   weight: number
-  type: ItemType
+  type: ProsConsType
 }
 
-export interface List {
+export interface ProsConsList {
   id: string
   name: string
-  items: Item[]
+  items: ProsConsItem[]
 }

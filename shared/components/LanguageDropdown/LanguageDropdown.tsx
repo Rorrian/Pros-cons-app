@@ -6,17 +6,14 @@ import { useTranslation } from 'react-i18next'
 
 import LanguageIcon from '@/public/icons/language.svg'
 import { locales } from '@/shared/helpers/constants'
+import { WithClassName } from '@/shared/types'
 
 import { languageDropdownStyles } from './LanguageDropdown.css'
 import { Dropdown } from '../UI'
 
-interface LanguageDropdownProps {
-  className?: string
-}
-
 // TODO: Сделать автоперевод данных в стейте
 
-export const LanguageDropdown = ({ className }: LanguageDropdownProps) => {
+export const LanguageDropdown = ({ className }: WithClassName) => {
   const { i18n } = useTranslation()
 
   return (

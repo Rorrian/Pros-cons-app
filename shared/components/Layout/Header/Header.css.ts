@@ -71,37 +71,10 @@ const buttons = style(
     flexRow,
     alignItemsCentered,
     {
-      // justifyContent: 'space-between',
       columnGap: vars.spaces.sm,
     },
   ],
   'buttons',
-)
-const dropdown = style(
-  [
-    {
-      // position: 'absolute',
-      // top: vars.spaces.md,
-      // right: '64px',
-      // height: '40px',
-      // height: 'auto',
-    },
-    // responsiveStyle({
-    //   tablet: {
-    //     height: '32px',
-    //   },
-    // }),
-  ],
-  'dropdown',
-)
-
-const themeSwitcher = style(
-  {
-    //   position: 'absolute',
-    //   top: vars.spaces.md,
-    //   right: vars.spaces.md,
-  },
-  'themeSwitcher',
 )
 
 export const headerStyles = {
@@ -109,6 +82,4 @@ export const headerStyles = {
   titleWrapper,
   title,
   buttons,
-  dropdown,
-  themeSwitcher,
 }

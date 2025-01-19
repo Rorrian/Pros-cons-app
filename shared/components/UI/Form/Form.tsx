@@ -1,17 +1,18 @@
 import { PropsWithChildren } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-interface FormProps extends PropsWithChildren {
-  className?: string
+import { WithClassName } from '@/shared/types'
+
+interface FormProps extends PropsWithChildren, WithClassName {
   id?: string
-  onError?(): void
-  onSubmit(): void
+  onError?: () => void
+  onSubmit: () => void
 }
 
 export const Form = ({
-  id,
-  className,
   children,
+  className,
+  id,
   onError,
   onSubmit,
 }: FormProps) => {

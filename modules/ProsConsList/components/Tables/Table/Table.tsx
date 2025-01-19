@@ -1,22 +1,20 @@
 'use client'
 
-import { AnimatePresence, HTMLMotionProps, m, Reorder } from 'framer-motion'
-import { ComponentPropsWithRef } from 'react'
+import { AnimatePresence, m, Reorder } from 'framer-motion'
 
 import { defaultTransition } from '@/shared/helpers/constants'
 import { useProsConsStore } from '@/shared/store'
-import { Item, ItemType } from '@/shared/types/item'
+import { MotionElementProps } from '@/shared/types'
+import { ProsConsItem, ProsConsType } from '@/shared/types/item'
 
 import { tableStyles } from './Table.css'
 import { MRow, Row, RowType } from '../../Row/Row'
 
-export type TablesProps = {
+interface TablesProps extends MotionElementProps {
   isSharedItems: boolean
-  items?: Item[]
-  type: ItemType
-} & ComponentPropsWithRef<'div'> &
-  HTMLMotionProps<'div'> &
-  React.RefAttributes<HTMLDivElement>
+  items?: ProsConsItem[]
+  type: ProsConsType
+}
 
 const tableVariants = {
   left: { x: -100, opacity: 0 },
@@ -40,8 +38,8 @@ export const Table = ({
     state => state.setItemsToCurrentList,
   )
 
-  const isInversion = type === ItemType.Cons
-  const totalScore = (currItems: Item[]) =>
+  const isInversion = type === ProsConsType.Cons
+  const totalScore = (currItems: ProsConsItem[]) =>
     currItems?.reduce((acc, item) => acc + item.weight, 0)
 
   return (

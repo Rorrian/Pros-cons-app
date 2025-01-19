@@ -4,15 +4,15 @@ import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import { useProsConsStore } from '@/shared/store'
-import { Item } from '@/shared/types/item'
+import { ProsConsItem } from '@/shared/types/item'
 
-const isValidItem = (item: unknown): item is Item =>
+const isValidItem = (item: unknown): item is ProsConsItem =>
   typeof item === 'object' &&
   item !== null &&
-  typeof (item as Item).id === 'string' &&
-  typeof (item as Item).name === 'string' &&
-  typeof (item as Item).weight === 'number' &&
-  ['pros', 'cons'].includes((item as Item).type)
+  typeof (item as ProsConsItem).id === 'string' &&
+  typeof (item as ProsConsItem).name === 'string' &&
+  typeof (item as ProsConsItem).weight === 'number' &&
+  ['pros', 'cons'].includes((item as ProsConsItem).type)
 
 export const useSharedItemsFromURL = () => {
   const searchParams = useSearchParams()

@@ -16,7 +16,8 @@
     },
     "sidebar": {
       "defaultListName": "Безымянный список",
-      "listNamePlaceholder": "Введите название списка"
+      "listNamePlaceholder": "Введите название списка",
+      "createButton": "Создать новый список"
     },
     "footer": {
       "shareButton": "Поделиться списком",

@@ -4,14 +4,14 @@ import { responsiveStyle } from '@/shared/helpers/responsive'
 import { flexCentered, flexRow } from '@/shared/styles/shared.css'
 import { vars } from '@/shared/theme/theme.css'
 
-export const textfield = style(
+const textfield = style(
   {
     textAlign: 'center',
   },
   'textfield',
 )
 
-export const textarea = style(
+const textarea = style(
   {
     resize: 'none',
     paddingRight: vars.spaces.lg,
@@ -29,7 +29,7 @@ export const textarea = style(
   'textarea',
 )
 
-export const clearButton = style(
+const clearButton = style(
   [
     flexRow,
     flexCentered,

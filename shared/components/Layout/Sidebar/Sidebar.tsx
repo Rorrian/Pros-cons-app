@@ -1,40 +1,33 @@
 'use client'
 
 import clsx from 'clsx'
-import { m, MotionProps } from 'framer-motion'
+import { m } from 'framer-motion'
 import { PanelLeftOpen, PanelLeftClose } from 'lucide-react'
 import { useSearchParams } from 'next/navigation'
-import {
-  BaseHTMLAttributes,
-  ButtonHTMLAttributes,
-  PropsWithChildren,
-  useRef,
-} from 'react'
+import { PropsWithChildren, ReactNode } from 'react'
 
 import { defaultTransition, SIDEBAR_WIDTH } from '@/shared/helpers/constants'
 import useIsMobile from '@/shared/hooks/useIsMobile'
 import { useSidebarStore } from '@/shared/store'
+import { MotionElementProps } from '@/shared/types'
 
 import { sidebarStyles } from './Sidebar.css'
 
 type SidebarProps = PropsWithChildren &
-  BaseHTMLAttributes<HTMLElement> &
-  MotionProps
+  MotionElementProps & { footer?: ReactNode }
 
 const BUTTON_STYLES = {
   collapsed: { top: '1.5%', left: '26%', size: 24 },
   expanded: { top: '15px', left: '88%', size: 20 },
 }
 
-export const Sidebar = ({ children, ...props }: SidebarProps) => {
+export const Sidebar = ({ children, footer, ...props }: SidebarProps) => {
   const hasSharedList = useSearchParams().get('sharedList')
   const [isCollapsed, toggleSidebar] = useSidebarStore(state => [
     state.isCollapsed,
     state.toggleSidebar,
   ])
   const { isMobile } = useIsMobile(999)
-  const sidebarRef = useRef(null)
-  const sidebarInnerRef = useRef(null)
 
   const adaptiveSidebarWidth = isMobile ? '100vw' : '400px'
 
@@ -53,7 +46,6 @@ export const Sidebar = ({ children, ...props }: SidebarProps) => {
 
   return (
     <m.aside
-      ref={sidebarRef}
       className={clsx(sidebarStyles.wrapper({ isCollapsed }))}
       animate={{ width: isCollapsed ? SIDEBAR_WIDTH : adaptiveSidebarWidth }}
       transition={defaultTransition}
@@ -62,25 +54,26 @@ export const Sidebar = ({ children, ...props }: SidebarProps) => {
       <m.button
         className={sidebarStyles.toggleButton}
         animate={buttonStyle()}
-        initial={{
-          opacity: 0.5,
-        }}
-        whileHover={{
-          opacity: 1,
-        }}
+        initial={{ opacity: 0.5 }}
+        whileHover={{ opacity: 1 }}
         transition={defaultTransition}
         onClick={toggleSidebar}
-        {...(props as ButtonHTMLAttributes<HTMLButtonElement> & MotionProps)}
+        {...(props as MotionElementProps)}
       >
         {isCollapsed ? <PanelLeftOpen /> : <PanelLeftClose />}
       </m.button>
 
-      <div
-        ref={sidebarInnerRef}
+      <m.div
         className={sidebarStyles.inner({ isCollapsed })}
+        animate={isMobile ? { opacity: isCollapsed ? 0 : 1 } : undefined}
+        transition={{
+          duration: 0.15,
+        }}
+        {...(props as MotionElementProps)}
       >
         {children}
-      </div>
+        {footer && <div className={sidebarStyles.footer}>{footer}</div>}
+      </m.div>
     </m.aside>
   )
 }

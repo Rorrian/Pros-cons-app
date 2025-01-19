@@ -10,16 +10,16 @@ import {
   SortOrder,
   SortSlice,
 } from './types'
-import { Item, ItemType, List } from '../../types/item'
+import { ProsConsItem, ProsConsType, ProsConsList } from '../../types/item'
 
 export const createListSlice: SliceCreator<keyof ListSlice> = (set, get) => {
   return {
-    lists: {} as Record<string, List | undefined>,
+    lists: {} as Record<string, ProsConsList | undefined>,
     currentListId: '1',
 
     createList: (name?: string) => {
       const id = nanoid()
-      const newList: List = {
+      const newList: ProsConsList = {
         id,
         name: name || 'New list',
         items: [],
@@ -79,13 +79,12 @@ export const createListSlice: SliceCreator<keyof ListSlice> = (set, get) => {
       if (!currentListId) return
 
       set(state => {
-        const currentList = state.lists[currentListId]
-        if (currentList) {
-          currentList.items = mockProsConsData
+        if (state.lists[currentListId]) {
+          state.lists[currentListId].items = mockProsConsData
         }
       })
     },
-    setItemsToCurrentList: (newItems: Item[], type: ItemType) => {
+    setItemsToCurrentList: (newItems: ProsConsItem[], type: ProsConsType) => {
       const { currentListId } = get()
       if (!currentListId) return
 
@@ -93,13 +92,13 @@ export const createListSlice: SliceCreator<keyof ListSlice> = (set, get) => {
         const currentList = state.lists[currentListId]
         if (currentList) {
           const prosItems = currentList.items.filter(
-            item => item.type === ItemType.Pros,
+            item => item.type === ProsConsType.Pros,
           )
           const consItems = currentList.items.filter(
-            item => item.type === ItemType.Cons,
+            item => item.type === ProsConsType.Cons,
           )
           const updatedItems =
-            type === ItemType.Pros
+            type === ProsConsType.Pros
               ? [...newItems, ...consItems]
               : [...prosItems, ...newItems]
 
@@ -107,7 +106,10 @@ export const createListSlice: SliceCreator<keyof ListSlice> = (set, get) => {
         }
       })
     },
-    setAiItemsToCurrentList: (newItems: Item[], isReset: boolean = false) => {
+    setAiItemsToCurrentList: (
+      newItems: ProsConsItem[],
+      isReset: boolean = false,
+    ) => {
       const { currentListId } = get()
       if (!currentListId) return
 
@@ -121,11 +123,15 @@ export const createListSlice: SliceCreator<keyof ListSlice> = (set, get) => {
       })
     },
 
-    addItemToCurrentList: (name: string, weight: number, type: ItemType) => {
+    addItemToCurrentList: (
+      name: string,
+      weight: number,
+      type: ProsConsType,
+    ) => {
       const { currentListId } = get()
       if (!currentListId) return
 
-      const newItem: Item = {
+      const newItem: ProsConsItem = {
         id: nanoid(),
         name,
         weight,
@@ -188,18 +194,20 @@ export const createSortSlice: SliceCreator<keyof SortSlice> = (set, get) => {
       if (!currentListId) return
 
       const newOrder: SortOrder | undefined =
-        sortField === field && sortOrder === 'asc' ? 'desc' : 'asc'
+        sortField === field && sortOrder === SortOrder.ASC
+          ? SortOrder.DESC
+          : SortOrder.ASC
 
       set(state => {
         const currentList = state.lists[currentListId]
         if (currentList?.items) {
           const sortedItems = currentList?.items.sort((a, b) => {
             if (field === SortField.Name) {
-              return newOrder === 'asc'
+              return newOrder === SortOrder.ASC
                 ? a.name.localeCompare(b.name)
                 : b.name.localeCompare(a.name)
             } else {
-              return newOrder === 'asc'
+              return newOrder === SortOrder.ASC
                 ? a.weight - b.weight
                 : b.weight - a.weight
             }
@@ -219,7 +227,7 @@ export const createSharedSlice: SliceCreator<keyof SharedSlice> = (
 ) => {
   return {
     sharedItems: [],
-    setSharedItems: (newItems: Item[]) => {
+    setSharedItems: (newItems: ProsConsItem[]) => {
       set(state => {
         state.sharedItems = newItems
       })
@@ -228,7 +236,7 @@ export const createSharedSlice: SliceCreator<keyof SharedSlice> = (
       const { sharedItems } = get()
 
       const id = nanoid()
-      const newList: List = {
+      const newList: ProsConsList = {
         id,
         name: 'Shared list',
         items: sharedItems,

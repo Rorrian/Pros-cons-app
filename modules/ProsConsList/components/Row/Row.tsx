@@ -1,6 +1,6 @@
 'use client'
 
-import { HTMLMotionProps, m } from 'framer-motion'
+import { m } from 'framer-motion'
 import { ArrowDown01, ArrowDownAZ, ArrowUp10, ArrowUpZA } from 'lucide-react'
 import React, {
   ComponentPropsWithRef,
@@ -12,11 +12,11 @@ import { useTranslation } from 'react-i18next'
 
 import CrossIcon from '@/public/icons/cross.svg'
 import PlusIcon from '@/public/icons/plus.svg'
-import { Button, TextArea, TextField } from '@/shared/components/UI'
+import { Button, Kind, Size, TextArea, TextField } from '@/shared/components/UI'
 import { useProsConsStore } from '@/shared/store'
 import { SortField } from '@/shared/store/useProsConsStore/types'
-import { Kind } from '@/shared/types/button/enums'
-import { Item, ItemType } from '@/shared/types/item'
+import { MotionElementProps } from '@/shared/types'
+import { ProsConsItem, ProsConsType } from '@/shared/types/item'
 
 import { rowStyles } from './Row.css'
 import { TitleColumn } from '../TitleColumn/TitleColumn'
@@ -28,14 +28,13 @@ export const enum RowType {
 }
 
 type RowProps = {
-  item?: Item
+  item?: ProsConsItem
   isEditable?: boolean
   isInversion: boolean
   type?: RowType
   totalWeight?: number
 } & ComponentPropsWithRef<'div'> &
-  HTMLMotionProps<'div'> &
-  React.RefAttributes<HTMLDivElement>
+  MotionElementProps
 
 export const Row = forwardRef(
   (
@@ -130,11 +129,12 @@ export const Row = forwardRef(
                 className={rowStyles.button({ isInversion })}
                 icon={<PlusIcon />}
                 kind={Kind.Transparent}
+                size={Size.Big}
                 onClick={() =>
                   addItemToCurrentList(
                     '',
                     0,
-                    isInversion ? ItemType.Cons : ItemType.Pros,
+                    isInversion ? ProsConsType.Cons : ProsConsType.Pros,
                   )
                 }
               />
@@ -183,6 +183,7 @@ export const Row = forwardRef(
                 className={rowStyles.button({ isInversion })}
                 icon={<CrossIcon />}
                 kind={Kind.Transparent}
+                size={Size.Big}
                 onClick={() => removeItemFromCurrentList(item.id)}
               />
             )}
