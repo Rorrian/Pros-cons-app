@@ -24,8 +24,6 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.ico',
   },
-  // !
-  // The resource http://localhost:3000/_next/image?url=%2Fscales.webp&w=64&q=75 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
   other: {
     preloadImages: ['/background/bgDay.webp', '/background/bgNight.webp'],
   },
